@@ -40,6 +40,12 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>2.2.0</version>
             </dependency>
+            <!--mybatis的分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.4.1</version>
+            </dependency>
             <!-- druid 数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
