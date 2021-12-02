@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hit.oes.biz.mapper.CourseMapper" >
-    <resultMap id="BaseResultMap" type="cn.edu.hit.oes.biz.entity.Course" >
+<mapper namespace="org.oes.biz.mapper.CourseMapper" >
+    <resultMap id="BaseResultMap" type="org.oes.biz.entity.Course" >
         <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="gmt_create" property="gmtCreate" jdbcType="DATE" />
-        <result column="gmt_modified" property="gmtModified" jdbcType="DATE" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
         <result column="category_id" property="categoryId" jdbcType="BIGINT" />
         <result column="teacher_id" property="teacherId" jdbcType="BIGINT" />
-        <result column="gmt_start" property="gmtStart" jdbcType="DATE" />
-        <result column="gmt_end" property="gmtEnd" jdbcType="DATE" />
+        <result column="gmt_start" property="gmtStart" jdbcType="TIMESTAMP" />
+        <result column="gmt_end" property="gmtEnd" jdbcType="TIMESTAMP" />
         <result column="status" property="status" jdbcType="VARCHAR" />
         <result column="is_free" property="isFree" jdbcType="CHAR" />
         <result column="price" property="price" jdbcType="BIGINT" />
@@ -16,12 +16,12 @@
 
     <insert id="insert" parameterType="course">
         insert into course(gmt_create, gmt_modified,category_id,teacher_id,gmt_start,gmt_end,status,is_free,price)
-        values (#{course.gmtCreate,jdbcType=DATE},
-                #{course.gmtModified,jdbcType=DATE},
+        values (#{course.gmtCreate,jdbcType=TIMESTAMP},
+                #{course.gmtModified,jdbcType=TIMESTAMP},
                 #{course.categoryId,jdbcType=BIGINT},
                 #{course.teacherId,jdbcType=BIGINT},
-                #{course.gmtStart,jdbcType=DATE},
-                #{course.gmtEnd,jdbcType=DATE},
+                #{course.gmtStart,jdbcType=TIMESTAMP},
+                #{course.gmtEnd,jdbcType=TIMESTAMP},
                 #{course.status,jdbcType=VARCHAR},
                 #{course.isFree,jdbcType=CHAR},
                 #{course.price,jdbcType=BIGINT})

@@ -27,7 +27,7 @@ spring:
       test-on-return: true
       # 监控配置
       filters: stat,wall # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-      aop-patterns: cn.edu.hit.oes.biz.service.*      #Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+      aop-patterns: org.oes.biz.service.*      #Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
       web-stat-filter:      # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
         enabled: true
         url-pattern: /*
@@ -48,7 +48,7 @@ spring:
 
 # mybatis映射文件路径配置
 mybatis:
-  type-aliases-package: cn.edu.hit.oes.biz.entity
+  type-aliases-package: org.oes.biz.entity
   mapper-locations: classpath:mapper/*.xml
 
 # 分页插件配置
