@@ -3,6 +3,7 @@ package org.oes.start.controller;
 import org.oes.biz.entity.Course;
 import org.oes.biz.service.CourseService;
 import org.oes.common.constans.LogFileNameConstant;
+import org.oes.start.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public class MainController {
 
     @Resource
     CourseService courseService;
+
+    @Resource
+    Config config;
 
     @GetMapping("/log")
     public String log() {
@@ -40,5 +44,11 @@ public class MainController {
         course.setStatus("1");
         courseService.createCourse(course);
         return course;
+    }
+
+    @GetMapping("/config")
+    public String getConfig() {
+        System.out.println(config.getEnv());
+        return config.getEnv();
     }
 }
