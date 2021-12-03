@@ -15,6 +15,7 @@ import java.util.Date;
 public class MainController {
 
     private static final Logger logger = LoggerFactory.getLogger(LogFileNameConstant.OES);
+    private static final Logger LOG = LoggerFactory.getLogger(MainController.class);
 
     @Resource
     CourseService courseService;
@@ -22,6 +23,7 @@ public class MainController {
     @GetMapping("/log")
     public String log() {
         logger.error("Test logger in MainController");
+        LOG.error("TEST MainController LOG");
         return "log success";
     }
 
