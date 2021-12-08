@@ -22,6 +22,10 @@
             <groupId>org.oes</groupId>
             <artifactId>oes-biz</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.oes</groupId>
+            <artifactId>oes-gateway</artifactId>
+        </dependency>
 
         <!-- test -->
         <dependency>
@@ -56,6 +60,12 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- shiro鉴权 -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shiro</groupId>-->
+<!--            <artifactId>shiro-spring</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

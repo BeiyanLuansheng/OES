@@ -2,6 +2,10 @@ package org.oes.biz.entity;
 
 import java.util.Date;
 
+/**
+ * @author XuJian
+ * @since 2021/11/30
+ */
 public class Course {
 
     /**

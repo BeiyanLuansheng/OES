@@ -1,5 +1,9 @@
 package org.oes.common.enums;
 
+/**
+ * @author XuJian
+ * @since 2021/11/30
+ */
 public enum CourseStatusEnum {
     NEW_CREATE("1", "新创建"),
     WAITING_FOR_AUDIT("2", "审核中"),

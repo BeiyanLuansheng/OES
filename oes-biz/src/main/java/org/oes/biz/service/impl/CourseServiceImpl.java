@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * @author XuJian
+ * @since 2021/11/30
+ */
 @Service
 public class CourseServiceImpl implements CourseService {
 

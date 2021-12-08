@@ -16,4 +16,23 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.oes</groupId>
+            <artifactId>oes-biz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.oes</groupId>
+            <artifactId>oes-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shiro</groupId>-->
+<!--            <artifactId>shiro-spring</artifactId>-->
+<!--        </dependency>-->
+    </dependencies>
 </project>

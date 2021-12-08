@@ -3,6 +3,10 @@ package org.oes.start.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author XuJian
+ * @since 2021/12/03
+ */
 @Configuration
 public class Config {
 

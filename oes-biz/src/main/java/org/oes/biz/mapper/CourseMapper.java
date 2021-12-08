@@ -3,6 +3,10 @@ package org.oes.biz.mapper;
 import org.oes.biz.entity.Course;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author XuJian
+ * @since 2021/11/30
+ */
 public interface CourseMapper {
 
     int insert(@Param("course") Course course);
