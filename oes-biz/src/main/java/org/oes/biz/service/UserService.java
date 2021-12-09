@@ -9,4 +9,10 @@ import org.oes.biz.entity.User;
 public interface UserService {
 
     int createUser(User user);
+
+    User findByPhone(String phone);
+
+    boolean login(String phone, String password);
+
+    boolean register(String phone, String password);
 }

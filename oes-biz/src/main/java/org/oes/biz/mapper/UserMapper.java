@@ -10,4 +10,6 @@ import org.oes.biz.entity.User;
 public interface UserMapper {
 
     int insert(@Param("user") User user);
+
+    User findByPhone(@Param("phone") String phone);
 }

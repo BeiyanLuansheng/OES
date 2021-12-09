@@ -7,7 +7,7 @@ import java.util.Date;
  * @author XuJian
  * @since 2021/12/02
  */
-public class DateUtil {
+public class DateUtils {
 
     public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
