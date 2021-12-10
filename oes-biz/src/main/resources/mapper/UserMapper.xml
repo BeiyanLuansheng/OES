@@ -7,7 +7,7 @@
                 #{user.password, jdbcType=VARCHAR},
                 #{user.roleId, jdbcType=BIGINT},
                 #{user.phone, jdbcType=VARCHAR},
-                #{user.avator, jdbcType=VARCHAR},
+                #{user.avatar, jdbcType=VARCHAR},
                 #{user.school, jdbcType=VARCHAR},
                 #{user.sex, jdbcType=VARCHAR},
                 #{user.description, jdbcType=VARCHAR},

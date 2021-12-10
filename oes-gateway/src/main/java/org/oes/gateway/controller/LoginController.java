@@ -2,15 +2,13 @@ package org.oes.gateway.controller;
 
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
-import org.oes.common.entity.OesResponse;
+import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.exception.OesException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.security.auth.Subject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
@@ -18,13 +16,18 @@ import javax.validation.constraints.NotBlank;
 @RestController
 public class LoginController {
 
+    @GetMapping("testLogin")
+    public OesHttpResponse test() {
+        return OesHttpResponse.getSuccess();
+    }
+
     @Resource
     private UserService userService;
 //    private LoginLogService loginLogService;
 
     @PostMapping("login")
 //    @Limit(key = "login", period = 60, count = 10, name = "登录接口", prefix = "limit")
-    public OesResponse login(
+    public OesHttpResponse login(
             @NotBlank(message = "{required}") String username,
             @NotBlank(message = "{required}") String password,
             boolean rememberMe, HttpServletRequest request) throws OesException {
@@ -40,19 +43,22 @@ public class LoginController {
 //        loginLog.setUsername(username);
 //        loginLog.setSystemBrowserInfo();
 //        this.loginLogService.saveLoginLog(loginLog);
-        return new OesResponse().success();
+        return OesHttpResponse.getSuccess();
     }
 
     @PostMapping("register")
-    public OesResponse register(
+    public OesHttpResponse register(
             @NotBlank(message = "{required}") String phone,
             @NotBlank(message = "{required}") String password) throws OesException {
         User user = userService.findByPhone(phone);
+        OesHttpResponse response = new OesHttpResponse();
         if (user != null) {
             throw new OesException("该手机号已被注册过");
+//            response.message("该手机号已被注册过");
+//            return new
         }
         this.userService.register(phone, password);
-        return new OesResponse().success();
+        return OesHttpResponse.getSuccess();
     }
 //
 //    @GetMapping("index/{username}")

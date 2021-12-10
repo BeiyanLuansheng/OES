@@ -4,7 +4,7 @@ package org.oes.gateway.controller;
 import org.oes.biz.entity.Course;
 import org.oes.biz.service.CourseService;
 import org.oes.common.constans.LogFileNameConstant;
-import org.oes.common.entity.OesResponse;
+import org.oes.common.entity.OesHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +26,9 @@ public class CourseController {
     private CourseService courseService;
 
 //    @RequiresPermissions("course:add")
-    public OesResponse addCourse(Course course) { // 必要时可以加 @Valid 校验参数
+    public OesHttpResponse addCourse(Course course) { // 必要时可以加 @Valid 校验参数
         this.courseService.createCourse(course);
-        return new OesResponse().success();
+        return OesHttpResponse.getSuccess();
     }
 
     @GetMapping("/course/create")
