@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 读取配置项
+ *
  * @author XuJian
  * @since 2021/12/03
  */

@@ -46,10 +46,4 @@ public class CourseController {
         return course;
     }
 
-    @GetMapping("/log")
-    public String log() {
-        logger.error("Test logger in CourseController");
-        return "log success";
-    }
-
 }
