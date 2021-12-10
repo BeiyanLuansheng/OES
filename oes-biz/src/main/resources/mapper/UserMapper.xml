@@ -15,6 +15,12 @@
                 #{user.gmtModified, jdbcType=TIMESTAMP})
     </insert>
 
+    <update id="updateByPhone" parameterType="user">
+        update user u
+        set u.password=#{user.password, jdbcType=VARCHAR}, u.gmt_modified=#{user.gmtModified, jdbcType=TIMESTAMP}
+        where u.phone=#{user.phone}
+    </update>
+
     <select id="findByPhone" parameterType="String" resultType="user">
         select u.user_id,
                u.user_name,

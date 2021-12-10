@@ -14,7 +14,7 @@ public class StringUtils {
         return !isBlank(str);
     }
 
-    public static boolean equals(String a, String b) {
+    public static boolean isEquals(String a, String b) {
         if (isBlank(a) && isBlank(b)) {
             return true;
         }
@@ -23,5 +23,13 @@ public class StringUtils {
         } else {
             return b.equals(a);
         }
+    }
+
+    public static boolean isNotEquals(String a, String b) {
+        return !isEquals(a, b);
+    }
+
+    public static String lowerCase(String str) {
+        return str == null ? null : str.toLowerCase();
     }
 }

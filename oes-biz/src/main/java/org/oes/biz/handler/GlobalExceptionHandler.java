@@ -2,6 +2,7 @@ package org.oes.biz.handler;
 
 import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.exception.OesException;
+import org.oes.common.exception.OesServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -24,6 +25,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = OesException.class)
     public OesHttpResponse handleOesException(OesException e) {
         logger.error("系统错误", e);
+        return OesHttpResponse.getFailure(e.getMessage());
+    }
+
+    @ExceptionHandler(value = OesServiceException.class)
+    public OesHttpResponse handleOesServiceException(OesServiceException e) {
+        logger.error("系统服务异常", e);
         return OesHttpResponse.getFailure(e.getMessage());
     }
 }

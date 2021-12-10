@@ -11,5 +11,7 @@ public interface UserMapper {
 
     int insert(@Param("user") User user);
 
+    void updateByPhone(@Param("user") User user);
+
     User findByPhone(@Param("phone") String phone);
 }
