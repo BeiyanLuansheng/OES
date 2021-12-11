@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotBlank;
 
 @RestController
 public class LoginController extends BaseController {
 
     @Resource
     private UserService userService;
-//    private LoginLogService loginLogService;
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
 //    @Limit(key = "login", period = 60, count = 10, name = "登录接口", prefix = "limit")
@@ -34,11 +32,6 @@ public class LoginController extends BaseController {
         if (!userService.login(phone, md5Password)) {
             return OesHttpResponse.getFailure("用户名或密码错误");
         }
-        // 保存登录日志
-//        LoginLog loginLog = new LoginLog();
-//        loginLog.setUsername(username);
-//        loginLog.setSystemBrowserInfo();
-//        this.loginLogService.saveLoginLog(loginLog);
         return OesHttpResponse.getSuccess();
     }
 
@@ -52,15 +45,4 @@ public class LoginController extends BaseController {
         userService.register(phone, password);
         return OesHttpResponse.getSuccess();
     }
-
-//    @GetMapping("images/captcha")
-//    @Limit(key = "get_captcha", period = 60, count = 10, name = "获取验证码", prefix = "limit")
-//    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException, OesException {
-//        validateCodeService.create(request, response);
-//    }
-
-//    private Subject getSubject() {
-//        return SecurityUtils.getSubject();
-//    }
-
 }
