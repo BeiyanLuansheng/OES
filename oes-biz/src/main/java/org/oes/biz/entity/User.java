@@ -10,6 +10,15 @@ import java.util.Date;
  */
 public class User {
 
+    /**
+     * 用户状态：有效
+     */
+    public static final String STATUS_VALID = "1";
+    /**
+     * 用户状态：锁定
+     */
+    public static final String STATUS_LOCK = "0";
+
     private Long userId;
 
     private String userName;
@@ -31,6 +40,8 @@ public class User {
     private Date gmtCreate;
 
     private Date gmtModified;
+
+    private String status;
 
     public Long getUserId() {
         return userId;
@@ -118,5 +129,13 @@ public class User {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

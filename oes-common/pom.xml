@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>oes-common</artifactId>
+    <description>通用的工具类，不依赖于其他模块，仅被依赖</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
