@@ -6,6 +6,7 @@ import org.oes.biz.service.PermissionsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author XuJian
@@ -18,7 +19,23 @@ public class PermissionsImpl implements PermissionsService {
     private PermissionsMapper permissionsMapper;
 
     @Override
-    public int createPermissions(Permissions permissions) {
-        return permissionsMapper.insert(permissions);
+    public void createPermissions(Permissions permissions) {
+        permissions.setGmtCreate(new Date());
+        permissions.setGmtModified(new Date());
+        permissionsMapper.insert(permissions);
+    }
+
+    @Override
+    public void deletePermissionsById(Long id) {
+        permissionsMapper.deleteById(id);
+    }
+
+    @Override
+    public void updatePermissionsById(Permissions permissions, boolean fullUpdate) {
+        if (fullUpdate) {
+            permissionsMapper.fullUpdateById(permissions);
+        } else {
+            permissionsMapper.updateById(permissions);
+        }
     }
 }

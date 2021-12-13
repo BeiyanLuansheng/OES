@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.oes.biz.mapper.PermissionsMapper" >
+    <insert id="insert" parameterType="permissions">
+        insert into permissions(permissions, permissions_name, description, gmt_create, gmt_modified)
+        values (#{perms.permissions,jdbcType=VARCHAR},
+                #{perms.permissionsName,jdbcType=VARCHAR},
+                #{perms.description,jdbcType=VARCHAR},
+                #{perms.gmtCreate,jdbcType=TIMESTAMP},
+                #{perms.gmtModified,jdbcType=TIMESTAMP})
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete from permissions where permissions_id = #{permissionsId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="updateById" parameterType="permissions">
+        update permissions p
+        <set>
+            <if test="perms.permissions != null and perms.permissions != ''" >
+                p.permissions = #{perms.permissions,jdbcType=VARCHAR},
+            </if>
+            <if test="perms.permissionsName != null and perms.permissionsName != ''" >
+                p.permissions_name = #{perms.permissionsName,jdbcType=VARCHAR},
+            </if>
+            <if test="perms.description != null" >
+                p.description = #{perms.description,jdbcType=VARCHAR},
+            </if>
+            <if test="perms.gmtCreate != null and perms.gmtCreate != ''" >
+                p.gmt_create = #{perms.gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="perms.gmtModified != null and perms.gmtModified != ''" >
+                p.gmt_modified = #{perms.gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where p.permissions_id = #{perms.permissionsId,jdbcType=BIGINT}
+    </update>
+
+    <update id="fullUpdateById" parameterType="permissions">
+        update permissions p
+        set p.permissions = #{perms.permissions,jdbcType=VARCHAR},
+            p.permissions_name = #{perms.permissionsName,jdbcType=VARCHAR},
+            p.description = #{perms.description,jdbcType=VARCHAR},
+            p.gmt_create = #{perms.gmtCreate,jdbcType=TIMESTAMP},
+            p.gmt_modified = #{perms.gmtModified,jdbcType=TIMESTAMP}
+        where p.permissions_id = #{perms.permissionsId,jdbcType=BIGINT}
+    </update>
+</mapper>

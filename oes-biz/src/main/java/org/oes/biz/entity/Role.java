@@ -1,5 +1,7 @@
 package org.oes.biz.entity;
 
+import java.util.Date;
+
 /**
  * 角色实体类
  *
@@ -13,6 +15,10 @@ public class Role {
     private String roleName;
 
     private String description;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
 
     public Long getRoleId() {
         return roleId;
@@ -36,5 +42,21 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
-
 /**
  * Shiro 配置类
  *
@@ -38,12 +37,17 @@ public class ShiroConfig {
     private String host;
     @Value("${spring.redis.port}")
     private int port;
-    @Value("${spring.redis.password:}")
+    @Value("${spring.redis.password}")
     private String password;
     @Value("${spring.redis.timeout}")
     private int timeout;
     @Value("${spring.redis.database:0}")
     private int database;
+
+    @Value("${oes.shiro.session-timeout}")
+    private long shiroSessionTimeout;
+    @Value("${oes.shiro.cookie-timeout}")
+    private int shiroCookieTimeout;
 
     /**
      * shiro 中配置 redis 缓存
@@ -101,8 +105,8 @@ public class ShiroConfig {
     private SimpleCookie rememberMeCookie() {
         // 设置 cookie 名称，对应 login.html 页面的 <input type="checkbox" name="rememberMe"/>
         SimpleCookie cookie = new SimpleCookie("rememberMe");
-        // TODO 设置 cookie 的过期时间，单位为秒，这里为一天
-        cookie.setMaxAge(3600 * 24);
+        // 设置 cookie 的过期时间，单位为秒，这里为一天
+        cookie.setMaxAge(shiroCookieTimeout);
         return cookie;
     }
 
@@ -146,8 +150,8 @@ public class ShiroConfig {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         Collection<SessionListener> listeners = new ArrayList<>();
         listeners.add(new ShiroSessionListener());
-        // TODO 设置 session超时时间
-        sessionManager.setGlobalSessionTimeout( 1000L);
+        // 设置 session超时时间
+        sessionManager.setGlobalSessionTimeout(shiroSessionTimeout * 1000L);
         sessionManager.setSessionListeners(listeners);
         sessionManager.setSessionDAO(redisSessionDAO());
         sessionManager.setSessionIdUrlRewritingEnabled(false);

@@ -1,5 +1,6 @@
 package org.oes.biz.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.oes.biz.entity.RolePermissions;
 
 /**
@@ -8,5 +9,7 @@ import org.oes.biz.entity.RolePermissions;
  */
 public interface RolePermissionsMapper {
 
-    int createRolePermissions(RolePermissions RolePermissions);
+    int insert(@Param("rolePerms") RolePermissions rolePermissions);
+
+    int delete(@Param("rolePerms") RolePermissions rolePermissions);
 }

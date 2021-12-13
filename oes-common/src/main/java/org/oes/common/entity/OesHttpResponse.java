@@ -41,8 +41,12 @@ public class OesHttpResponse extends HashMap<String, Object> {
         return OesHttpResponse.getSuccess().data(data);
     }
 
+    public static OesHttpResponse getFailure() {
+        return new OesHttpResponse().code(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     public static OesHttpResponse getFailure(String message) {
-        return new OesHttpResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message(message);
+        return OesHttpResponse.getFailure().message(message);
     }
 
     public static OesHttpResponse getFailure(String message, Object data) {

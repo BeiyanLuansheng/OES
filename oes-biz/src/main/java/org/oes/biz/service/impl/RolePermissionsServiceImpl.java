@@ -6,6 +6,7 @@ import org.oes.biz.service.RolePermissionsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author XuJian
@@ -18,7 +19,13 @@ public class RolePermissionsServiceImpl implements RolePermissionsService {
     private RolePermissionsMapper rolePermissionsMapper;
 
     @Override
-    public int createRolePermissions(RolePermissions rolePermissions) {
-        return rolePermissionsMapper.createRolePermissions(rolePermissions);
+    public void createRolePermissions(RolePermissions rolePermissions) {
+        rolePermissions.setGmtCreate(new Date());
+        rolePermissionsMapper.insert(rolePermissions);
+    }
+
+    @Override
+    public void removeRolePermissions(RolePermissions rolePermissions) {
+        rolePermissionsMapper.delete(rolePermissions);
     }
 }

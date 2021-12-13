@@ -25,7 +25,7 @@ public class UserController extends BaseController {
         return OesHttpResponse.getSuccess();
     }
 
-    @RequestMapping(path = "password", method = RequestMethod.PATCH)
+    @RequestMapping(path = "password", method = RequestMethod.PUT)
     public OesHttpResponse updatePassword(@RequestParam("oldPwd") String oldPwd,
                                           @RequestParam("newPwd") String newPwd,
                                           HttpServletRequest request) {

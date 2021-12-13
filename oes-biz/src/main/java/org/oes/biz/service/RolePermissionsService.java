@@ -8,5 +8,7 @@ import org.oes.biz.entity.RolePermissions;
  */
 public interface RolePermissionsService {
 
-    int createRolePermissions(RolePermissions rolePermissions);
+    void createRolePermissions(RolePermissions rolePermissions);
+
+    void removeRolePermissions(RolePermissions rolePermissions);
 }

@@ -55,5 +55,9 @@ spring:
     # 连接超时时间（毫秒）
     timeout: 5000
 
-system:
+# 系统常量配置
+oes:
   env: prod
+  shiro:
+    session-timeout: 3600   # session 超时时间，单位为秒
+    cookie-timeout: 864000  # rememberMe cookie有效时长，单位为秒

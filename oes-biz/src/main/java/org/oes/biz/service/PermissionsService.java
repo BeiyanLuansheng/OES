@@ -8,5 +8,9 @@ import org.oes.biz.entity.Permissions;
  */
 public interface PermissionsService {
 
-    int createPermissions(Permissions permissions);
+    void createPermissions(Permissions permissions);
+
+    void deletePermissionsById(Long id);
+
+    void updatePermissionsById(Permissions permissions, boolean fullUpdate);
 }

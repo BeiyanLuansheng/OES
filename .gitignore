@@ -1,3 +1,6 @@
 .idea
 */target
 logs
+# 暂时不需要
+oes-start/src/main/java/org/oes/start/config
+oes-start/src/main/resources/oes.yml

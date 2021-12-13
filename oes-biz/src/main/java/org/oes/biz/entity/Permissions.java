@@ -1,5 +1,7 @@
 package org.oes.biz.entity;
 
+import java.util.Date;
+
 /**
  * 权限实体类
  *
@@ -15,6 +17,10 @@ public class Permissions {
     private String permissionsName;
 
     private String description;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
 
     public Long getPermissionsId() {
         return permissionsId;
@@ -46,5 +52,21 @@ public class Permissions {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

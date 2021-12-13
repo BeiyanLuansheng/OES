@@ -6,6 +6,7 @@ import org.oes.biz.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author XuJian
@@ -18,7 +19,27 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
-    public int createRole(Role role) {
-        return roleMapper.insert(role);
+    public void createRole(Role role) {
+        role.setGmtCreate(new Date());
+        role.setGmtModified(new Date());
+        roleMapper.insert(role);
+    }
+
+    @Override
+    public void deleteRoleById(Long roleId) {
+        roleMapper.deleteById(roleId);
+    }
+
+    @Override
+    public void updateRoleById(Role role, boolean fullUpdate) {
+        if (fullUpdate) {
+            if (role.getGmtModified() == null) {
+                role.setGmtModified(new Date());
+            }
+            roleMapper.fullUpdateById(role);
+        } else {
+            role.setGmtModified(new Date());
+            roleMapper.updateById(role);
+        }
     }
 }
