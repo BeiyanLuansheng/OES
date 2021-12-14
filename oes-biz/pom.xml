@@ -23,6 +23,13 @@
             <artifactId>oes-common</artifactId>
         </dependency>
 
+        <!-- spring 相关 -->
+        <!-- redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- 数据库相关 -->
         <dependency>
             <groupId>mysql</groupId>

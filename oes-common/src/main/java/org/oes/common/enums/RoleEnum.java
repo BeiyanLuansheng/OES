@@ -8,20 +8,20 @@ package org.oes.common.enums;
  */
 public enum RoleEnum {
 
-    STUDENT(1L, "学生角色"),
-    TEACHER(2L, "教师角色"),
-    ADMINISTRATOR(3L, "管理员角色");
+    STUDENT(1L, "学生"),
+    TEACHER(2L, "教师"),
+    ADMINISTRATOR(3L, "管理员");
 
-    private final Long code;
+    private final Long id;
     private final String desc;
 
-    RoleEnum(Long code, String desc) {
-        this.code = code;
+    RoleEnum(Long id, String desc) {
+        this.id = id;
         this.desc = desc;
     }
 
     public Long getCode() {
-        return code;
+        return id;
     }
 
     public String getDesc() {

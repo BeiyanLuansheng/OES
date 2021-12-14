@@ -58,6 +58,7 @@ spring:
 # 系统常量配置
 oes:
   env: dev
+  enable-redis-cache: false
   shiro:
     session-timeout: 3600   # session 超时时间，单位为秒
     cookie-timeout: 864000  # rememberMe cookie有效时长，单位为秒

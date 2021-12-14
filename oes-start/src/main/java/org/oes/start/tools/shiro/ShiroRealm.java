@@ -1,26 +1,39 @@
 package org.oes.start.tools.shiro;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.oes.biz.entity.Permissions;
-import org.oes.biz.entity.Role;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.oes.biz.component.RedisClient;
+import org.oes.biz.component.SessionClient;
 import org.oes.biz.entity.User;
-import org.oes.biz.service.RolePermissionsService;
-import org.oes.biz.service.RoleService;
 import org.oes.biz.service.UserService;
+import org.oes.common.constans.OesConstant;
+import org.oes.common.constans.StringConstant;
 import org.oes.common.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 自定义实现 ShiroRealm，包含认证和授权两大模块
@@ -31,12 +44,17 @@ import java.util.stream.Collectors;
 @Component
 public class ShiroRealm extends AuthorizingRealm {
 
+    private static final Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
+
+    @Value("${" + OesConstant.ENABLE_REDIS_CACHE + "}")
+    private boolean enableRedisCache;
+
     @Resource
     private UserService userService;
     @Resource
-    private RoleService roleService;
+    private SessionClient sessionClient;
     @Resource
-    private RolePermissionsService rolePermissionsService;
+    private RedisClient redisClient;
 
     /**
      * 授权模块，获取用户角色和权限
@@ -63,38 +81,55 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        // 获取用户输入的用户名和密码
+        // 获取用户输入的手机号和密码
         String phone = (String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());
 
         // 通过用户名到数据库查询用户信息
         User user = this.userService.findByPhone(phone);
-
         if (user == null || !StringUtils.isEquals(password, user.getPassword())) {
-            throw new IncorrectCredentialsException("用户名或密码错误！");
+            throw new IncorrectCredentialsException("手机号或密码错误！");
         }
         if (User.STATUS_LOCK.equals(user.getStatus())) {
-            throw new LockedAccountException("账号已被锁定,请联系管理员！");
+            throw new LockedAccountException("账号已被锁定，请联系客服！");
         }
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 
     /**
-     * 清除当前用户权限缓存
-     * 使用方法：在需要清除用户权限的地方注入 ShiroRealm,
-     * 然后调用其 clearCache方法。
+     * 下线
      */
-    public void clearCache() {
-        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
-        super.clearCache(principals);
+    @Override
+    public void onLogout(PrincipalCollection principals) {
+        super.onLogout(principals);
+        if (enableRedisCache) {
+            User principal = (User) principals.getPrimaryPrincipal();
+            String key = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX + ShiroRealm.class.getName()
+                    + StringConstant.DOT + "authenticationCache" + StringConstant.COLON + principal.getUserId();
+            redisClient.del(key);
+            logger.info("async clean up user cache fragment,cache key: [{}]", key);
+            this.cleanCacheFragment(principals);
+        }
+    }
+
+    @Async(OesConstant.OES_THREAD_POOL)
+    public void cleanCacheFragment(PrincipalCollection principals) {
+        User principal = (User) principals.getPrimaryPrincipal();
+        String key = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX + ShiroRealm.class.getName()
+                + StringConstant.DOT + "authenticationCache" + StringConstant.COLON + principal.getUserId();
+        redisClient.del(key);
+        logger.info("async clean up user cache fragment,cache key: [{}]", key);
     }
 
     /**
-     * 获取当前用户的角色和权限集合
-     *
-     * @return AuthorizationInfo
+     * 清除当前用户权限缓存
      */
-    public AuthorizationInfo getCurrentUserAuthorizationInfo() {
-        return doGetAuthorizationInfo(null);
+    public void clearCache(Long userId) {
+        List<SimplePrincipalCollection> principals = sessionClient.getPrincipals(userId);
+        if (CollectionUtils.isNotEmpty(principals)) {
+            for (SimplePrincipalCollection principal : principals) {
+                super.clearCache(principal);
+            }
+        }
     }
 }
