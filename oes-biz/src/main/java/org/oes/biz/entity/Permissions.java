@@ -10,17 +10,43 @@ import java.util.Date;
  */
 public class Permissions {
 
+    /**
+     * 权限唯一 ID
+     */
     private Long permissionsId;
 
+    /**
+     * 权限
+     */
     private String permissions;
 
+    /**
+     * 权限名
+     */
     private String permissionsName;
 
+    /**
+     * 权限描述
+     */
     private String description;
 
+    /**
+     * 权限创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 权限修改时间
+     */
     private Date gmtModified;
+
+    /**
+     * 用于传递查询条件
+     */
+    private Date gmtCreateFrom;
+    private Date gmtCreateTo;
+    private Date gmtModifiedFrom;
+    private Date gmtModifiedTo;
 
     public Long getPermissionsId() {
         return permissionsId;
@@ -68,5 +94,37 @@ public class Permissions {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Date getGmtCreateFrom() {
+        return gmtCreateFrom;
+    }
+
+    public void setGmtCreateFrom(Date gmtCreateFrom) {
+        this.gmtCreateFrom = gmtCreateFrom;
+    }
+
+    public Date getGmtCreateTo() {
+        return gmtCreateTo;
+    }
+
+    public void setGmtCreateTo(Date gmtCreateTo) {
+        this.gmtCreateTo = gmtCreateTo;
+    }
+
+    public Date getGmtModifiedFrom() {
+        return gmtModifiedFrom;
+    }
+
+    public void setGmtModifiedFrom(Date gmtModifiedFrom) {
+        this.gmtModifiedFrom = gmtModifiedFrom;
+    }
+
+    public Date getGmtModifiedTo() {
+        return gmtModifiedTo;
+    }
+
+    public void setGmtModifiedTo(Date gmtModifiedTo) {
+        this.gmtModifiedTo = gmtModifiedTo;
     }
 }

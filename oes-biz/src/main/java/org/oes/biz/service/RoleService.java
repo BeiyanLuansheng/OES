@@ -26,4 +26,11 @@ public interface RoleService {
      * @param fullUpdate true 全量更新，false 增量更新
      */
     void updateRoleById(Role role, boolean fullUpdate);
+
+    /**
+     * 根据 ID 查找角色
+     * @param id 角色ID
+     * @return 角色信息
+     */
+    Role findRoleById(Long id);
 }

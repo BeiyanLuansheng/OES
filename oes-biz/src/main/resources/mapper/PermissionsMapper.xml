@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.oes.biz.mapper.PermissionsMapper" >
+<mapper namespace="org.oes.biz.mapper.PermissionsMapper">
     <insert id="insert" parameterType="permissions">
         insert into permissions(permissions, permissions_name, description, gmt_create, gmt_modified)
         values (#{perms.permissions,jdbcType=VARCHAR},
@@ -11,25 +11,27 @@
     </insert>
 
     <delete id="deleteById" parameterType="long">
-        delete from permissions where permissions_id = #{permissionsId,jdbcType=BIGINT}
+        delete
+        from permissions
+        where permissions_id = #{permissionsId,jdbcType=BIGINT}
     </delete>
 
     <update id="updateById" parameterType="permissions">
         update permissions p
         <set>
-            <if test="perms.permissions != null and perms.permissions != ''" >
+            <if test="perms.permissions != null and perms.permissions != ''">
                 p.permissions = #{perms.permissions,jdbcType=VARCHAR},
             </if>
-            <if test="perms.permissionsName != null and perms.permissionsName != ''" >
+            <if test="perms.permissionsName != null and perms.permissionsName != ''">
                 p.permissions_name = #{perms.permissionsName,jdbcType=VARCHAR},
             </if>
-            <if test="perms.description != null" >
+            <if test="perms.description != null">
                 p.description = #{perms.description,jdbcType=VARCHAR},
             </if>
-            <if test="perms.gmtCreate != null and perms.gmtCreate != ''" >
+            <if test="perms.gmtCreate != null and perms.gmtCreate != ''">
                 p.gmt_create = #{perms.gmtCreate,jdbcType=TIMESTAMP},
             </if>
-            <if test="perms.gmtModified != null and perms.gmtModified != ''" >
+            <if test="perms.gmtModified != null and perms.gmtModified != ''">
                 p.gmt_modified = #{perms.gmtModified,jdbcType=TIMESTAMP},
             </if>
         </set>
@@ -38,11 +40,58 @@
 
     <update id="fullUpdateById" parameterType="permissions">
         update permissions p
-        set p.permissions = #{perms.permissions,jdbcType=VARCHAR},
+        set p.permissions      = #{perms.permissions,jdbcType=VARCHAR},
             p.permissions_name = #{perms.permissionsName,jdbcType=VARCHAR},
-            p.description = #{perms.description,jdbcType=VARCHAR},
-            p.gmt_create = #{perms.gmtCreate,jdbcType=TIMESTAMP},
-            p.gmt_modified = #{perms.gmtModified,jdbcType=TIMESTAMP}
+            p.description      = #{perms.description,jdbcType=VARCHAR},
+            p.gmt_create       = #{perms.gmtCreate,jdbcType=TIMESTAMP},
+            p.gmt_modified     = #{perms.gmtModified,jdbcType=TIMESTAMP}
         where p.permissions_id = #{perms.permissionsId,jdbcType=BIGINT}
     </update>
+
+    <select id="findPermissionsList" parameterType="permissions" resultType="permissions">
+        select p.permissions_id   permissionsId,
+               p.permissions,
+               p.permissions_name permissionsName,
+               p.description,
+               p.gmt_create       gmtCreate,
+               p.gmt_modified     gmtModified
+        from permissions p
+        where 1 = 1
+        <if test="perms.permsId != null and perms.permsId > 0">
+            and p.permissions_id = #{perms.permissionsId,jdbcType=BIGINT}
+        </if>
+        <if test="perms.permission != null and perms.permission != ''">
+            and p.permissions = #{perms.permissions,jdbcType=VARCHAR}
+        </if>
+        <if test="perms.permissionsName != null">
+            and p.permissions_name = #{perms.permissionsName,jdbcType=VARCHAR}
+        </if>
+        <if test="perms.description != null">
+            and p.description = #{perms.description,jdbcType=VARCHAR}
+        </if>
+        <if test="perms.gmtCreateFrom != null">
+            and p.gmt_create &gt; #{perms.gmtCreateFrom,jdbcType=TIMESTAMP}
+        </if>
+        <if test="perms.gmtCreateTo != null">
+            and p.gmt_create &lt; #{perms.gmtCreateTo,jdbcType=TIMESTAMP}
+        </if>
+        <if test="perms.gmtModifiedFrom != null">
+            and p.gmt_modified &gt; #{perms.gmtModifiedFrom,jdbcType=TIMESTAMP}
+        </if>
+        <if test="perms.gmtModifiedTo != null">
+            and p.gmt_modified &lt; #{perms.gmtModifiedTo,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+
+    <select id="findRolePermissions" parameterType="long" resultType="permissions">
+        select p.permissions_id   permissionsId,
+               p.permissions,
+               p.permissions_name permissionsName,
+               p.description,
+               p.gmt_create       gmtCreate,
+               p.gmt_modified     gmtModified
+        from permissions p
+                 right join role_permissions rp on (p.permissions_id = rp.permission_id)
+        where rp.role_id = #{roleId, jdbcType=BIGINT}
+    </select>
 </mapper>

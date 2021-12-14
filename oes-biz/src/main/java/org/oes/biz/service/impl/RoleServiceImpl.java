@@ -1,12 +1,16 @@
 package org.oes.biz.service.impl;
 
+import org.apache.commons.collections.ListUtils;
 import org.oes.biz.entity.Role;
 import org.oes.biz.mapper.RoleMapper;
 import org.oes.biz.service.RoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author XuJian
@@ -41,5 +45,13 @@ public class RoleServiceImpl implements RoleService {
             role.setGmtModified(new Date());
             roleMapper.updateById(role);
         }
+    }
+
+    @Override
+    public Role findRoleById(Long id) {
+        Role role = new Role();
+        role.setRoleId(id);
+        List<Role> roleList = roleMapper.findRoleList(role);
+        return CollectionUtils.isEmpty(roleList) ? null : roleList.get(0);
     }
 }

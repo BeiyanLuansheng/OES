@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author XuJian
  * @since 2021/12/08
  */
 @Service
-public class PermissionsImpl implements PermissionsService {
+public class PermissionsServiceImpl implements PermissionsService {
 
     @Resource
     private PermissionsMapper permissionsMapper;
@@ -37,5 +38,10 @@ public class PermissionsImpl implements PermissionsService {
         } else {
             permissionsMapper.updateById(permissions);
         }
+    }
+
+    @Override
+    public List<Permissions> findRolePermissions(Long roleId) {
+        return permissionsMapper.findRolePermissions(roleId);
     }
 }

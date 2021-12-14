@@ -10,15 +10,38 @@ import java.util.Date;
  */
 public class Role {
 
+    /**
+     * 角色唯一 ID
+     */
     private Long roleId;
 
+    /**
+     * 角色名
+     */
     private String roleName;
 
+    /**
+     * 角色描述
+     */
     private String description;
 
+    /**
+     * 角色信息创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 角色信息修改时间
+     */
     private Date gmtModified;
+
+    /**
+     * 用于传递查询条件
+     */
+    private Date gmtCreateFrom;
+    private Date gmtCreateTo;
+    private Date gmtModifiedFrom;
+    private Date gmtModifiedTo;
 
     public Long getRoleId() {
         return roleId;
@@ -58,5 +81,37 @@ public class Role {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Date getGmtCreateFrom() {
+        return gmtCreateFrom;
+    }
+
+    public void setGmtCreateFrom(Date gmtCreateFrom) {
+        this.gmtCreateFrom = gmtCreateFrom;
+    }
+
+    public Date getGmtCreateTo() {
+        return gmtCreateTo;
+    }
+
+    public void setGmtCreateTo(Date gmtCreateTo) {
+        this.gmtCreateTo = gmtCreateTo;
+    }
+
+    public Date getGmtModifiedFrom() {
+        return gmtModifiedFrom;
+    }
+
+    public void setGmtModifiedFrom(Date gmtModifiedFrom) {
+        this.gmtModifiedFrom = gmtModifiedFrom;
+    }
+
+    public Date getGmtModifiedTo() {
+        return gmtModifiedTo;
+    }
+
+    public void setGmtModifiedTo(Date gmtModifiedTo) {
+        this.gmtModifiedTo = gmtModifiedTo;
     }
 }

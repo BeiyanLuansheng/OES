@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,20 +46,11 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        String userName = user.getUserName();
-
+        User user = (User) principal.getPrimaryPrincipal();
+        user = userService.doGetUserAuthorization(user);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-
-        // 获取用户角色集
-        List<Role> roleList = new ArrayList<>();//this.roleService.findUserRole(userName);
-        Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
-        simpleAuthorizationInfo.setRoles(roleSet);
-
-        // 获取用户权限集
-        List<Permissions> permissionList = new ArrayList<>(); //this.rolePermissionsService.findUserPermissions(userName);
-        Set<String> permissionSet = permissionList.stream().map(Permissions::getPermissions).collect(Collectors.toSet());
-        simpleAuthorizationInfo.setStringPermissions(permissionSet);
+        simpleAuthorizationInfo.setRoles(user.getRoleNames());
+        simpleAuthorizationInfo.setStringPermissions(user.getPermissions());
         return simpleAuthorizationInfo;
     }
 

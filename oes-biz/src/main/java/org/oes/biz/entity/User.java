@@ -1,6 +1,7 @@
 package org.oes.biz.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * 用户实体类
@@ -42,6 +43,16 @@ public class User {
     private Date gmtModified;
 
     private String status;
+
+    /**
+     * 用户角色名集
+     */
+    private Set<String> roleNames;
+
+    /**
+     * 用户权限集
+     */
+    private Set<String> permissions;
 
     public Long getUserId() {
         return userId;
@@ -137,5 +148,21 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<String> getRoleNames() {
+        return roleNames;
+    }
+
+    public void setRoleNames(Set<String> roleNames) {
+        this.roleNames = roleNames;
+    }
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
     }
 }

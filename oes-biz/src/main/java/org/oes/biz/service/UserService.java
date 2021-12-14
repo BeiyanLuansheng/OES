@@ -17,4 +17,12 @@ public interface UserService {
     boolean login(String phone, String password);
 
     boolean register(String phone, String password);
+
+    /**
+     * 查找用户的角色、权限信息并填入
+     *
+     * @param user 需要查找的用户
+     * @return 填充信息后的用户
+     */
+    User doGetUserAuthorization(User user);
 }

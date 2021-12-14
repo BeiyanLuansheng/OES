@@ -3,6 +3,8 @@ package org.oes.biz.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.oes.biz.entity.Role;
 
+import java.util.List;
+
 /**
  * @author XuJian
  * @since 2021/12/08
@@ -40,4 +42,12 @@ public interface RoleMapper {
      * @return 影响行数
      */
     int fullUpdateById(@Param("role") Role role);
+
+    /**
+     * 根据条件查找满足条件的角色
+     *
+     * @param role 条件
+     * @return 角色列表
+     */
+    List<Role> findRoleList(@Param("role") Role role);
 }

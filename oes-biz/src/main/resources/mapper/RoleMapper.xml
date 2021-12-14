@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.oes.biz.mapper.RoleMapper" >
+<mapper namespace="org.oes.biz.mapper.RoleMapper">
     <insert id="insert" parameterType="role">
         insert into role(role_name, description, gmt_create, gmt_modified)
         values (#{role.roleName,jdbcType=VARCHAR},
@@ -10,22 +10,24 @@
     </insert>
 
     <delete id="deleteById" parameterType="long">
-        delete from role where role_id = #{roleId,jdbcType=BIGINT}
+        delete
+        from role
+        where role_id = #{roleId,jdbcType=BIGINT}
     </delete>
 
     <update id="updateById" parameterType="role">
         update role r
         <set>
-            <if test="role.roleName != null and role.roleName != ''" >
+            <if test="role.roleName != null and role.roleName != ''">
                 r.role_name = #{role.roleName,jdbcType=VARCHAR},
             </if>
-            <if test="role.description != null" >
+            <if test="role.description != null">
                 r.description = #{role.description,jdbcType=VARCHAR},
             </if>
-            <if test="role.gmtCreate != null and role.gmtCreate != ''" >
+            <if test="role.gmtCreate != null and role.gmtCreate != ''">
                 r.gmt_create = #{role.gmtCreate,jdbcType=TIMESTAMP},
             </if>
-            <if test="role.gmtModified != null and role.gmtModified != ''" >
+            <if test="role.gmtModified != null and role.gmtModified != ''">
                 r.gmt_modified = #{role.gmtModified,jdbcType=TIMESTAMP},
             </if>
         </set>
@@ -34,11 +36,45 @@
 
     <update id="fullUpdateById" parameterType="role">
         update role
-        set role_name = #{role.roleName,jdbcType=VARCHAR},
-            description = #{role.description,jdbcType=VARCHAR},
-            gmt_create = #{role.gmtCreate,jdbcType=TIMESTAMP},
+        set role_name    = #{role.roleName,jdbcType=VARCHAR},
+            description  = #{role.description,jdbcType=VARCHAR},
+            gmt_create   = #{role.gmtCreate,jdbcType=TIMESTAMP},
             gmt_modified = #{role.gmtModified,jdbcType=TIMESTAMP}
         where role_id = #{role.roleId,jdbcType=BIGINT}
     </update>
 
+    <sql id="findByCondition">
+
+    </sql>
+
+    <select id="findRoleList" parameterType="role" resultType="role">
+        select role_id      roleId,
+               role_name    roleName,
+               description,
+               gmt_create   gmtCreate,
+               gmt_modified gmtModified
+        from role
+        where 1 = 1
+        <if test="role.roleId != null and role.roleId > 0">
+            and role_id = #{role.roleId,jdbcType=BIGINT}
+        </if>
+        <if test="role.roleName != null">
+            and role_name = #{role.roleName,jdbcType=VARCHAR}
+        </if>
+        <if test="role.description != null">
+            and description = #{role.description,jdbcType=VARCHAR}
+        </if>
+        <if test="role.gmtCreateFrom != null">
+            and gmt_create &gt; #{role.gmtCreateFrom,jdbcType=TIMESTAMP}
+        </if>
+        <if test="role.gmtCreateTo != null">
+            and gmt_create &lt; #{role.gmtCreateTo,jdbcType=TIMESTAMP}
+        </if>
+        <if test="role.gmtModifiedFrom != null">
+            and gmt_modified &gt; #{role.gmtModifiedFrom,jdbcType=TIMESTAMP}
+        </if>
+        <if test="role.gmtModifiedTo != null">
+            and gmt_modified &lt; #{role.gmtModifiedTo,jdbcType=TIMESTAMP}
+        </if>
+    </select>
 </mapper>

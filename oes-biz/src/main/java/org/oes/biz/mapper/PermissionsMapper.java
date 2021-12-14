@@ -3,6 +3,8 @@ package org.oes.biz.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.oes.biz.entity.Permissions;
 
+import java.util.List;
+
 /**
  * @author XuJian
  * @since 2021/12/08
@@ -40,4 +42,20 @@ public interface PermissionsMapper {
      * @return 影响行数
      */
     int updateById(@Param("perms") Permissions permissions);
+
+    /**
+     * 根据条件查找满足条件的权限
+     *
+     * @param permissions 条件
+     * @return 角色列表
+     */
+    List<Permissions> findPermissionsList(@Param("perms") Permissions permissions);
+
+    /**
+     * 根据角色 ID 查找角色的权限
+     *
+     * @param roleId ID
+     * @return 角色权限列表
+     */
+    List<Permissions> findRolePermissions(Long roleId);
 }

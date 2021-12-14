@@ -29,9 +29,9 @@ public class LoginController extends BaseController {
         String md5Password = MD5Utils.encrypt(phone.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(phone, password, rememberMe);
         super.login(token);
-        if (!userService.login(phone, md5Password)) {
-            return OesHttpResponse.getFailure("用户名或密码错误");
-        }
+//        if (!userService.login(phone, md5Password)) {
+//            return OesHttpResponse.getFailure("用户名或密码错误");
+//        }
         return OesHttpResponse.getSuccess();
     }
 
