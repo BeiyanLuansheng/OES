@@ -39,7 +39,7 @@
         <appender-ref ref="startAppender"/>
     </root>
 
-    <logger name="org.oes" additivity="false" level="ERROR">
+    <logger name="org.oes" additivity="false">
         <appender-ref ref="oesAppender" />
     </logger>
 </configuration>
