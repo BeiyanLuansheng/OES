@@ -29,4 +29,4 @@ spring:
 
 ## 访问
 
-工程默认端口为 8089，所有提供的服务（Controller）都在 oes-gateway 模块中
+工程默认端口为 8089，所有提供的服务都在 oes-start 模块下 Controller 包中，测试服务在 test 包中
