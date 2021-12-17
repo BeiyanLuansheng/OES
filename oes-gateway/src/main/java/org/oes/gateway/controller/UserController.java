@@ -2,6 +2,7 @@ package org.oes.gateway.controller;
 
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
+import org.oes.common.constans.URIConstant;
 import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.utils.MD5Utils;
 import org.oes.common.utils.StringUtils;
@@ -13,17 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 用户控制
+ *
+ * @author XuJian
+ * @since 2021/12/09
+ */
 @RestController
-@RequestMapping("user")
+@RequestMapping(URIConstant.USER)
 public class UserController extends BaseController {
 
     @Resource
     private UserService userService;
-
-    @RequestMapping(path = "test", method = RequestMethod.GET)
-    public OesHttpResponse testUser() {
-        return OesHttpResponse.getSuccess();
-    }
 
     @RequestMapping(path = "password", method = RequestMethod.PUT)
     public OesHttpResponse updatePassword(@RequestParam("oldPwd") String oldPwd,

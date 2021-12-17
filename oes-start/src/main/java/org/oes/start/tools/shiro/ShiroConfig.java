@@ -1,11 +1,8 @@
 package org.oes.start.tools.shiro;
 
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -13,23 +10,19 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
-import org.oes.common.annotation.ConditionOnRedisCache;
 import org.oes.common.constans.OesConstant;
 import org.oes.common.constans.StringConstant;
 import org.oes.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 
 /**
  * Shiro 配置类
@@ -130,7 +123,6 @@ public class ShiroConfig {
 
     @Bean
     public SessionDAO sessionDAO() {
-        logger.error("get result is " + enableRedisCache);
         if (enableRedisCache) {
             RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
             redisSessionDAO.setRedisManager(redisManager());

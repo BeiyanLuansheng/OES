@@ -3,8 +3,10 @@ package org.oes.gateway.controller;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
+import org.oes.common.constans.URIConstant;
 import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.utils.MD5Utils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +16,28 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 负责用户登录前及登出后的行为控制
+ *
+ * @author XuJian
+ * @since 2021/12/09
+ */
 @RestController
 public class LoginController extends BaseController {
 
     @Resource
     private UserService userService;
 
-    @RequestMapping(path = "login", method = RequestMethod.POST)
+    /**
+     * 登录
+     *
+     * @param phone
+     * @param password
+     * @param rememberMe
+     * @param request
+     * @return
+     */
+    @RequestMapping(path = URIConstant.LOGIN, method = RequestMethod.POST)
 //    @Limit(key = "login", period = 60, count = 10, name = "登录接口", prefix = "limit")
     public OesHttpResponse login(@RequestParam String phone,
                                  @RequestParam String password,
@@ -29,13 +46,17 @@ public class LoginController extends BaseController {
         String md5Password = MD5Utils.encrypt(phone.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(phone, password, rememberMe);
         super.login(token);
-//        if (!userService.login(phone, md5Password)) {
-//            return OesHttpResponse.getFailure("用户名或密码错误");
-//        }
         return OesHttpResponse.getSuccess();
     }
 
-    @RequestMapping(path = "register", method = RequestMethod.POST)
+    /**
+     * 注册
+     *
+     * @param phone
+     * @param password
+     * @return
+     */
+    @RequestMapping(path = URIConstant.REGISTER, method = RequestMethod.POST)
     public OesHttpResponse register(@RequestParam String phone,
                                     @RequestParam String password) {
         User user = userService.findByPhone(phone);
@@ -44,5 +65,30 @@ public class LoginController extends BaseController {
         }
         userService.register(phone, password);
         return OesHttpResponse.getSuccess();
+    }
+
+    /* ============================ 异常行为跳转 =============================== */
+    /**
+     * 未授权
+     */
+    @RequestMapping(path = URIConstant.UNAUTHORIZED, method = RequestMethod.GET)
+    public OesHttpResponse unauthorized() {
+        return new OesHttpResponse().code(HttpStatus.UNAUTHORIZED).message("");
+    }
+
+    /**
+     * 需要登录认证
+     */
+    @RequestMapping(path = URIConstant.LOGIN, method = RequestMethod.GET)
+    public OesHttpResponse login() {
+        return OesHttpResponse.getSuccess("请先登录");
+    }
+
+    /**
+     * 操作成功跳转
+     */
+    @RequestMapping(path = URIConstant.SUCCESS, method = RequestMethod.GET)
+    public OesHttpResponse success() {
+        return OesHttpResponse.getSuccess("操作成功");
     }
 }

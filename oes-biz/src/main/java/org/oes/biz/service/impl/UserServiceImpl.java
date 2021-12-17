@@ -1,7 +1,6 @@
 package org.oes.biz.service.impl;
 
 import org.oes.biz.entity.Permissions;
-import org.oes.biz.entity.Role;
 import org.oes.biz.entity.User;
 import org.oes.biz.mapper.UserMapper;
 import org.oes.biz.service.PermissionsService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;

@@ -37,6 +37,10 @@ public class OesHttpResponse extends HashMap<String, Object> {
         return new OesHttpResponse().code(HttpStatus.OK);
     }
 
+    public static OesHttpResponse getSuccess(String message) {
+        return OesHttpResponse.getSuccess().message(message);
+    }
+
     public static OesHttpResponse getSuccess(Object data) {
         return OesHttpResponse.getSuccess().data(data);
     }

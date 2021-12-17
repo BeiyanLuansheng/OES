@@ -2,6 +2,7 @@ package org.oes.gateway.controller;
 
 import org.oes.biz.entity.Permissions;
 import org.oes.biz.service.PermissionsService;
+import org.oes.common.constans.URIConstant;
 import org.oes.common.entity.OesHttpResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 权限控制
+ *
+ * @author XuJian
+ * @since 2021/12/13
+ */
 @RestController
-@RequestMapping("permissions")
+@RequestMapping(URIConstant.PERMISSIONS)
 public class PermissionsController {
 
     @Resource
