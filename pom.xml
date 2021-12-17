@@ -19,7 +19,6 @@
     <modules>
         <module>oes-biz</module>
         <module>oes-common</module>
-        <module>oes-gateway</module>
         <module>oes-start</module>
     </modules>
 
@@ -39,11 +38,6 @@
             <dependency>
                 <groupId>org.oes</groupId>
                 <artifactId>oes-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.oes</groupId>
-                <artifactId>oes-gateway</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

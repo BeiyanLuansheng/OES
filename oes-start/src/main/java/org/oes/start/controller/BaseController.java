@@ -1,4 +1,4 @@
-package org.oes.gateway.controller;
+package org.oes.start.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;

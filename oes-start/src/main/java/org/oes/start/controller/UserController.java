@@ -1,4 +1,4 @@
-package org.oes.gateway.controller;
+package org.oes.start.controller;
 
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;

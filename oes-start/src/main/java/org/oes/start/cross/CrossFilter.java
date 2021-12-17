@@ -1,4 +1,4 @@
-package org.oes.gateway.cross;
+package org.oes.start.cross;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 跨域请求过滤器
+ *
+ * @author XuJian
+ * @since 2021/12/16
+ */
 @Component
 @WebFilter(urlPatterns = "/*", filterName = "CrossFilter")
 public class CrossFilter implements Filter {

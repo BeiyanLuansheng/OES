@@ -1,4 +1,4 @@
-package org.oes.gateway.controller;
+package org.oes.start.controller;
 
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.oes.biz.entity.User;

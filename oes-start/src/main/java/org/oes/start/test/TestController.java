@@ -1,4 +1,4 @@
-package org.oes.start.controller;
+package org.oes.start.test;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.common.entity.OesHttpResponse;

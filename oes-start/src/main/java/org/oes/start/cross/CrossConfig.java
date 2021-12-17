@@ -1,4 +1,4 @@
-package org.oes.gateway.cross;
+package org.oes.start.cross;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -6,8 +6,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 跨域请求配置
- * @author GavenLee
- * @since 2020/10/20 9:55
+ *
+ * @author XuJian
+ * @since 2021/12/16
  */
 @Configuration
 public class CrossConfig implements WebMvcConfigurer {

@@ -1,4 +1,4 @@
-package org.oes.gateway.controller;
+package org.oes.start.controller;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Course;

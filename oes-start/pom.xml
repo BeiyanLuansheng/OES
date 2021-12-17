@@ -22,10 +22,6 @@
             <groupId>org.oes</groupId>
             <artifactId>oes-biz</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.oes</groupId>
-            <artifactId>oes-gateway</artifactId>
-        </dependency>
 
         <!-- test -->
         <dependency>
