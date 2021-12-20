@@ -1,5 +1,6 @@
 package org.oes.biz.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  * @author XuJian
  * @since 2021/12/08
  */
-public class Role {
+public class Role implements Serializable {
+
+    private static final long serialVersionUID = -1510190218566290276L;
 
     /**
      * 角色唯一 ID

@@ -1,12 +1,15 @@
 package org.oes.biz.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author XuJian
  * @since 2021/11/30
  */
-public class Course {
+public class Course implements Serializable {
+
+    private static final long serialVersionUID = 5411412654120570466L;
 
     /**
      * 课程ID

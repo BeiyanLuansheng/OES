@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class User implements Serializable, Cloneable {
 
-    private static final long serialVersionUID = -4352868070794165001L;
+    private static final long serialVersionUID = -3599921247064898178L;
 
     /**
      * 用户状态：有效
@@ -169,6 +169,11 @@ public class User implements Serializable, Cloneable {
         this.permissions = permissions;
     }
 
+    /**
+     * 由于 org.crazycake:shiro-redis 的报错：找不到 getId 方法
+     *
+     * @return 手机号
+     */
     public String getId() {
         return phone;
     }

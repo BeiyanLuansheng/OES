@@ -1,5 +1,6 @@
 package org.oes.biz.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  * @author XuJian
  * @since 2021/12/08
  */
-public class Permissions {
+public class Permissions implements Serializable {
+
+    private static final long serialVersionUID = 8980592415537992888L;
 
     /**
      * 权限唯一 ID

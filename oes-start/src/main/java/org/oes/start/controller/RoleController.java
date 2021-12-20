@@ -1,5 +1,6 @@
 package org.oes.start.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Role;
 import org.oes.biz.entity.RolePermissions;
 import org.oes.biz.service.RolePermissionsService;
@@ -30,24 +31,28 @@ public class RoleController {
     private RolePermissionsService rolePermissionsService;
 
     @RequestMapping(method = RequestMethod.POST)
+    @RequiresPermissions("role:add")
     public OesHttpResponse createRole(@RequestBody Role role) {
         roleService.createRole(role);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequiresPermissions("role:delete")
     public OesHttpResponse deleteRole(@PathVariable Long id) {
         roleService.deleteRoleById(id);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PUT)
+    @RequiresPermissions("role:update")
     public OesHttpResponse fullUpdateRole(@RequestBody Role role) {
         roleService.updateRoleById(role, true);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PATCH)
+    @RequiresPermissions("role:update")
     public OesHttpResponse updateRole(@RequestBody Role role) {
         roleService.updateRoleById(role, false);
         return OesHttpResponse.getSuccess();
@@ -56,12 +61,14 @@ public class RoleController {
     /* =========================== 角色权限设置 =============================== */
 
     @RequestMapping(value = URIConstant.PERMISSIONS, method = RequestMethod.POST)
+    @RequiresPermissions("role:perms:add")
     public OesHttpResponse addPermissions(@RequestBody RolePermissions rolePermissions) {
         rolePermissionsService.createRolePermissions(rolePermissions);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = URIConstant.PERMISSIONS, method = RequestMethod.DELETE)
+    @RequiresPermissions("role:perms:remove")
     public OesHttpResponse removePermissions(@RequestBody RolePermissions rolePermissions) {
         rolePermissionsService.removeRolePermissions(rolePermissions);
         return OesHttpResponse.getSuccess();

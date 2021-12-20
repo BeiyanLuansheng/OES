@@ -1,5 +1,6 @@
 package org.oes.biz.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,12 +9,23 @@ import java.util.Date;
  * @author XuJian
  * @since 2021/12/08
  */
-public class RolePermissions {
+public class RolePermissions implements Serializable {
 
+    private static final long serialVersionUID = -1164040840556475540L;
+
+    /**
+     * 角色 ID，依赖 Role
+     */
     private Long roleId;
 
+    /**
+     * 权限 ID，依赖 Permissions
+     */
     private Long permissionsId;
 
+    /**
+     * 授权时间
+     */
     private Date gmtCreate;
 
     public Long getRoleId() {
