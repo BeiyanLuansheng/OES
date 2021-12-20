@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(path = URIConstant.UNAUTHORIZED, method = RequestMethod.GET)
     public OesHttpResponse unauthorized() {
-        return new OesHttpResponse().code(HttpStatus.UNAUTHORIZED).message("");
+        return new OesHttpResponse().code(HttpStatus.UNAUTHORIZED).message("无权限");
     }
 
     /**

@@ -16,24 +16,49 @@ public class URIConstant {
 
     public static final String ALL = "/**";
 
+    /**
+     * 登录
+     */
     public static final String LOGIN = "/login";
 
-    public static final String INDEX = "index";
-
+    /**
+     * 注册
+     */
     public static final String REGISTER = "/register";
 
+    /**
+     * 未授权
+     */
     public static final String UNAUTHORIZED = "/unauthorized";
 
+    /**
+     * 登出
+     */
     public static final String LOGOUT = "/logout";
 
+    /**
+     * 登录成功
+     */
     public static final String SUCCESS = "/success";
 
+    /**
+     * 角色操作
+     */
     public static final String ROLE = "/role";
 
+    /**
+     * 权限操作
+     */
     public static final String PERMISSIONS = "/permissions";
 
+    /**
+     * 用户操作
+     */
     public static final String USER = "/user";
 
+    /**
+     * 课程操作
+     */
     public static final String COURSE = "/course";
     /**
      *  免认证部分的URL
@@ -43,7 +68,6 @@ public class URIConstant {
         unauthorized.add(LOGIN);
         unauthorized.add(REGISTER);
         unauthorized.add(UNAUTHORIZED);
-        unauthorized.add(LOGOUT);
         unauthorized.add(SUCCESS);
 
         unauthorized.add(GATE);

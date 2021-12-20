@@ -33,13 +33,12 @@ public class ShiroEarlyConfig {
         // 登录的 url
         shiroFilterFactoryBean.setLoginUrl(URIConstant.LOGIN);
         // 登录成功后跳转的 url
-        shiroFilterFactoryBean.setSuccessUrl(URIConstant.INDEX);
+        shiroFilterFactoryBean.setSuccessUrl(URIConstant.SUCCESS);
         // 未授权 url
         shiroFilterFactoryBean.setUnauthorizedUrl(URIConstant.UNAUTHORIZED);
-        LinkedHashMap<String, String> filterChainDefinitionMap
-                = URIConstant.unauthorized.stream().collect(
-                        Collectors.toMap(url -> url, url -> "anon", (a, b)->b, LinkedHashMap::new));
-        filterChainDefinitionMap.put(URIConstant.SUCCESS, "logout");
+        LinkedHashMap<String, String> filterChainDefinitionMap = URIConstant.unauthorized.stream()
+                .collect(Collectors.toMap(url -> url, url -> "anon", (a, b) -> b, LinkedHashMap::new));
+        filterChainDefinitionMap.put(URIConstant.LOGOUT, "logout");
         // 除登出以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
         filterChainDefinitionMap.put(URIConstant.ALL, "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -52,7 +51,7 @@ public class ShiroEarlyConfig {
      */
 
     @Bean
-    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;

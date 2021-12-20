@@ -18,7 +18,6 @@ import org.oes.biz.component.RedisClient;
 import org.oes.biz.component.SessionClient;
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
-import org.oes.common.constans.LogFileNameConstant;
 import org.oes.common.constans.OesConstant;
 import org.oes.common.constans.StringConstant;
 import org.oes.common.utils.StringUtils;
@@ -42,7 +41,6 @@ import java.util.List;
 public class ShiroRealm extends AuthorizingRealm {
 
     private static final Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogFileNameConstant.OES);
 
     @Value("${" + OesConstant.ENABLE_REDIS_CACHE + "}")
     private boolean enableRedisCache;
