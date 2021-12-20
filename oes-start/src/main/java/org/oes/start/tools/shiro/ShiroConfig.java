@@ -1,6 +1,8 @@
 package org.oes.start.tools.shiro;
 
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -18,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.Nullable;
 import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
@@ -69,7 +70,8 @@ public class ShiroConfig {
         return redisManager;
     }
 
-    private RedisCacheManager cacheManager() {
+    @Bean
+    public CacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setExpire((int) shiroSessionTimeout);
         redisCacheManager.setRedisManager(redisManager());
@@ -111,12 +113,11 @@ public class ShiroConfig {
      * @return DefaultWebSessionManager
      */
     @Bean
-    public DefaultWebSessionManager sessionManager(@Nullable RedisSessionDAO redisSessionDAO,
-                                                   @Nullable MemorySessionDAO memorySessionDAO) {
-        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+    public SessionManager sessionManager(SessionDAO sessionDAO) {
+        ShiroSessionManager sessionManager = new ShiroSessionManager();
         // 设置 session超时时间
         sessionManager.setGlobalSessionTimeout(shiroSessionTimeout * 1000L);
-        sessionManager.setSessionDAO(redisSessionDAO == null ? memorySessionDAO : redisSessionDAO);
+        sessionManager.setSessionDAO(sessionDAO);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }
@@ -133,14 +134,15 @@ public class ShiroConfig {
 
     @Bean
     public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm,
-                                           DefaultWebSessionManager sessionManager) {
+                                                     SessionManager sessionManager,
+                                                     CacheManager cacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 SecurityManager，并注入 shiroRealm
         securityManager.setRealm(shiroRealm);
         // 配置 shiro session管理器
         securityManager.setSessionManager(sessionManager);
         // 配置 缓存管理类 cacheManager
-        securityManager.setCacheManager(cacheManager());
+        securityManager.setCacheManager(cacheManager);
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;

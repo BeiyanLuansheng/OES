@@ -44,7 +44,7 @@ public class LoginController extends BaseController {
             boolean rememberMe, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String md5Password = MD5Utils.encrypt(phone.toLowerCase(), password);
-        UsernamePasswordToken token = new UsernamePasswordToken(phone, password, rememberMe);
+        UsernamePasswordToken token = new UsernamePasswordToken(phone, md5Password, rememberMe);
         super.login(token);
         return OesHttpResponse.getSuccess();
     }

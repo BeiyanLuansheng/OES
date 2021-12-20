@@ -1,5 +1,6 @@
 package org.oes.biz.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,7 +10,9 @@ import java.util.Set;
  * @author XuJian
  * @since 2021/12/08
  */
-public class User {
+public class User implements Serializable, Cloneable {
+
+    private static final long serialVersionUID = -4352868070794165001L;
 
     /**
      * 用户状态：有效
@@ -164,5 +167,14 @@ public class User {
 
     public void setPermissions(Set<String> permissions) {
         this.permissions = permissions;
+    }
+
+    public String getId() {
+        return phone;
+    }
+
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return (User) super.clone();
     }
 }

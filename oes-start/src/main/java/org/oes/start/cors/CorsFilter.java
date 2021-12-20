@@ -1,4 +1,4 @@
-package org.oes.start.cross;
+package org.oes.start.cors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +22,10 @@ import java.io.IOException;
  * @since 2021/12/16
  */
 @Component
-@WebFilter(urlPatterns = "/*", filterName = "CrossFilter")
-public class CrossFilter implements Filter {
+@WebFilter(urlPatterns = "/*", filterName = "CorsFilter")
+public class CorsFilter implements Filter {
 
-    private static final Logger logger = LoggerFactory.getLogger(CrossFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -42,7 +42,7 @@ public class CrossFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        logger.info("CrossFilter Config complete");
+        logger.info("CorsFilter Config complete");
     }
 
     @Override

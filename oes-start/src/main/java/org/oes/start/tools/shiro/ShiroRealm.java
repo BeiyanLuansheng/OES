@@ -1,5 +1,6 @@
 package org.oes.start.tools.shiro;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -9,6 +10,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -17,6 +19,7 @@ import org.oes.biz.component.RedisClient;
 import org.oes.biz.component.SessionClient;
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
+import org.oes.common.constans.LogFileNameConstant;
 import org.oes.common.constans.OesConstant;
 import org.oes.common.constans.StringConstant;
 import org.oes.common.utils.StringUtils;
@@ -26,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -39,6 +43,7 @@ import java.util.List;
 public class ShiroRealm extends AuthorizingRealm {
 
     private static final Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogFileNameConstant.OES);
 
     @Value("${" + OesConstant.ENABLE_REDIS_CACHE + "}")
     private boolean enableRedisCache;
@@ -49,6 +54,16 @@ public class ShiroRealm extends AuthorizingRealm {
     private SessionClient sessionClient;
     @Resource
     private RedisClient redisClient;
+    @Resource
+    private CacheManager cacheManager;
+
+    @PostConstruct
+    private void initConfig() {
+        setAuthenticationCachingEnabled(false);
+        setAuthorizationCachingEnabled(true);
+        setCachingEnabled(true);
+        setCacheManager(cacheManager);
+    }
 
     /**
      * 授权模块，获取用户角色和权限
@@ -97,11 +112,6 @@ public class ShiroRealm extends AuthorizingRealm {
     public void onLogout(PrincipalCollection principals) {
         super.onLogout(principals);
         if (enableRedisCache) {
-            User principal = (User) principals.getPrimaryPrincipal();
-            String key = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX + ShiroRealm.class.getName()
-                    + StringConstant.DOT + "authenticationCache" + StringConstant.COLON + principal.getUserId();
-            redisClient.del(key);
-            logger.info("async clean up user cache fragment,cache key: [{}]", key);
             this.cleanCacheFragment(principals);
         }
     }

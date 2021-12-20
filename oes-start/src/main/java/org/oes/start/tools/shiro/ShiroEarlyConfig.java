@@ -4,6 +4,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.oes.common.constans.URIConstant;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -32,7 +33,7 @@ public class ShiroEarlyConfig {
         // 登录的 url
         shiroFilterFactoryBean.setLoginUrl(URIConstant.LOGIN);
         // 登录成功后跳转的 url
-        shiroFilterFactoryBean.setSuccessUrl(URIConstant.SUCCESS);
+        shiroFilterFactoryBean.setSuccessUrl(URIConstant.INDEX);
         // 未授权 url
         shiroFilterFactoryBean.setUnauthorizedUrl(URIConstant.UNAUTHORIZED);
         LinkedHashMap<String, String> filterChainDefinitionMap
@@ -43,6 +44,18 @@ public class ShiroEarlyConfig {
         filterChainDefinitionMap.put(URIConstant.ALL, "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
+    }
+
+    /**
+     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions)
+     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     */
+
+    @Bean
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
     }
 
     @Bean

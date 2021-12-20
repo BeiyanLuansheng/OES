@@ -8,9 +8,9 @@ package org.oes.common.enums;
  */
 public enum RoleEnum {
 
-    STUDENT(1L, "学生"),
-    TEACHER(2L, "教师"),
-    ADMINISTRATOR(3L, "管理员");
+    ADMINISTRATOR(10001L, "管理员"),
+    TEACHER(10002L, "教师"),
+    STUDENT(10003L, "学生");
 
     private final Long id;
     private final String desc;

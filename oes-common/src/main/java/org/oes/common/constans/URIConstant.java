@@ -18,6 +18,8 @@ public class URIConstant {
 
     public static final String LOGIN = "/login";
 
+    public static final String INDEX = "index";
+
     public static final String REGISTER = "/register";
 
     public static final String UNAUTHORIZED = "/unauthorized";
@@ -43,5 +45,7 @@ public class URIConstant {
         unauthorized.add(UNAUTHORIZED);
         unauthorized.add(LOGOUT);
         unauthorized.add(SUCCESS);
+
+        unauthorized.add(GATE);
     }
 }
