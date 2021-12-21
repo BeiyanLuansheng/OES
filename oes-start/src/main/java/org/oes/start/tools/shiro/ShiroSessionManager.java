@@ -11,6 +11,9 @@ import java.io.Serializable;
 
 public class ShiroSessionManager extends DefaultWebSessionManager {
 
+    /**
+     * 在请求头中增加 Authorization 字段，用于认证用户
+     */
     private static final String AUTHORIZATION = "Authorization";
 
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
