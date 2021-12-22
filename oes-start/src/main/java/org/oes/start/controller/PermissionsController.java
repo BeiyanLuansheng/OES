@@ -3,7 +3,7 @@ package org.oes.start.controller;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Permissions;
 import org.oes.biz.service.PermissionsService;
-import org.oes.common.constans.URIConstant;
+import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @since 2021/12/13
  */
 @RestController
-@RequestMapping(URIConstant.PERMISSIONS)
+@RequestMapping(URIs.PERMISSIONS)
 public class PermissionsController {
 
     @Resource

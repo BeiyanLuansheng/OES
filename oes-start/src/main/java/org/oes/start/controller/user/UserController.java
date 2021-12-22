@@ -1,11 +1,12 @@
-package org.oes.start.controller;
+package org.oes.start.controller.user;
 
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
-import org.oes.common.constans.URIConstant;
+import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.utils.MD5Utils;
 import org.oes.common.utils.StringUtils;
+import org.oes.start.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2021/12/09
  */
 @RestController
-@RequestMapping(URIConstant.USER)
+@RequestMapping(URIs.USER)
 public class UserController extends BaseController {
 
     @Resource

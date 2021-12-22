@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import java.util.HashMap;
 
 /**
+ * 对前端的请求做出响应
+ *
  * @author XuJian
  * @since 2021/12/07
  */

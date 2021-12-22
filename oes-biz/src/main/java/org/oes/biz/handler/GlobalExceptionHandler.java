@@ -1,6 +1,8 @@
 package org.oes.biz.handler;
 
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.common.exception.OesControllerException;
 import org.oes.common.exception.OesException;
 import org.oes.common.exception.OesServiceException;
 import org.slf4j.Logger;
@@ -38,6 +40,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public OesHttpResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         logger.error("服务名或方法错误，不受支持", e);
+        return OesHttpResponse.getFailure(e.getMessage());
+    }
+
+    /* ======================= 用户错误操作导致的警告 ============================ */
+
+    @ExceptionHandler(value = IncorrectCredentialsException.class)
+    public OesHttpResponse handlerIncorrectCredentialsException(IncorrectCredentialsException e) {
+        logger.warn("用户登录信息校验失败", e);
+        return OesHttpResponse.getFailure(e.getMessage());
+    }
+
+    @ExceptionHandler(value = OesControllerException.class)
+    public OesHttpResponse handlerOesControllerException(OesControllerException e) {
+        logger.warn("信息校验失败", e);
         return OesHttpResponse.getFailure(e.getMessage());
     }
 }

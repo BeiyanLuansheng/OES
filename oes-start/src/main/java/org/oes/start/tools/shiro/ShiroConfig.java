@@ -8,12 +8,11 @@ import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.oes.common.constans.OesConstant;
-import org.oes.common.constans.StringConstant;
+import org.oes.common.constans.Strings;
 import org.oes.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +60,7 @@ public class ShiroConfig {
      */
     private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost(host + StringConstant.COLON + port);
+        redisManager.setHost(host + Strings.COLON + port);
         if (StringUtils.isNotBlank(password)) {
             redisManager.setPassword(password);
         }

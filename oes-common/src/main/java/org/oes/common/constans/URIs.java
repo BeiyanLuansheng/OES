@@ -9,7 +9,7 @@ import java.util.List;
  * @author XuJian
  * @since 2021/12/17
  */
-public class URIConstant {
+public class URIs {
 
     public static final String GATE = "/gate";
     public static final String TEST = "/test";
@@ -25,6 +25,17 @@ public class URIConstant {
      * 注册
      */
     public static final String REGISTER = "/register";
+
+    /**
+     * 忘记密码
+     */
+    public static final String FORGET = "/forget";
+
+    /**
+     * 验证手机验证码
+     */
+    public static final String VERIFICATION = "/verification";
+
 
     /**
      * 未授权

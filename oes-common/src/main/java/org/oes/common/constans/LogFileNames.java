@@ -6,7 +6,7 @@ package org.oes.common.constans;
  * @author XuJian
  * @since 2021/12/02
  */
-public interface LogFileNameConstant {
+public interface LogFileNames {
 
-    public static final String OES = "oesLogger";
+    String OES = "oesLogger";
 }

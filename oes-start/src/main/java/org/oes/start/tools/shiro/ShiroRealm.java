@@ -19,7 +19,7 @@ import org.oes.biz.component.SessionClient;
 import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
 import org.oes.common.constans.OesConstant;
-import org.oes.common.constans.StringConstant;
+import org.oes.common.constans.Strings;
 import org.oes.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,7 +117,7 @@ public class ShiroRealm extends AuthorizingRealm {
     public void cleanCacheFragment(PrincipalCollection principals) {
         User principal = (User) principals.getPrimaryPrincipal();
         String key = RedisCacheManager.DEFAULT_CACHE_KEY_PREFIX + ShiroRealm.class.getName()
-                + StringConstant.DOT + "authenticationCache" + StringConstant.COLON + principal.getUserId();
+                + Strings.DOT + "authenticationCache" + Strings.COLON + principal.getUserId();
         redisClient.del(key);
         logger.info("async clean up user cache fragment,cache key: [{}]", key);
     }

@@ -10,6 +10,10 @@ public class OesException extends RuntimeException  {
 
     private static final long serialVersionUID = -994962710559017255L;
 
+    public OesException() {
+        super();
+    }
+
     public OesException(String message) {
         super(message);
     }

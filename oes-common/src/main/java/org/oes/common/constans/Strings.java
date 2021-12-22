@@ -6,7 +6,7 @@ package org.oes.common.constans;
  * @author XuJian
  * @since 2021/12/14
  */
-public interface StringConstant {
+public interface Strings {
 
     String DOT = ".";
     String COLON = ":";

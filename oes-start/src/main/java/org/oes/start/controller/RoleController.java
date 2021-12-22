@@ -5,7 +5,7 @@ import org.oes.biz.entity.Role;
 import org.oes.biz.entity.RolePermissions;
 import org.oes.biz.service.RolePermissionsService;
 import org.oes.biz.service.RoleService;
-import org.oes.common.constans.URIConstant;
+import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @since 2021/12/13
  */
 @RestController
-@RequestMapping(URIConstant.ROLE)
+@RequestMapping(URIs.ROLE)
 public class RoleController {
 
     @Resource
@@ -60,14 +60,14 @@ public class RoleController {
 
     /* =========================== 角色权限设置 =============================== */
 
-    @RequestMapping(value = URIConstant.PERMISSIONS, method = RequestMethod.POST)
+    @RequestMapping(value = URIs.PERMISSIONS, method = RequestMethod.POST)
     @RequiresPermissions("role:perms:add")
     public OesHttpResponse addPermissions(@RequestBody RolePermissions rolePermissions) {
         rolePermissionsService.createRolePermissions(rolePermissions);
         return OesHttpResponse.getSuccess();
     }
 
-    @RequestMapping(value = URIConstant.PERMISSIONS, method = RequestMethod.DELETE)
+    @RequestMapping(value = URIs.PERMISSIONS, method = RequestMethod.DELETE)
     @RequiresPermissions("role:perms:remove")
     public OesHttpResponse removePermissions(@RequestBody RolePermissions rolePermissions) {
         rolePermissionsService.removeRolePermissions(rolePermissions);

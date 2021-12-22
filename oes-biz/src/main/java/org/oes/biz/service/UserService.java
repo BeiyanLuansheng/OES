@@ -19,6 +19,14 @@ public interface UserService {
     boolean register(String phone, String password);
 
     /**
+     * 判断手机号是否被注册过了
+     *
+     * @param phone 手机号
+     * @return 注册过为 true，否则为 false
+     */
+    boolean isRegistered(String phone);
+
+    /**
      * 查找用户的角色、权限信息并填入
      *
      * @param user 需要查找的用户

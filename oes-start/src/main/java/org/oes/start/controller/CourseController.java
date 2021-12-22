@@ -3,8 +3,8 @@ package org.oes.start.controller;
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Course;
 import org.oes.biz.service.CourseService;
-import org.oes.common.constans.LogFileNameConstant;
-import org.oes.common.constans.URIConstant;
+import org.oes.common.constans.LogFileNames;
+import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +20,10 @@ import javax.annotation.Resource;
  * @since 2021/12/08
  */
 @RestController
-@RequestMapping(URIConstant.COURSE)
+@RequestMapping(URIs.COURSE)
 public class CourseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LogFileNameConstant.OES);
+    private static final Logger logger = LoggerFactory.getLogger(LogFileNames.OES);
 
     @Resource
     private CourseService courseService;

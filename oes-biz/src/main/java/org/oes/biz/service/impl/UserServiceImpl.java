@@ -73,8 +73,13 @@ public class UserServiceImpl implements UserService {
         user.setPhone(phone);
         user.setPassword(MD5Utils.encrypt(phone, password));
         user.setRoleId(RoleEnum.STUDENT.getCode());
-        createUser(user);
+        this.createUser(user);
         return true;
+    }
+
+    @Override
+    public boolean isRegistered(String phone) {
+        return this.findByPhone(phone) != null;
     }
 
     @Override
