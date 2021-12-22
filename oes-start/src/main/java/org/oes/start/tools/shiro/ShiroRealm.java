@@ -20,6 +20,7 @@ import org.oes.biz.entity.User;
 import org.oes.biz.service.UserService;
 import org.oes.common.constans.OesConstant;
 import org.oes.common.constans.Strings;
+import org.oes.common.enums.UserStatusEnum;
 import org.oes.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +97,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user == null || !StringUtils.isEquals(password, user.getPassword())) {
             throw new IncorrectCredentialsException("手机号或密码错误！");
         }
-        if (User.STATUS_LOCK.equals(user.getStatus())) {
+        if (UserStatusEnum.LOCK.getCode().equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定，请联系客服！");
         }
         return new SimpleAuthenticationInfo(user, password, getName());

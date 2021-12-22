@@ -36,7 +36,6 @@ public class URIs {
      */
     public static final String VERIFICATION = "/verification";
 
-
     /**
      * 未授权
      */

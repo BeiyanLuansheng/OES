@@ -14,15 +14,6 @@ public class User implements Serializable, Cloneable {
 
     private static final long serialVersionUID = -3599921247064898178L;
 
-    /**
-     * 用户状态：有效
-     */
-    public static final String STATUS_VALID = "1";
-    /**
-     * 用户状态：锁定
-     */
-    public static final String STATUS_LOCK = "0";
-
     private Long userId;
 
     private String userName;

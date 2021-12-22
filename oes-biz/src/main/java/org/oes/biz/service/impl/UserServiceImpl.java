@@ -7,6 +7,7 @@ import org.oes.biz.service.PermissionsService;
 import org.oes.biz.service.RoleService;
 import org.oes.biz.service.UserService;
 import org.oes.common.enums.RoleEnum;
+import org.oes.common.enums.UserStatusEnum;
 import org.oes.common.utils.MD5Utils;
 import org.oes.common.utils.StringUtils;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,7 @@ public class UserServiceImpl implements UserService {
         user.setPhone(phone);
         user.setPassword(MD5Utils.encrypt(phone, password));
         user.setRoleId(RoleEnum.STUDENT.getCode());
+        user.setStatus(UserStatusEnum.VALID.getCode());
         this.createUser(user);
         return true;
     }
