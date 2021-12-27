@@ -13,7 +13,7 @@ public interface PhoneVerificationService {
      *
      * @param phone 手机号
      */
-    void sendVerificationCode(String phone);
+    int sendVerificationCode(String phone);
 
     /**
      * 验证手机号的验证码

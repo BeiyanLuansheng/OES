@@ -13,6 +13,11 @@ public interface OesConstant {
      */
     String OES_THREAD_POOL = "OesThreadPool";
 
+    /**
+     * 手机验证码存储前缀
+     */
+    String VERIFICATION_PREFIX = "VERIFICATION_";
+
     /* ===================== 配置常量 ================ */
     String ENABLE_REDIS_CACHE = "oes.enable-redis-cache";
 }

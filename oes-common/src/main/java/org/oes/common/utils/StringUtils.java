@@ -32,4 +32,15 @@ public class StringUtils {
     public static String lowerCase(String str) {
         return str == null ? null : str.toLowerCase();
     }
+
+    public static boolean isEqualsIgnoreCase(String a, String b) {
+        if (isBlank(a) && isBlank(b)) {
+            return true;
+        }
+        if (isNotBlank(a)) {
+            return a.toLowerCase().equals(b);
+        } else {
+            return b.toLowerCase().equals(a);
+        }
+    }
 }
