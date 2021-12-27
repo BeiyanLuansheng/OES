@@ -1,8 +1,9 @@
-package org.oes.start.controller;
+package org.oes.start.controller.admin;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Permissions;
 import org.oes.biz.service.PermissionsService;
+import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,28 +28,28 @@ public class PermissionsController {
     private PermissionsService permissionsService;
 
     @RequestMapping(method = RequestMethod.POST)
-    @RequiresPermissions("permissions:add")
+    @RequiresPermissions(ShiroPerms.PERMISSIONS_ADD)
     public OesHttpResponse createPermissions(@RequestBody Permissions permissions) {
         permissionsService.createPermissions(permissions);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    @RequiresPermissions("permissions:delete")
+    @RequiresPermissions(ShiroPerms.PERMISSIONS_DEL)
     public OesHttpResponse deletePermissions(@PathVariable Long id) {
         permissionsService.deletePermissionsById(id);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    @RequiresPermissions("permissions:update")
+    @RequiresPermissions(ShiroPerms.PERMISSIONS_UPDATE)
     public OesHttpResponse fullUpdatePermissions(@RequestBody Permissions permissions) {
         permissionsService.updatePermissionsById(permissions, true);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PATCH)
-    @RequiresPermissions("permissions:update")
+    @RequiresPermissions(ShiroPerms.PERMISSIONS_UPDATE)
     public OesHttpResponse updatePermissions(@RequestBody Permissions permissions) {
         permissionsService.updatePermissionsById(permissions, false);
         return OesHttpResponse.getSuccess();

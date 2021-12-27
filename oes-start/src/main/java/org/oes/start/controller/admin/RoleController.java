@@ -1,10 +1,11 @@
-package org.oes.start.controller;
+package org.oes.start.controller.admin;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Role;
 import org.oes.biz.entity.RolePermissions;
 import org.oes.biz.service.RolePermissionsService;
 import org.oes.biz.service.RoleService;
+import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,28 +32,28 @@ public class RoleController {
     private RolePermissionsService rolePermissionsService;
 
     @RequestMapping(method = RequestMethod.POST)
-    @RequiresPermissions("role:add")
+    @RequiresPermissions(ShiroPerms.ROLE_ADD)
     public OesHttpResponse createRole(@RequestBody Role role) {
         roleService.createRole(role);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    @RequiresPermissions("role:delete")
+    @RequiresPermissions(ShiroPerms.ROLE_DEL)
     public OesHttpResponse deleteRole(@PathVariable Long id) {
         roleService.deleteRoleById(id);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    @RequiresPermissions("role:update")
+    @RequiresPermissions(ShiroPerms.ROLE_UPDATE)
     public OesHttpResponse fullUpdateRole(@RequestBody Role role) {
         roleService.updateRoleById(role, true);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PATCH)
-    @RequiresPermissions("role:update")
+    @RequiresPermissions(ShiroPerms.ROLE_UPDATE)
     public OesHttpResponse updateRole(@RequestBody Role role) {
         roleService.updateRoleById(role, false);
         return OesHttpResponse.getSuccess();
@@ -61,14 +62,14 @@ public class RoleController {
     /* =========================== 角色权限设置 =============================== */
 
     @RequestMapping(value = URIs.PERMISSIONS, method = RequestMethod.POST)
-    @RequiresPermissions("role:perms:add")
+    @RequiresPermissions(ShiroPerms.ROLE_PERMS_ADD)
     public OesHttpResponse addPermissions(@RequestBody RolePermissions rolePermissions) {
         rolePermissionsService.createRolePermissions(rolePermissions);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = URIs.PERMISSIONS, method = RequestMethod.DELETE)
-    @RequiresPermissions("role:perms:remove")
+    @RequiresPermissions(ShiroPerms.ROLE_PERMS_DEL)
     public OesHttpResponse removePermissions(@RequestBody RolePermissions rolePermissions) {
         rolePermissionsService.removeRolePermissions(rolePermissions);
         return OesHttpResponse.getSuccess();
