@@ -100,6 +100,8 @@ public class LoginController extends BaseController {
         String phone = params.get(ParamKeys.PHONE);
         String code = params.get(ParamKeys.CODE);
         phoneVerificationService.codeVerification(phone, code);
+        // 在数据库中注册
+        userService.register(phone);
         return OesHttpResponse.getSuccess();
     }
 

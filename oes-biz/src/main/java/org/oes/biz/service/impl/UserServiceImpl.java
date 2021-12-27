@@ -27,6 +27,11 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
+    /**
+     * 默认密码
+     */
+    private static final String DEFAULT_PASSWORD = "DEFAULT_PASSWORD";
+
     @Resource
     private UserMapper userMapper;
     @Resource
@@ -57,26 +62,21 @@ public class UserServiceImpl implements UserService {
         return userMapper.findByPhone(phone);
     }
 
-    /* ================== 登录相关 ================= */
+    /* ================== 登录注册相关 ================= */
 
     @Override
-    public boolean login(String phone, String password) {
-        User user = findByPhone(phone);
-        if (user != null) {
-            return StringUtils.isEquals(user.getPassword(), password);
-        }
-        return false;
+    public void register(String phone) {
+        register(phone, DEFAULT_PASSWORD);
     }
 
     @Override
-    public boolean register(String phone,String password) {
+    public void register(String phone,String password) {
         User user = new User();
         user.setPhone(phone);
         user.setPassword(MD5Utils.encrypt(phone, password));
         user.setRoleId(RoleEnum.STUDENT.getCode());
-        user.setStatus(UserStatusEnum.VALID.getCode());
+        user.setStatus(UserStatusEnum.WAITING_FOR_PASSWORD.getCode());
         this.createUser(user);
-        return true;
     }
 
     @Override

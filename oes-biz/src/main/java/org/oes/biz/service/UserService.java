@@ -14,9 +14,20 @@ public interface UserService {
 
     User findByPhone(String phone);
 
-    boolean login(String phone, String password);
+    /**
+     * 使用默认密码注册
+     *
+     * @param phone 手机号
+     */
+    void register(String phone);
 
-    boolean register(String phone, String password);
+    /**
+     * 使用默认密码注册
+     *
+     * @param phone 手机号
+     * @param password 密码
+     */
+    void register(String phone, String password);
 
     /**
      * 判断手机号是否被注册过了
