@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.UserMapper" >
     <insert id="insert" parameterType="user">
-        insert into user(user_name, password, role_id, phone, avatar, school, sex, description, gmt_create, gmt_modified, status)
+        insert into user(user_name, password, role_id, email, phone, avatar, school, sex, description, gmt_create, gmt_modified, status)
         values (#{user.phone, jdbcType=VARCHAR},
                 #{user.password, jdbcType=VARCHAR},
                 #{user.roleId, jdbcType=BIGINT},
+                #{user.email, jdbcType=VARCHAR},
                 #{user.phone, jdbcType=VARCHAR},
                 #{user.avatar, jdbcType=VARCHAR},
                 #{user.school, jdbcType=VARCHAR},
@@ -16,10 +17,10 @@
                 #{user.status, jdbcType=VARCHAR})
     </insert>
 
-    <update id="updateByPhone" parameterType="user">
+    <update id="updateByEmail" parameterType="user">
         update user u
         set u.password=#{user.password, jdbcType=VARCHAR}, u.gmt_modified=#{user.gmtModified, jdbcType=TIMESTAMP}
-        where u.phone=#{user.phone}
+        where u.phone=#{user.Email}
     </update>
 
     <select id="findByPhone" parameterType="String" resultType="user">
@@ -27,6 +28,7 @@
                u.user_name,
                u.password,
                u.role_id,
+               u.email,
                u.phone,
                u.avatar,
                u.school,
@@ -36,5 +38,22 @@
                u.gmt_modified,
                u.status
         from user u where phone=#{phone}
+    </select>
+
+    <select id="findByEmail" parameterType="String" resultType="user">
+        select u.user_id,
+               u.user_name,
+               u.password,
+               u.role_id,
+               u.email,
+               u.phone,
+               u.avatar,
+               u.school,
+               u.sex,
+               u.description,
+               u.gmt_create,
+               u.gmt_modified,
+               u.status
+        from user u where email=#{email}
     </select>
 </mapper>

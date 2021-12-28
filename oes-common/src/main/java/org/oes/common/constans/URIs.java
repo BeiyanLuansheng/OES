@@ -34,7 +34,12 @@ public class URIs {
     /**
      * 验证手机验证码
      */
-    public static final String VERIFICATION = "/verification";
+    public static final String PHONE_VERIFICATION = "/phone";
+
+    /**
+     * 验证邮箱验证码
+     */
+    public static final String EMAIL_VERIFICATION = "/email";
 
     /**
      * 未授权

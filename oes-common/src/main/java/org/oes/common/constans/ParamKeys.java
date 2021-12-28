@@ -9,6 +9,7 @@ package org.oes.common.constans;
 public interface ParamKeys {
 
     String PHONE = "phone";
+    String EMAIL = "email";
     String PWD = "password";
     String REMEMBER = "rememberMe";
     String CODE = "verification";

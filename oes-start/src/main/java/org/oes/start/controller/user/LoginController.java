@@ -1,7 +1,7 @@
 package org.oes.start.controller.user;
 
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.oes.biz.service.PhoneVerificationService;
+import org.oes.biz.service.VerificationService;
 import org.oes.biz.service.UserService;
 import org.oes.common.constans.ParamKeys;
 import org.oes.common.constans.URIs;
@@ -32,7 +32,7 @@ public class LoginController extends BaseController {
     @Resource
     private UserService userService;
     @Resource
-    private PhoneVerificationService phoneVerificationService;
+    private VerificationService verificationService;
 
     /**
      * 登录
@@ -45,11 +45,11 @@ public class LoginController extends BaseController {
 //    @Limit(key = "login", period = 60, count = 10, name = "登录接口", prefix = "limit")
     public OesHttpResponse login(@RequestBody Map<String, Object> params, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String phone = (String) params.get(ParamKeys.PHONE);
+        String email = (String) params.get(ParamKeys.EMAIL);
         String password = (String) params.get(ParamKeys.PWD);
         boolean rememberMe = !params.containsKey(ParamKeys.REMEMBER) || (boolean) params.get(ParamKeys.REMEMBER);
-        String md5Password = MD5Utils.encrypt(phone.toLowerCase(), password);
-        UsernamePasswordToken token = new UsernamePasswordToken(phone, md5Password, rememberMe);
+        String md5Password = MD5Utils.encrypt(email.toLowerCase(), password);
+        UsernamePasswordToken token = new UsernamePasswordToken(email, md5Password, rememberMe);
         super.login(token);
         return OesHttpResponse.getSuccess();
     }
@@ -57,51 +57,70 @@ public class LoginController extends BaseController {
     /**
      * 发起注册
      *
-     * @param params 用户填入的手机号
+     * @param params 用户填入的邮箱
      * @return 注册成功返回200，失败抛出异常
      */
     @RequestMapping(path = URIs.REGISTER, method = RequestMethod.POST)
     public OesHttpResponse register(@RequestBody Map<String, String> params) {
-        String phone = params.get(ParamKeys.PHONE);
-        if (userService.isRegistered(phone)) {
-            throw new OesControllerException("该手机号已被注册过，不能重复注册");
+        String email = params.get(ParamKeys.EMAIL);
+        if (userService.isEmailRegistered(email)) {
+            throw new OesControllerException("该邮箱已被注册过，不能重复注册");
         }
-        phoneVerificationService.sendVerificationCode(phone);
+        verificationService.sendEmailVerificationCode(email);
         return OesHttpResponse.getSuccess();
     }
 
     /**
      * 忘记密码，获取验证码以重新设置密码
      *
-     * @param params 手机号
+     * @param params 邮箱
      * @return 获取成功返回200，失败抛出异常
      */
     @RequestMapping(path = URIs.FORGET, method = RequestMethod.POST)
     public OesHttpResponse forgetPassword(@RequestBody Map<String, String> params) {
-        String phone = params.get(ParamKeys.PHONE);
-        if (!userService.isRegistered(phone)) {
-            throw new OesControllerException("该手机号未注册");
+        String email = params.get(ParamKeys.EMAIL);
+        if (!userService.isEmailRegistered(email)) {
+            throw new OesControllerException("该邮箱未注册");
         }
-        phoneVerificationService.sendVerificationCode(phone);
+        verificationService.sendEmailVerificationCode(email);
         return OesHttpResponse.getSuccess();
     }
 
     /**
-     * 验证验证码
-     * - 初次注册
+     * 验证手机验证码
+     * - 初次绑定
      * - 忘记密码
      * - 修改密码（可选）
      *
      * @param params 手机号和收到的验证码
      * @return 验证成功返回200，失败抛出异常
      */
-    @RequestMapping(path = URIs.VERIFICATION, method = RequestMethod.POST)
+    @RequestMapping(path = URIs.PHONE_VERIFICATION, method = RequestMethod.POST)
     public OesHttpResponse phoneVerification(@RequestBody Map<String, String> params) {
         String phone = params.get(ParamKeys.PHONE);
         String code = params.get(ParamKeys.CODE);
-        phoneVerificationService.codeVerification(phone, code);
+        verificationService.codeVerification(phone, code);
         // 在数据库中注册
         userService.register(phone);
+        return OesHttpResponse.getSuccess();
+    }
+
+    /**
+     * 验证邮箱验证码
+     * - 初次绑定
+     * - 忘记密码
+     * - 修改密码（可选）
+     *
+     * @param params 手机号和收到的验证码
+     * @return 验证成功返回200，失败抛出异常
+     */
+    @RequestMapping(path = URIs.EMAIL_VERIFICATION, method = RequestMethod.POST)
+    public OesHttpResponse emailVerification(@RequestBody Map<String, String> params) {
+        String email = params.get(ParamKeys.EMAIL);
+        String code = params.get(ParamKeys.CODE);
+        verificationService.codeVerification(email, code);
+        // 在数据库中注册
+        userService.register(email);
         return OesHttpResponse.getSuccess();
     }
 

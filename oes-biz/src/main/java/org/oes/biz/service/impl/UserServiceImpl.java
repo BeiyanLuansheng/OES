@@ -49,39 +49,48 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updatePassword(String phone, String password) {
+    public void updatePassword(String email, String password) {
         User user = new User();
-        user.setPhone(phone);
-        user.setPassword(MD5Utils.encrypt(phone, password));
+        user.setEmail(email);
+        user.setPassword(MD5Utils.encrypt(email, password));
         user.setGmtModified(new Date());
-        userMapper.updateByPhone(user);
+        userMapper.updateByEmail(user);
     }
 
     @Override
     public User findByPhone(String phone) {
         return userMapper.findByPhone(phone);
     }
+    @Override
+    public User findByEmail(String email) {
+        return userMapper.findByEmail(email);
+    }
 
     /* ================== 登录注册相关 ================= */
 
     @Override
-    public void register(String phone) {
-        register(phone, DEFAULT_PASSWORD);
+    public boolean isPhoneRegistered(String phone) {
+        return this.findByPhone(phone) != null;
     }
 
     @Override
-    public void register(String phone,String password) {
+    public boolean isEmailRegistered(String email) {
+        return this.findByEmail(email) != null;
+    }
+
+    @Override
+    public void register(String email) {
+        register(email, DEFAULT_PASSWORD);
+    }
+
+    @Override
+    public void register(String email,String password) {
         User user = new User();
-        user.setPhone(phone);
-        user.setPassword(MD5Utils.encrypt(phone, password));
+        user.setEmail(email);
+        user.setPassword(MD5Utils.encrypt(email, password));
         user.setRoleId(RoleEnum.STUDENT.getCode());
         user.setStatus(UserStatusEnum.WAITING_FOR_PASSWORD.getCode());
         this.createUser(user);
-    }
-
-    @Override
-    public boolean isRegistered(String phone) {
-        return this.findByPhone(phone) != null;
     }
 
     @Override

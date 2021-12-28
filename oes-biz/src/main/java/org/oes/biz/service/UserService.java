@@ -8,26 +8,37 @@ import org.oes.biz.entity.User;
  */
 public interface UserService {
 
+    /**
+     * 创建用户信息记录
+     *
+     * @param user 用户信息
+     * @return 创建数量
+     */
     int createUser(User user);
 
-    void updatePassword(String phone, String password);
+    /**
+     * 更新密码
+     *
+     * @param email 邮箱
+     * @param password 变动后的密码
+     */
+    void updatePassword(String email, String password);
 
+    /**
+     * 根据手机号查找用户
+     *
+     * @param phone 手机号
+     * @return 不存在则为空
+     */
     User findByPhone(String phone);
 
     /**
-     * 使用默认密码注册
+     * 根据邮箱查找用户
      *
-     * @param phone 手机号
+     * @param email 又邮箱
+     * @return 不存在则为空
      */
-    void register(String phone);
-
-    /**
-     * 使用默认密码注册
-     *
-     * @param phone 手机号
-     * @param password 密码
-     */
-    void register(String phone, String password);
+    User findByEmail(String email);
 
     /**
      * 判断手机号是否被注册过了
@@ -35,7 +46,30 @@ public interface UserService {
      * @param phone 手机号
      * @return 注册过为 true，否则为 false
      */
-    boolean isRegistered(String phone);
+    boolean isPhoneRegistered(String phone);
+
+    /**
+     * 判断邮箱是否被注册过了
+     *
+     * @param email 邮箱
+     * @return 注册过为 true，否则为 false
+     */
+    boolean isEmailRegistered(String email);
+
+    /**
+     * 使用默认密码注册
+     *
+     * @param email 邮箱
+     */
+    void register(String email);
+
+    /**
+     * 使用默认密码注册
+     *
+     * @param email 邮箱
+     * @param password 密码
+     */
+    void register(String email, String password);
 
     /**
      * 查找用户的角色、权限信息并填入

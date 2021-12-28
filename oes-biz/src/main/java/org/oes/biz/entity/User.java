@@ -22,6 +22,8 @@ public class User implements Serializable, Cloneable {
 
     private Long roleId;
 
+    private String email;
+
     private String phone;
 
     private String avatar;
@@ -78,6 +80,14 @@ public class User implements Serializable, Cloneable {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhone() {
