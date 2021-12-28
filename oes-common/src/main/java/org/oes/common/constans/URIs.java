@@ -82,6 +82,8 @@ public class URIs {
     static {
         unauthorized.add(LOGIN);
         unauthorized.add(REGISTER);
+        unauthorized.add(PHONE_VERIFICATION);
+        unauthorized.add(EMAIL_VERIFICATION);
         unauthorized.add(UNAUTHORIZED);
         unauthorized.add(SUCCESS);
 

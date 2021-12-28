@@ -1,6 +1,7 @@
 .idea
 */target
 logs
+dump.rdb
 # 暂时不需要
 oes-common/src/main/java/org/oes/common/annotation
 oes-common/src/main/java/org/oes/common/condition

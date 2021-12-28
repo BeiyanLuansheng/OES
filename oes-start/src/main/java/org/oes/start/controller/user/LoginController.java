@@ -9,6 +9,8 @@ import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.exception.OesControllerException;
 import org.oes.common.utils.MD5Utils;
 import org.oes.start.controller.BaseController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,8 @@ import java.util.Map;
  */
 @RestController
 public class LoginController extends BaseController {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Resource
     private UserService userService;
@@ -118,6 +122,9 @@ public class LoginController extends BaseController {
     public OesHttpResponse emailVerification(@RequestBody Map<String, String> params) {
         String email = params.get(ParamKeys.EMAIL);
         String code = params.get(ParamKeys.CODE);
+        if (userService.isEmailRegistered(email)) {
+            throw new OesControllerException("该邮箱已被注册过，不能重复注册");
+        }
         verificationService.codeVerification(email, code);
         // 在数据库中注册
         userService.register(email);
