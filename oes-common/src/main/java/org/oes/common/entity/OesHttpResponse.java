@@ -58,4 +58,12 @@ public class OesHttpResponse extends HashMap<String, Object> {
     public static OesHttpResponse getFailure(String message, Object data) {
         return OesHttpResponse.getFailure(message).data(data);
     }
+
+    public static OesHttpResponse getUnauthorized() {
+        return OesHttpResponse.getUnauthorized("无权限");
+    }
+
+    public static OesHttpResponse getUnauthorized(String message) {
+        return new OesHttpResponse().code(HttpStatus.UNAUTHORIZED).message(message);
+    }
 }

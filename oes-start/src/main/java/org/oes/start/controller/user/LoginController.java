@@ -137,7 +137,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(path = URIs.UNAUTHORIZED, method = RequestMethod.GET)
     public OesHttpResponse unauthorized() {
-        return new OesHttpResponse().code(HttpStatus.UNAUTHORIZED).message("无权限");
+        return OesHttpResponse.getUnauthorized();
     }
 
     /**
@@ -145,7 +145,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(path = URIs.LOGIN, method = RequestMethod.GET)
     public OesHttpResponse login() {
-        return OesHttpResponse.getSuccess("请先登录");
+        return OesHttpResponse.getUnauthorized("请先登录");
     }
 
     /**
