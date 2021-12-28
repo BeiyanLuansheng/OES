@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.oes.biz.mapper.UserMapper" >
+<mapper namespace="org.oes.biz.mapper.UserMapper">
     <insert id="insert" parameterType="user">
-        insert into user(user_name, password, role_id, email, phone, avatar, school, sex, description, gmt_create, gmt_modified, status)
+        insert into user(user_name, password, role_id, email, phone, avatar, school, sex, description, gmt_create,
+                         gmt_modified, status)
         values (#{user.phone, jdbcType=VARCHAR},
                 #{user.password, jdbcType=VARCHAR},
                 #{user.roleId, jdbcType=BIGINT},
@@ -19,8 +20,88 @@
 
     <update id="updateByEmail" parameterType="user">
         update user u
-        set u.password=#{user.password, jdbcType=VARCHAR}, u.gmt_modified=#{user.gmtModified, jdbcType=TIMESTAMP}
-        where u.email=#{user.Email}
+        <set>
+            <if test="user.userId != null and user.userId > 0">
+                u.user_id = #{user.userId, jdbcType=BIGINT}
+            </if>
+            <if test="user.userName != null and user.userName != ''">
+                u.user_name = #{user.userName, jdbcType=VARCHAR}
+            </if>
+            <if test="user.password != null and user.password != ''">
+                u.password = #{user.password, jdbcType=VARCHAR}
+            </if>
+            <if test="user.roleId != null and user.roleId > 0">
+                u.role_id = #{user.roleId, jdbcType=BIGINT}
+            </if>
+            <if test="user.phone != null and user.phone != ''">
+                u.phone = #{user.phone, jdbcType=VARCHAR}
+            </if>
+            <if test="user.avatar != null and user.avatar != ''">
+                u.avatar = #{user.avatar, jdbcType=VARCHAR}
+            </if>
+            <if test="user.school != null and user.school != ''">
+                u.school = #{user.school, jdbcType=VARCHAR}
+            </if>
+            <if test="user.sex != null and user.sex != ''">
+                u.sex = #{user.sex, jdbcType=VARCHAR}
+            </if>
+            <if test="user.description != null and user.description != ''">
+                u.description = #{user.description, jdbcType=VARCHAR}
+            </if>
+            <if test="user.gmtCreate != null">
+                u.gmt_create = #{user.gmtCreate, jdbcType=TIMESTAMP}
+            </if>
+            <if test="user.gmtModified != null">
+                u.gmt_modified = #{user.gmtModified, jdbcType=TIMESTAMP}
+            </if>
+            <if test="user.status != null and user.status != ''">
+                u.status = #{user.status, jdbcType=VARCHAR}
+            </if>
+        </set>
+        where u.email=#{user.email}
+    </update>
+
+    <update id="updateById" parameterType="user">
+        update user u
+        <set>
+            <if test="user.userName != null and user.userName != ''">
+                u.user_name = #{user.userName, jdbcType=VARCHAR}
+            </if>
+            <if test="user.password != null and user.password != ''">
+                u.password = #{user.password, jdbcType=VARCHAR}
+            </if>
+            <if test="user.roleId != null and user.roleId > 0">
+                u.role_id = #{user.roleId, jdbcType=BIGINT}
+            </if>
+            <if test="user.phone != null and user.phone != ''">
+                u.phone = #{user.phone, jdbcType=VARCHAR}
+            </if>
+            <if test="user.email != null and user.email != ''">
+                u.email = #{user.email, jdbcType=VARCHAR}
+            </if>
+            <if test="user.avatar != null and user.avatar != ''">
+                u.avatar = #{user.avatar, jdbcType=VARCHAR}
+            </if>
+            <if test="user.school != null and user.school != ''">
+                u.school = #{user.school, jdbcType=VARCHAR}
+            </if>
+            <if test="user.sex != null and user.sex != ''">
+                u.sex = #{user.sex, jdbcType=VARCHAR}
+            </if>
+            <if test="user.description != null and user.description != ''">
+                u.description = #{user.description, jdbcType=VARCHAR}
+            </if>
+            <if test="user.gmtCreate != null">
+                u.gmt_create = #{user.gmtCreate, jdbcType=TIMESTAMP}
+            </if>
+            <if test="user.gmtModified != null">
+                u.gmt_modified = #{user.gmtModified, jdbcType=TIMESTAMP}
+            </if>
+            <if test="user.status != null and user.status != ''">
+                u.status = #{user.status, jdbcType=VARCHAR}
+            </if>
+        </set>
+        where u.user_id=#{user.userId}
     </update>
 
     <select id="findByPhone" parameterType="String" resultType="user">
@@ -37,7 +118,8 @@
                u.gmt_create,
                u.gmt_modified,
                u.status
-        from user u where phone=#{phone}
+        from user u
+        where phone = #{phone}
     </select>
 
     <select id="findByEmail" parameterType="String" resultType="user">
@@ -54,6 +136,7 @@
                u.gmt_create,
                u.gmt_modified,
                u.status
-        from user u where email=#{email}
+        from user u
+        where email = #{email}
     </select>
 </mapper>

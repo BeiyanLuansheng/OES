@@ -131,6 +131,20 @@ public class LoginController extends BaseController {
         return OesHttpResponse.getSuccess();
     }
 
+    /**
+     * 注册成功后首次设置密码
+     *
+     * @param params 邮箱和密码
+     * @return 成功返回200，失败抛出异常
+     */
+    @RequestMapping(path = URIs.PASSWORD, method = RequestMethod.POST)
+    public OesHttpResponse setPassword(@RequestBody Map<String, String> params) {
+        String email = params.get(ParamKeys.EMAIL);
+        String pwd = params.get(ParamKeys.PWD);
+        userService.updatePassword(email, pwd);
+        return OesHttpResponse.getSuccess();
+    }
+
     /* ============================ 异常行为跳转 =============================== */
     /**
      * 未授权

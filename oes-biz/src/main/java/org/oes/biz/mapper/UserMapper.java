@@ -13,6 +13,8 @@ public interface UserMapper {
 
     void updateByEmail(@Param("user") User user);
 
+    void updateById(@Param("user") User user);
+
     User findByPhone(@Param("phone") String phone);
 
     User findByEmail(@Param("email") String email);

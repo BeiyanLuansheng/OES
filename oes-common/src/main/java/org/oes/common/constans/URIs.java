@@ -42,6 +42,11 @@ public class URIs {
     public static final String EMAIL_VERIFICATION = "/email";
 
     /**
+     * 设置密码
+     */
+    public static final String PASSWORD = "/password";
+
+    /**
      * 未授权
      */
     public static final String UNAUTHORIZED = "/unauthorized";
@@ -75,6 +80,7 @@ public class URIs {
      * 课程操作
      */
     public static final String COURSE = "/course";
+
     /**
      *  免认证部分的URL
      */

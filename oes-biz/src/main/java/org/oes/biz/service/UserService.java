@@ -20,7 +20,7 @@ public interface UserService {
      * 更新密码
      *
      * @param email 邮箱
-     * @param password 变动后的密码
+     * @param password 变动后的密码 (未加密)
      */
     void updatePassword(String email, String password);
 

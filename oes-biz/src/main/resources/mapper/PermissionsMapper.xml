@@ -91,7 +91,7 @@
                p.gmt_create       gmtCreate,
                p.gmt_modified     gmtModified
         from permissions p
-                 right join role_permissions rp on (p.permissions_id = rp.permission_id)
+                 right join role_permissions rp on (p.permissions_id = rp.permissions_id)
         where rp.role_id = #{roleId, jdbcType=BIGINT}
     </select>
 </mapper>
