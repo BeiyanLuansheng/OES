@@ -20,7 +20,7 @@
     <update id="updateByEmail" parameterType="user">
         update user u
         set u.password=#{user.password, jdbcType=VARCHAR}, u.gmt_modified=#{user.gmtModified, jdbcType=TIMESTAMP}
-        where u.phone=#{user.Email}
+        where u.email=#{user.Email}
     </update>
 
     <select id="findByPhone" parameterType="String" resultType="user">
