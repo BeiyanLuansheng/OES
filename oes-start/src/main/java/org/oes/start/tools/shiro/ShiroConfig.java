@@ -109,7 +109,7 @@ public class ShiroConfig {
     /**
      * session 管理对象
      *
-     * @return DefaultWebSessionManager
+     * @return SessionManager
      */
     @Bean
     public SessionManager sessionManager(SessionDAO sessionDAO) {

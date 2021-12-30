@@ -88,14 +88,14 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        // 获取用户输入的手机号和密码
-        String phone = (String) token.getPrincipal();
+        // 获取用户输入的邮箱和密码
+        String email = (String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());
 
         // 通过用户名到数据库查询用户信息
-        User user = this.userService.findByPhone(phone);
+        User user = this.userService.findByEmail(email);
         if (user == null || !StringUtils.isEquals(password, user.getPassword())) {
-            throw new IncorrectCredentialsException("手机号或密码错误！");
+            throw new IncorrectCredentialsException("邮箱或密码错误！");
         }
         if (UserStatusEnum.LOCK.getCode().equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定，请联系客服！");
