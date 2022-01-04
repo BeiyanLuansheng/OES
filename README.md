@@ -16,6 +16,15 @@ spring:
       url: 
       username: 
       password: 
+  mail:
+    username:
+    password:
+
+oes:
+  minio:
+    endpoint: 
+    root-user: 
+    root-password: 
 ```
 
 设置成自己数据库的值
