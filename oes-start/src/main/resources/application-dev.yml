@@ -1,4 +1,10 @@
 spring:
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-file-size: 500MB
+      max-request-size: 500MB
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:

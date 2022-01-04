@@ -56,7 +56,7 @@ public class TestController {
     public String fileUp(@RequestParam("files") MultipartFile[] files) {
         JSONObject object=new JSONObject();
         for (MultipartFile file : files) {
-            fileService.uploadFile(file, null);
+            fileService.uploadFile(file, file.getOriginalFilename());
         }
         object.put("success",1);
         object.put("result","文件上传成功");
