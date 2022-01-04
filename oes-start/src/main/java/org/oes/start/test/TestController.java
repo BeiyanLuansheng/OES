@@ -2,6 +2,7 @@ package org.oes.start.test;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.oes.biz.config.OesBizConfig;
 import org.oes.biz.service.FileService;
 import org.oes.biz.service.MailService;
 import org.oes.biz.service.VerificationService;
@@ -32,6 +33,8 @@ public class TestController {
     VerificationService verificationService;
     @Resource
     FileService fileService;
+    @Resource
+    OesBizConfig oesBizConfig;
 
     @RequestMapping(path = URIs.TEST, method = RequestMethod.GET)
     @RequiresPermissions("perms:test")
@@ -40,9 +43,9 @@ public class TestController {
     }
 
     @GetMapping(URIs.GATE)
-    public String log() {
-        verificationService.sendEmailVerificationCode("beiyanluansheng@qq.com");
-        return "发送成功";
+    public String gate() {
+//        verificationService.sendEmailVerificationCode("beiyanluansheng@qq.com");
+        return oesBizConfig.getMinioEndpoint();
     }
 
     @RequestMapping(value = URIs.GATE, method = RequestMethod.POST)

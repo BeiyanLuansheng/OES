@@ -1,7 +1,7 @@
 package org.oes.biz.service.impl;
 
+import org.oes.biz.config.OesBizConfig;
 import org.oes.biz.service.MailService;
-import org.oes.common.config.BizConfigurations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,11 +17,13 @@ public class MailServiceImpl implements MailService {
 
     @Resource
     private JavaMailSender mailSender;
+    @Resource
+    private OesBizConfig oesBizConfig;
 
     @Override
     public void sendSimpleMail(String mailTo, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(BizConfigurations.mailFrom);
+        message.setFrom(oesBizConfig.getMailFrom());
         message.setTo(mailTo);
         message.setSubject(subject);
         message.setText(text);

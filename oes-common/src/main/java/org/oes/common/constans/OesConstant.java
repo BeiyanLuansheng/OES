@@ -19,7 +19,7 @@ public interface OesConstant {
     String VERIFICATION_PREFIX = "VERIFICATION_";
 
     /**
-     * 照片存储桶
+     * MinIO 的照片存储桶
      */
     String AVATARS_BUCKET = "avatars";
 
