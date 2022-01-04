@@ -1,4 +1,10 @@
 spring:
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-file-size: 500MB
+      max-request-size: 500MB
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -55,9 +61,21 @@ spring:
     # 连接超时时间（毫秒）
     timeout: 5000
 
+  # 邮件设置
+  mail:
+    host: smtp.qq.com
+    username: 941197279@qq.com
+    password: uvuxslkfwoxnbcbg
+    default-encoding: utf-8
+
 # 系统常量配置
 oes:
-  env: test
+  env: dev
+  enable-redis-cache: true
   shiro:
     session-timeout: 3600   # session 超时时间，单位为秒
     cookie-timeout: 864000  # rememberMe cookie有效时长，单位为秒
+  minio:
+    endpoint: http://192.168.1.9:9090
+    root-user: minioadmin
+    root-password: minioadmin
