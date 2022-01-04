@@ -10,4 +10,5 @@ public interface Strings {
 
     String DOT = ".";
     String COLON = ":";
+    String SLASH = "/";
 }

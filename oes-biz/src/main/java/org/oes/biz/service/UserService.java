@@ -17,12 +17,27 @@ public interface UserService {
     int createUser(User user);
 
     /**
+     * 根据ID更新用户信息
+     *
+     * @param user 待更新信息
+     */
+    void updateById(User user);
+
+    /**
      * 更新密码
      *
      * @param email 邮箱
      * @param password 变动后的密码 (未加密)
      */
     void updatePassword(String email, String password);
+
+    /**
+     * 根据Email更新头像
+     *
+     * @param email 邮箱
+     * @param avatar 头像链接
+     */
+    void updateAvatar(String email, String avatar);
 
     /**
      * 根据手机号查找用户

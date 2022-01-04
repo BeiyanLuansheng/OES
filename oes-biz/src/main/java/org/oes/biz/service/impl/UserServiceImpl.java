@@ -49,10 +49,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public void updateById(User user) {
+        userMapper.updateById(user);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updatePassword(String email, String password) {
         User user = new User();
         user.setEmail(email);
         user.setPassword(MD5Utils.encrypt(email, password));
+        user.setGmtModified(new Date());
+        userMapper.updateByEmail(user);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateAvatar(String email, String avatar) {
+        User user = new User();
+        user.setEmail(email);
+        user.setAvatar(avatar);
         user.setGmtModified(new Date());
         userMapper.updateByEmail(user);
     }
