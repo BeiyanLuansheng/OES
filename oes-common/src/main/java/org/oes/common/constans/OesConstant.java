@@ -18,6 +18,11 @@ public interface OesConstant {
      */
     String VERIFICATION_PREFIX = "VERIFICATION_";
 
+    /**
+     * 照片存储桶
+     */
+    String AVATARS_BUCKET = "avatars";
+
     /* ===================== 配置常量 ================ */
     String ENABLE_REDIS_CACHE = "oes.enable-redis-cache";
 }

@@ -67,6 +67,13 @@
             <artifactId>shiro-redis</artifactId>
         </dependency>
 
+
+        <!-- MinIO存储 -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

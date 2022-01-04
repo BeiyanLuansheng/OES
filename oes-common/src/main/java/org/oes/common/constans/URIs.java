@@ -94,5 +94,6 @@ public class URIs {
         unauthorized.add(SUCCESS);
 
         unauthorized.add(GATE);
+        unauthorized.add("/file/upload");
     }
 }
