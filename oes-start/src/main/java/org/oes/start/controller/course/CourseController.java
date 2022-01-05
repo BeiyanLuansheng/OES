@@ -1,6 +1,6 @@
 package org.oes.start.controller.course;
 
-//import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Course;
 import org.oes.biz.service.CourseService;
 import org.oes.common.constans.LogFileNames;
@@ -28,15 +28,22 @@ public class CourseController {
     @Resource
     private CourseService courseService;
 
-    @RequestMapping(path = "/view", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public OesHttpResponse viewCourse() {
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-//    @RequiresPermissions("course:add")
+    @RequiresPermissions("course:add")
     public OesHttpResponse createCourse(@RequestBody Course course) { // 必要时可以加 @Valid 校验参数
         courseService.createCourse(course);
+        return OesHttpResponse.getSuccess(course);
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH)
+    @RequiresPermissions("course:update")
+    public OesHttpResponse updateCourse(@RequestBody Course course) { // 必要时可以加 @Valid 校验参数
+        courseService.updateCourseById(course, false);
         return OesHttpResponse.getSuccess(course);
     }
 }

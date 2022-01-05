@@ -17,7 +17,22 @@ public class CourseServiceImpl implements CourseService {
     @Resource
     private CourseMapper courseMapper;
 
-    public int createCourse(Course course) {
-        return courseMapper.insert(course);
+    @Override
+    public void createCourse(Course course) {
+        courseMapper.insert(course);
+    }
+
+    @Override
+    public void deleteCourse(Course course) {
+        courseMapper.deleteById(course);
+    }
+
+    @Override
+    public void updateCourseById(Course course, boolean fullUpdate) {
+        if (fullUpdate) {
+            courseMapper.updateById(course);
+        } else {
+            courseMapper.fullUpdateById(course);
+        }
     }
 }

@@ -52,6 +52,18 @@ public class Course implements Serializable {
      */
     private Long price;
 
+    // 传递查询条件
+    private Date gmtCreateFrom;
+    private Date GmtCreateTo;
+    private Date gmtModifiedFrom;
+    private Date gmtModifiedTo;
+    private Date gmtStartFrom;
+    private Date gmtStartTo;
+    private Date gmtEndFrom;
+    private Date gmtEndTo;
+    private Long priceFrom;
+    private Long priceTo;
+
     public Long getCourseId() {
         return courseId;
     }
@@ -130,5 +142,85 @@ public class Course implements Serializable {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public Date getGmtCreateFrom() {
+        return gmtCreateFrom;
+    }
+
+    public void setGmtCreateFrom(Date gmtCreateFrom) {
+        this.gmtCreateFrom = gmtCreateFrom;
+    }
+
+    public Date getGmtCreateTo() {
+        return GmtCreateTo;
+    }
+
+    public void setGmtCreateTo(Date gmtCreateTo) {
+        GmtCreateTo = gmtCreateTo;
+    }
+
+    public Date getGmtModifiedFrom() {
+        return gmtModifiedFrom;
+    }
+
+    public void setGmtModifiedFrom(Date gmtModifiedFrom) {
+        this.gmtModifiedFrom = gmtModifiedFrom;
+    }
+
+    public Date getGmtModifiedTo() {
+        return gmtModifiedTo;
+    }
+
+    public void setGmtModifiedTo(Date gmtModifiedTo) {
+        this.gmtModifiedTo = gmtModifiedTo;
+    }
+
+    public Date getGmtStartFrom() {
+        return gmtStartFrom;
+    }
+
+    public void setGmtStartFrom(Date gmtStartFrom) {
+        this.gmtStartFrom = gmtStartFrom;
+    }
+
+    public Date getGmtStartTo() {
+        return gmtStartTo;
+    }
+
+    public void setGmtStartTo(Date gmtStartTo) {
+        this.gmtStartTo = gmtStartTo;
+    }
+
+    public Date getGmtEndFrom() {
+        return gmtEndFrom;
+    }
+
+    public void setGmtEndFrom(Date gmtEndFrom) {
+        this.gmtEndFrom = gmtEndFrom;
+    }
+
+    public Date getGmtEndTo() {
+        return gmtEndTo;
+    }
+
+    public void setGmtEndTo(Date gmtEndTo) {
+        this.gmtEndTo = gmtEndTo;
+    }
+
+    public Long getPriceFrom() {
+        return priceFrom;
+    }
+
+    public void setPriceFrom(Long priceFrom) {
+        this.priceFrom = priceFrom;
+    }
+
+    public Long getPriceTo() {
+        return priceTo;
+    }
+
+    public void setPriceTo(Long priceTo) {
+        this.priceTo = priceTo;
     }
 }
