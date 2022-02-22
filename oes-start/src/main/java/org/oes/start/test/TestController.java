@@ -57,12 +57,9 @@ public class TestController {
 
     @RequestMapping(value = "file/upload", method = RequestMethod.POST)
     public String fileUp(@RequestParam("files") MultipartFile[] files) {
-        JSONObject object=new JSONObject();
         for (MultipartFile file : files) {
             fileService.uploadFile(file, file.getOriginalFilename(), "test");
         }
-        object.put("success",1);
-        object.put("result","文件上传成功");
-        return object.toString();
+        return "文件上传成功";
     }
 }
