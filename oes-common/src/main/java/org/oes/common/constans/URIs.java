@@ -81,6 +81,9 @@ public class URIs {
      * 课程操作
      */
     public static final String COURSE = "/course";
+    public static final String CHAPTER = "/chapter";
+    public static final String FILE = "/file";
+    public static final String COMMENT = "/comment";
 
     /**
      *  免认证部分的URL

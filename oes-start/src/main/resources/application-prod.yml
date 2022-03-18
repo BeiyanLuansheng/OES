@@ -2,16 +2,16 @@ spring:
   servlet:
     multipart:
       enabled: true #开启文件上传
-      max-file-size: 500MB
-      max-request-size: 500MB
+      max-file-size: 1024MB
+      max-request-size: 1024MB
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/oes_db?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+      url: jdbc:mysql://124.222.228.84:3306/oes_db?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
       username: root
-      password: xujian123
+      password: oesmysqladmin
       # 连接池配置
       max-active: 20
       max-wait: 6000
@@ -34,20 +34,20 @@ spring:
         enabled: true
         url-pattern: /druid/*        # 配置DruidStatViewServlet
         reset-enable: false        #  禁用HTML页面上的“Reset All”功能
-        login-username: admin        # 监控页面登录的用户名
-        login-password: 123456        # 监控页面登录的密码
-        allow: 127.0.0.1        #IP白名单(没有配置或者为空，则允许所有访问)
+        login-username: oesdruid        # 监控页面登录的用户名
+        login-password: oesdruidadmin        # 监控页面登录的密码
+        allow:        #IP白名单(没有配置或者为空，则允许所有访问)
         deny:        #IP黑名单 (存在共同时，deny优先于allow)
 
   redis:
     # Redis数据库索引（默认为 0）
     database: 0
     # Redis服务器地址
-    host: 127.0.0.1
+    host: 124.222.228.84
     # Redis服务器连接端口
     port: 6379
     # Redis 密码
-    password:
+    password: oesredisadmin
     lettuce:
       pool:
         # 连接池中的最小空闲连接
@@ -65,7 +65,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 941197279@qq.com
-    password: uvuxslkfwoxnbcbg
+    password: rpsvmiypfnocbfgi
     default-encoding: utf-8
 
 # 系统常量配置
@@ -76,6 +76,6 @@ oes:
     session-timeout: 3600   # session 超时时间，单位为秒
     cookie-timeout: 864000  # rememberMe cookie有效时长，单位为秒
   minio:
-    endpoint: http://192.168.1.9:9090
-    root-user: minioadmin
-    root-password: minioadmin
+    endpoint: http://121.40.126.91:8081
+    root-user: oesminio
+    root-password: oesminioadmin

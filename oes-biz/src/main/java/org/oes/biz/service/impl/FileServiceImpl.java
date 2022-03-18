@@ -2,6 +2,8 @@ package org.oes.biz.service.impl;
 
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import org.oes.biz.entity.File;
+import org.oes.biz.mapper.FileMapper;
 import org.oes.biz.service.FileService;
 import org.oes.common.exception.OesServiceException;
 import org.slf4j.Logger;
@@ -18,9 +20,18 @@ public class FileServiceImpl implements FileService {
 
     @Resource
     private MinioClient minioClient;
+    @Resource
+    private FileMapper fileMapper;
 
     @Override
-    public void uploadFile(MultipartFile file, String fileName, String bucket) {
+    public Long uploadFile(MultipartFile file, String bucket, File fileInfo) {
+        save(file, fileInfo.getFileURL(), bucket);
+        fileMapper.insert(fileInfo);
+        // TODO fileId
+        return null;
+    }
+
+    private void save(MultipartFile file, String fileName, String bucket) {
         try {
             minioClient.putObject(
                     PutObjectArgs.builder().bucket(bucket)

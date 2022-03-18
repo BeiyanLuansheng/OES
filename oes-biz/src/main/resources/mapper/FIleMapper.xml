@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.oes.biz.mapper.FileMapper">
+    <insert id="insert" parameterType="file">
+        insert into file(file_id, file_name, file_type, file_url, user_id, gmt_create, gmt_modified, description)
+        values (#{file.gmtCreate,jdbcType=TIMESTAMP},
+                #{file.gmtModified,jdbcType=TIMESTAMP},
+                #{file.categoryId,jdbcType=BIGINT},
+                #{file.teacherId,jdbcType=BIGINT},
+                #{file.gmtStart,jdbcType=TIMESTAMP},
+                #{file.gmtEnd,jdbcType=TIMESTAMP},
+                #{file.status,jdbcType=VARCHAR},
+                #{file.isFree,jdbcType=VARCHAR},
+                #{file.price,jdbcType=BIGINT})
+    </insert>
+
+    <select id="findFileList" parameterType="file">
+        select f.file_id fileId,
+               f.file_name fileName,
+               f.file_type fileType,
+               f.file_url fileUrl,
+               f.user_id userId,
+               f.gmt_create gmtCreate,
+               f.gmt_modified gmtModified,
+               f.description
+        from file f
+        where 1 = 1
+        <if test="file.fileId != null">
+            and f.file_id = #{file.fileId,jdbcType=BIGINT},
+        </if>
+        <if test="file.fileType != null">
+            and f.file_type = #{file.fileType,jdbcType=BIGINT},
+        </if>
+        <if test="file.userId != null">
+            and f.user_id = #{file.userId,jdbcType=BIGINT},
+        </if>
+        <if test="file.gmtCreateFrom != null">
+            and f.gmt_create &gt; #{file.gmtCreateFrom,jdbcType=TIMESTAMP},
+        </if>
+        <if test="file.gmtCreateTo != null">
+            and f.gmt_create &lt; #{file.gmtCreateTo,jdbcType=TIMESTAMP},
+        </if>
+        <if test="file.gmtModifiedFrom != null">
+            and f.gmt_modified &gt; #{file.gmtModifiedFrom,jdbcType=TIMESTAMP},
+        </if>
+        <if test="file.gmtModifiedTo != null">
+            and f.gmt_modified &lt; #{file.gmtModifiedTo,jdbcType=TIMESTAMP},
+        </if>
+    </select>
+</mapper>

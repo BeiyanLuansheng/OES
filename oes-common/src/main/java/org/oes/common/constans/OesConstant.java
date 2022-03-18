@@ -22,6 +22,10 @@ public interface OesConstant {
      * MinIO 的照片存储桶
      */
     String AVATARS_BUCKET = "avatars";
+    /**
+     * MinIO 的课程文件存储桶
+     */
+    String COURSE_BUCKET = "course";
 
     /* ===================== 配置常量 ================ */
     String ENABLE_REDIS_CACHE = "oes.enable-redis-cache";

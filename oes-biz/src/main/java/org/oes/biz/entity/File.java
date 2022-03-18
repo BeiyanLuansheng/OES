@@ -29,6 +29,11 @@ public class File implements Serializable {
     private String fileType;
 
     /**
+     * 文件链接
+     */
+    private String fileURL;
+
+    /**
      * 文件信息创建时间
      */
     private Date gmtCreate;
@@ -73,6 +78,14 @@ public class File implements Serializable {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public String getFileURL() {
+        return fileURL;
+    }
+
+    public void setFileURL(String fileURL) {
+        this.fileURL = fileURL;
     }
 
     public Date getGmtCreate() {

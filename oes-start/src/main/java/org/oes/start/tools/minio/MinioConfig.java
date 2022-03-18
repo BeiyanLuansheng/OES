@@ -39,6 +39,15 @@ public class MinioConfig {
                 // 创建一个名为avatars的存储桶，用于存储照片文件
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(OesConstant.AVATARS_BUCKET).build());
             }
+
+            isExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(OesConstant.COURSE_BUCKET).build());
+            if(isExist) {
+                logger.info("course 桶已存在，跳过创建");
+            } else {
+                // 创建一个名为course的存储桶，用于存储照片文件
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket(OesConstant.COURSE_BUCKET).build());
+            }
+
             return  minioClient;
         } catch (Exception e) {
             logger.error("创建 MinioClient 失败", e);

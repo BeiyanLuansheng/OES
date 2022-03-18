@@ -1,6 +1,7 @@
 package org.oes.start.controller.user;
 
 import org.oes.biz.config.OesBizConfig;
+import org.oes.biz.entity.File;
 import org.oes.biz.entity.User;
 import org.oes.biz.service.FileService;
 import org.oes.biz.service.UserService;
@@ -63,8 +64,11 @@ public class UserController extends BaseController {
     public OesHttpResponse updateAvatar(MultipartFile file) {
         String userId = this.getCurrentUser().getId();
         String time = DateUtils.getStringInFormat(new Date(), DateUtils.YYYY_MM_DD_HH_MM_SS);
-        String fileName = userId + Strings.SLASH + Base64Utils.encode(time);
-        fileService.uploadFile(file, fileName, OesConstant.AVATARS_BUCKET);
+        String fileName = Base64Utils.encode(time);
+        File f = new File();
+        f.setFileName(fileName);
+        f.setFileURL(userId + Strings.SLASH + fileName);
+        fileService.uploadFile(file, OesConstant.AVATARS_BUCKET, f);
         String avatar = OesConstant.AVATARS_BUCKET + Strings.SLASH + fileName;
         userService.updateAvatar(this.getCurrentUser().getEmail(), avatar);
         return OesHttpResponse.getSuccess().data(oesBizConfig.getMinioEndpoint() + Strings.SLASH + avatar);

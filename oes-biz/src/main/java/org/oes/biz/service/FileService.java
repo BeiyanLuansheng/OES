@@ -1,5 +1,6 @@
 package org.oes.biz.service;
 
+import org.oes.biz.entity.File;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
@@ -8,8 +9,9 @@ public interface FileService {
      * 文件上传服务
      *
      * @param file 文件
-     * @param fileName 存储文件名（包含目录路径）
      * @param bucket 存储桶
+     * @param fileInfo 存储记录
+     * @return fileId
      */
-    void uploadFile(MultipartFile file, String fileName, String bucket);
+    Long uploadFile(MultipartFile file, String bucket, File fileInfo);
 }
