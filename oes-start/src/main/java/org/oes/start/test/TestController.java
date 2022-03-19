@@ -55,11 +55,11 @@ public class TestController {
         return "验证成功";
     }
 
-    @RequestMapping(value = "file/upload", method = RequestMethod.POST)
-    public String fileUp(@RequestParam("files") MultipartFile[] files) {
-        for (MultipartFile file : files) {
-            fileService.uploadFile(file, file.getOriginalFilename(), "test");
-        }
-        return "文件上传成功";
-    }
+//    @RequestMapping(value = "file/upload", method = RequestMethod.POST)
+//    public String fileUp(@RequestParam("files") MultipartFile[] files) {
+//        for (MultipartFile file : files) {
+//            fileService.uploadFile(file, file.getOriginalFilename(), "test");
+//        }
+//        return "文件上传成功";
+//    }
 }
