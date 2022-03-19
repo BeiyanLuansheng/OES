@@ -2,16 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.FileMapper">
     <insert id="insert" parameterType="file" useGeneratedKeys="true" keyProperty="fileId" keyColumn="file_id">
-        insert into file(file_id, file_name, file_type, file_url, user_id, gmt_create, gmt_modified, description)
-        values (#{file.gmtCreate,jdbcType=TIMESTAMP},
+        insert into file(file_name, file_type, file_url, user_id, gmt_create, gmt_modified, description)
+        values (#{file.fileName,jdbcType=VARCHAR},
+                #{file.fileType,jdbcType=VARCHAR},
+                #{file.fileURL,jdbcType=VARCHAR},
+                #{file.userId,jdbcType=BIGINT},
+                #{file.gmtCreate,jdbcType=TIMESTAMP},
                 #{file.gmtModified,jdbcType=TIMESTAMP},
-                #{file.categoryId,jdbcType=BIGINT},
-                #{file.teacherId,jdbcType=BIGINT},
-                #{file.gmtStart,jdbcType=TIMESTAMP},
-                #{file.gmtEnd,jdbcType=TIMESTAMP},
-                #{file.status,jdbcType=VARCHAR},
-                #{file.isFree,jdbcType=VARCHAR},
-                #{file.price,jdbcType=BIGINT})
+                #{file.description,jdbcType=VARCHAR})
     </insert>
 
     <select id="findFileList" parameterType="file">
@@ -29,7 +27,7 @@
             and f.file_id = #{file.fileId,jdbcType=BIGINT},
         </if>
         <if test="file.fileType != null">
-            and f.file_type = #{file.fileType,jdbcType=BIGINT},
+            and f.file_type = #{file.fileType,jdbcType=VARCHAR},
         </if>
         <if test="file.userId != null">
             and f.user_id = #{file.userId,jdbcType=BIGINT},
