@@ -34,6 +34,11 @@ public class File implements Serializable {
     private String fileURL;
 
     /**
+     * 上传者ID
+     */
+    private Long userId;
+
+    /**
      * 文件信息创建时间
      */
     private Date gmtCreate;
@@ -86,6 +91,14 @@ public class File implements Serializable {
 
     public void setFileURL(String fileURL) {
         this.fileURL = fileURL;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Date getGmtCreate() {

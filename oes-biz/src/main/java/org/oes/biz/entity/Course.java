@@ -51,6 +51,14 @@ public class Course implements Serializable {
      * 收费价格
      */
     private Long price;
+    /**
+     * 课程名
+     */
+    private String courseName;
+    /**
+     * 课程简介
+     */
+    private String description;
 
     // 传递查询条件
     private Date gmtCreateFrom;
@@ -142,6 +150,22 @@ public class Course implements Serializable {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getGmtCreateFrom() {

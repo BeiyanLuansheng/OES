@@ -3,7 +3,7 @@
 <mapper namespace="org.oes.biz.mapper.CourseMapper">
     <insert id="insert" parameterType="course">
         insert into course(gmt_create, gmt_modified, category_id, teacher_id, gmt_start, gmt_end, status, is_free,
-                           price)
+                           price, course_name, description)
         values (#{course.gmtCreate,jdbcType=TIMESTAMP},
                 #{course.gmtModified,jdbcType=TIMESTAMP},
                 #{course.categoryId,jdbcType=BIGINT},
@@ -12,7 +12,9 @@
                 #{course.gmtEnd,jdbcType=TIMESTAMP},
                 #{course.status,jdbcType=VARCHAR},
                 #{course.isFree,jdbcType=CHAR},
-                #{course.price,jdbcType=BIGINT})
+                #{course.price,jdbcType=BIGINT},
+                #{course.courseName,jdbcType=VARCHAR},
+                #{course.description,jdbcType=VARCHAR})
     </insert>
 
     <delete id="deleteById" parameterType="course">
@@ -51,6 +53,13 @@
             <if test="course.price != null">
                 c.price = #{course.price,jdbcType=BIGINT}
             </if>
+            <if test="course.courseName != null">
+                c.course_name = #{course.courseName,jdbcType=VARCHAR}
+            </if>
+
+            <if test="course.description != null">
+                c.description = #{course.description,jdbcType=VARCHAR}
+            </if>
         </set>
         where c.course_id = #{course.courseId,jdbcType=BIGINT}
     </update>
@@ -65,7 +74,9 @@
             c.gmt_end      = #{course.gmtEnd,jdbcType=TIMESTAMP},
             c.status       = #{course.status,jdbcType=VARCHAR},
             c.is_free      = #{course.isFree,jdbcType=CHAR},
-            c.price        = #{course.price,jdbcType=BIGINT}
+            c.price        = #{course.price,jdbcType=BIGINT},
+            c.course_name  = #{course.courseName,jdbcType=VARCHAR},
+            c.description  = #{course.description,jdbcType=VARCHAR}
         where c.course_id = #{course.courseId,jdbcType=BIGINT}
     </update>
 
@@ -79,7 +90,9 @@
         c.gmt_end gmtEnd,
         c.status,
         c.is_free isFree,
-        c.price
+        c.price,
+        c.course_name courseName,
+        c.description
         from course c
         where 1 = 1
         <if test="course.courseId != null">
@@ -122,10 +135,13 @@
             and c.is_free = #{course.isFree,jdbcType=CHAR},
         </if>
         <if test="course.priceFrom != null">
-            and c.price &gt; #{course.priceFrom,jdbcType=BIGINT}
+            and c.price &gt; #{course.priceFrom,jdbcType=BIGINT},
         </if>
         <if test="course.priceTo != null">
-            and c.price &lt; #{course.priceTo,jdbcType=BIGINT}
+            and c.price &lt; #{course.priceTo,jdbcType=BIGINT},
+        </if>
+        <if test="course.courseName != null and course.courseName != ''">
+            and c.course_name like concat('%', #{course.courseName},'%')
         </if>
     </select>
 </mapper>

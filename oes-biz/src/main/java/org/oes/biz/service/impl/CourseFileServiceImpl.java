@@ -15,7 +15,7 @@ public class CourseFileServiceImpl implements CourseFileService {
 
     @Override
     public void addCourseFile(Long courseChapterId, Long fileId) {
-    CourseFile courseFile = new CourseFile();
+        CourseFile courseFile = new CourseFile();
         courseFile.setFileId(fileId);
         courseFile.setCourseChapterId(courseChapterId);
         courseFileMapper.insert(courseFile);

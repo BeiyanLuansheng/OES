@@ -10,8 +10,13 @@ import org.oes.biz.service.CourseService;
 import org.oes.biz.service.FileService;
 import org.oes.common.constans.LogFileNames;
 import org.oes.common.constans.OesConstant;
+import org.oes.common.constans.Strings;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.common.enums.FileTypeEnum;
+import org.oes.common.utils.Base64Utils;
+import org.oes.common.utils.DateUtils;
+import org.oes.start.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @author XuJian
@@ -29,7 +35,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping(URIs.COURSE)
-public class CourseController {
+public class CourseController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(LogFileNames.OES);
 
@@ -85,10 +91,17 @@ public class CourseController {
     // 课程文件信息
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
     @RequiresPermissions("course:update")
-    public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId) {
+    public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId, String description) {
         File f = new File();
+        String time = DateUtils.getStringInFormat(new Date(), DateUtils.YYYY_MM_DD_HH_MM_SS);
+        String fileName = Base64Utils.encode(time + Strings.UNDERLINE + file.getOriginalFilename());
         f.setFileName(file.getOriginalFilename());
-
+        f.setFileType(FileTypeEnum.VIDEO.getType());
+        f.setFileURL(courseChapterId + Strings.SLASH + fileName);
+        f.setUserId(this.getCurrentUser().getUserId());
+        f.setDescription(description);
+        f.setGmtCreate(new Date());
+        f.setGmtModified(new Date());
         Long fileId = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
         courseFileService.addCourseFile(courseChapterId, fileId);
         return OesHttpResponse.getSuccess();
