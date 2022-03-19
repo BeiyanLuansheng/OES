@@ -8,18 +8,18 @@ import java.util.List;
 public interface FileMapper {
 
     /**
-     * 新建章节
+     * 新建文件
      *
-     * @param file 章节信息
+     * @param file 文件信息
      * @return 影响行数
      */
     int insert(@Param("file") File file);
 
     /**
-     * 查询章节
+     * 查找文件
      *
      * @param file 查询条件
-     * @return 章节列表
+     * @return 文件列表
      */
-    List<File> select(File file);
+    List<File> findFileList(@Param("file") File file);
 }
