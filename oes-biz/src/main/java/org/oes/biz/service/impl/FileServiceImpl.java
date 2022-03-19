@@ -9,6 +9,7 @@ import org.oes.common.exception.OesServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -24,11 +25,11 @@ public class FileServiceImpl implements FileService {
     private FileMapper fileMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long uploadFile(MultipartFile file, String bucket, File fileInfo) {
         save(file, fileInfo.getFileURL(), bucket);
         fileMapper.insert(fileInfo);
-        // TODO fileId
-        return null;
+        return fileInfo.getFileId();
     }
 
     private void save(MultipartFile file, String fileName, String bucket) {
