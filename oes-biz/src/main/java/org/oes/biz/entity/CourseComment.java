@@ -14,14 +14,19 @@ public class CourseComment implements Serializable {
     private Long commentId;
 
     /**
+     * 回复评论 ID
+     */
+    private Long referenceId;
+
+    /**
      * 评论内容
      */
     private String content;
 
     /**
-     * 评论课程视频ID
+     * 评论课程ID
      */
-    private Long courseFileId;
+    private Long courseId;
 
     /**
      * 用户ID
@@ -54,6 +59,14 @@ public class CourseComment implements Serializable {
         this.commentId = commentId;
     }
 
+    public Long getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(Long referenceId) {
+        this.referenceId = referenceId;
+    }
+
     public String getContent() {
         return content;
     }
@@ -62,12 +75,12 @@ public class CourseComment implements Serializable {
         this.content = content;
     }
 
-    public Long getCourseFileId() {
-        return courseFileId;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setCourseFileId(Long courseFileId) {
-        this.courseFileId = courseFileId;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
     public Long getUserId() {
