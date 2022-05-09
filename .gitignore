@@ -2,6 +2,9 @@
 */target
 logs
 dump.rdb
+OES.png
+serviceWithoutImpl.png
+serviceWithoutImpl.uml
 # 暂时不需要
 oes-common/src/main/java/org/oes/common/annotation
 oes-common/src/main/java/org/oes/common/condition
