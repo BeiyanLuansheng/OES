@@ -9,11 +9,13 @@ import org.oes.common.constans.OesConstant;
 import org.oes.common.constans.Strings;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.common.exception.OesControllerException;
 import org.oes.common.utils.Base64Utils;
 import org.oes.common.utils.DateUtils;
 import org.oes.common.utils.MD5Utils;
 import org.oes.common.utils.StringUtils;
 import org.oes.start.controller.BaseController;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,5 +74,33 @@ public class UserController extends BaseController {
         String avatar = OesConstant.AVATARS_BUCKET + Strings.SLASH + fileName;
         userService.updateAvatar(this.getCurrentUser().getEmail(), avatar);
         return OesHttpResponse.getSuccess().data(oesBizConfig.getMinioEndpoint() + Strings.SLASH + avatar);
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param user 新用户信息
+     */
+    @RequestMapping(path = URIs.INFO, method = RequestMethod.POST)
+    public OesHttpResponse updateInfo(@RequestBody User user) {
+        if (user.getUserId() == null) {
+            throw new OesControllerException("用户参数校验失败");
+        }
+        userService.updateById(user);
+        return OesHttpResponse.getSuccess();
+    }
+
+    /**
+     * 获取用户个人信息
+     *
+     * @param user 包含用户Id
+     */
+    @RequestMapping(path = URIs.INFO, method = RequestMethod.GET)
+    public  OesHttpResponse getInfo(@RequestBody User user) {
+        if (user.getUserId() == null) {
+            throw new OesControllerException("用户参数校验失败");
+        }
+        User info = userService.getById(user.getUserId());
+        return OesHttpResponse.getSuccess(info);
     }
 }

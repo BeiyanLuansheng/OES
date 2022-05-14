@@ -49,6 +49,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public User getById(Long userId) {
+        User user = userMapper.findById(userId);
+        user.setPassword(null);
+        user.setStatus(null);
+        return user;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateById(User user) {
         userMapper.updateById(user);
     }

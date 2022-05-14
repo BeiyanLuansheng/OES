@@ -18,4 +18,6 @@ public interface UserMapper {
     User findByPhone(@Param("phone") String phone);
 
     User findByEmail(@Param("email") String email);
+
+    User findById(@Param("userId") Long userId);
 }

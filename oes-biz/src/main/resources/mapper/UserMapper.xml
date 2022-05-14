@@ -139,4 +139,22 @@
         from user u
         where email = #{email}
     </select>
+
+    <select id="findById" parameterType="long" resultType="user">
+        select u.user_id userId,
+               u.user_name userName,
+               u.password,
+               u.role_id roleId,
+               u.email,
+               u.phone,
+               u.avatar,
+               u.school,
+               u.sex,
+               u.description,
+               u.gmt_create gmtCreate,
+               u.gmt_modified gmtModified,
+               u.status
+        from user u
+        where user_id = #{userId}
+    </select>
 </mapper>

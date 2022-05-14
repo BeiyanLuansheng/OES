@@ -76,6 +76,7 @@ public class URIs {
      */
     public static final String USER = "/user";
     public static final String AVATAR = "/avatar";
+    public static final String INFO = "/info";
 
     /**
      * 课程操作
