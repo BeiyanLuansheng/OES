@@ -16,10 +16,28 @@ public interface CourseChapterMapper {
     int insert(@Param("courseChapter")CourseChapter courseChapter);
 
     /**
+     * 删除
+     * @param courseChapter 条件
+     */
+    void deleteById(CourseChapter courseChapter);
+
+    /**
+     * 更新
+     * @param courseChapter 条件
+     */
+    void updateById(CourseChapter courseChapter);
+
+    /**
+     * 全量更新
+     * @param courseChapter 条件
+     */
+    void fullUpdateById(CourseChapter courseChapter);
+
+    /**
      * 查询章节
      *
      * @param courseChapter 查询条件
      * @return 章节列表
      */
-    List<CourseChapter> select(CourseChapter courseChapter);
+    List<CourseChapter> findCourseChapterList(CourseChapter courseChapter);
 }

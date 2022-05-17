@@ -13,4 +13,6 @@ public interface CourseService {
     void deleteCourse(Course course);
 
     void updateCourseById(Course course, boolean fullUpdate);
+
+    Course getCourseInfo(Course course);
 }

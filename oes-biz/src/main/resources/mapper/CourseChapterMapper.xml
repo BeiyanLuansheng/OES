@@ -10,6 +10,44 @@
                 #{courseChapter.gmtModified,jdbcType=TIMESTAMP})
     </insert>
 
+    <delete id="deleteById" parameterType="courseChapter">
+        delete
+        from course_chapter
+        where course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="updateById" parameterType="courseChapter">
+        update course_chapter cc
+        <set>
+            <if test="courseChapter.chapterId != null">
+                cc.chapter_id = #{courseChapter.chapterId,jdbcType=BIGINT},
+            </if>
+            <if test="courseChapter.courseId != null">
+                cc.course_id = #{courseChapter.courseId,jdbcType=BIGINT},
+            </if>
+            <if test="courseChapter.chapterName != null">
+                cc.chapter_name = #{courseChapter.chapterName,jdbcType=VARCHAR},
+            </if>
+            <if test="courseChapter.gmtCreate != null">
+                cc.gmt_create = #{courseChapter.gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="courseChapter.gmtModified != null">
+                cc.gmt_modified = #{courseChapter.gmtModified,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        where cc.course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT}
+    </update>
+
+    <update id="fullUpdateById" parameterType="course">
+        update course_chapter cc
+        set cc.chapter_id   = #{courseChapter.chapterId,jdbcType=BIGINT},
+            cc.course_id    = #{courseChapter.courseId,jdbcType=BIGINT},
+            cc.chapter_name = #{courseChapter.chapterName,jdbcType=VARCHAR},
+            cc.gmt_create   = #{courseChapter.gmtCreate,jdbcType=TIMESTAMP},
+            cc.gmt_modified = #{courseChapter.gmtModified,jdbcType=TIMESTAMP}
+        where cc.course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT}
+    </update>
+
     <select id="findCourseChapterList" parameterType="courseChapter">
         select cc.course_chapter_id courseChapterId,
         cc.chapter_name chapterName,

@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author XuJian
@@ -50,8 +51,9 @@ public class CourseController extends BaseController {
 
     // 课程基础信息
     @RequestMapping(method = RequestMethod.GET)
-    public OesHttpResponse viewCourse() {
-        return OesHttpResponse.getSuccess();
+    public OesHttpResponse viewCourse(@RequestBody Course course) {
+        Course courseInfo = courseService.getCourseInfo(course);
+        return OesHttpResponse.getSuccess(courseInfo);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -70,8 +72,9 @@ public class CourseController extends BaseController {
 
     // 课程章节信息
     @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.GET)
-    public OesHttpResponse viewChapter() {
-        return OesHttpResponse.getSuccess();
+    public OesHttpResponse viewChapter(@RequestBody Course course) {
+        List<CourseChapter> chapterList = courseChapterService.findCourseChapterList(course.getCourseId());
+        return OesHttpResponse.getSuccess(chapterList);
     }
 
     @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.POST)

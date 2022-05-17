@@ -4,8 +4,10 @@ import org.oes.biz.entity.CourseChapter;
 import org.oes.biz.mapper.CourseChapterMapper;
 import org.oes.biz.service.CourseChapterService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author XuJian
@@ -18,17 +20,31 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     private CourseChapterMapper courseChapterMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addChapter(CourseChapter courseChapter){
         courseChapterMapper.insert(courseChapter);
     }
 
-    // TODO
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteChapter(CourseChapter courseChapter){
+        courseChapterMapper.deleteById(courseChapter);
     }
 
-    //TODO
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateChapterById(CourseChapter courseChapter, boolean fullUpdate){
+        if (fullUpdate) {
+            courseChapterMapper.updateById(courseChapter);
+        } else {
+            courseChapterMapper.fullUpdateById(courseChapter);
+        }
+    }
+
+    @Override
+    public List<CourseChapter> findCourseChapterList(Long courseId) {
+        CourseChapter chapter = new CourseChapter();
+        chapter.setCourseId(courseId);
+        return courseChapterMapper.findCourseChapterList(chapter);
     }
 }

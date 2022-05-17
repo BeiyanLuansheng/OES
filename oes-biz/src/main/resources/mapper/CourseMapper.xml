@@ -51,10 +51,10 @@
                 c.is_free = #{course.isFree,jdbcType=CHAR},
             </if>
             <if test="course.price != null">
-                c.price = #{course.price,jdbcType=BIGINT}
+                c.price = #{course.price,jdbcType=BIGINT},
             </if>
             <if test="course.courseName != null">
-                c.course_name = #{course.courseName,jdbcType=VARCHAR}
+                c.course_name = #{course.courseName,jdbcType=VARCHAR},
             </if>
 
             <if test="course.description != null">
