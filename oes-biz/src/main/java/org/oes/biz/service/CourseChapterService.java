@@ -17,8 +17,17 @@ public interface CourseChapterService {
      */
     void addChapter(CourseChapter courseChapter);
 
+    /**
+     * 删除章节
+     * @param courseChapter 条件
+     */
     void deleteChapter(CourseChapter courseChapter);
 
+    /**
+     * 更新章节信息
+     * @param courseChapter 更新信息
+     * @param fullUpdate 全量更新/增量更新
+     */
     void updateChapterById(CourseChapter courseChapter, boolean fullUpdate);
 
     /**
