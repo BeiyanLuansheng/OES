@@ -91,6 +91,13 @@ public class CourseController extends BaseController {
         return OesHttpResponse.getSuccess(courseChapter);
     }
 
+    @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.DELETE)
+    @RequiresPermissions("Course:delete")
+    public OesHttpResponse deleteChapter(@RequestBody CourseChapter courseChapter) {
+        courseChapterService.deleteChapter(courseChapter);
+        return OesHttpResponse.getSuccess();
+    }
+
     // 课程文件信息
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
     @RequiresPermissions("course:update")

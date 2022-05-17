@@ -19,19 +19,19 @@ public interface CourseChapterMapper {
      * 删除
      * @param courseChapter 条件
      */
-    void deleteById(CourseChapter courseChapter);
+    void deleteById(@Param("courseChapter")CourseChapter courseChapter);
 
     /**
      * 更新
      * @param courseChapter 条件
      */
-    void updateById(CourseChapter courseChapter);
+    void updateById(@Param("courseChapter")CourseChapter courseChapter);
 
     /**
      * 全量更新
      * @param courseChapter 条件
      */
-    void fullUpdateById(CourseChapter courseChapter);
+    void fullUpdateById(@Param("courseChapter")CourseChapter courseChapter);
 
     /**
      * 查询章节
@@ -39,5 +39,5 @@ public interface CourseChapterMapper {
      * @param courseChapter 查询条件
      * @return 章节列表
      */
-    List<CourseChapter> findCourseChapterList(CourseChapter courseChapter);
+    List<CourseChapter> findCourseChapterList(@Param("courseChapter")CourseChapter courseChapter);
 }
