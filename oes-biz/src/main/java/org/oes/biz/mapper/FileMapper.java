@@ -22,4 +22,11 @@ public interface FileMapper {
      * @return 文件列表
      */
     List<File> findFileList(@Param("file") File file);
+
+    /**
+     * 查找所有Id对应的文件
+     * @param fileIds ID列表
+     * @return 文件列表
+     */
+    List<File> findFileListById(List<Long> fileIds);
 }

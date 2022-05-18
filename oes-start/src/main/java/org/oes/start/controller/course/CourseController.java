@@ -99,6 +99,12 @@ public class CourseController extends BaseController {
     }
 
     // 课程文件信息
+    @RequestMapping(value = URIs.FILE, method = RequestMethod.GET)
+    public OesHttpResponse getChapterFileList(@RequestBody CourseChapter courseChapter) {
+        List<File> files = courseFileService.findChapterFiles(courseChapter);
+        return OesHttpResponse.getSuccess(files);
+    }
+
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
     @RequiresPermissions("course:update")
     public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId, String description) {

@@ -14,13 +14,13 @@
 
     <select id="findFileList" parameterType="file">
         select f.file_id fileId,
-               f.file_name fileName,
-               f.file_type fileType,
-               f.file_url fileUrl,
-               f.user_id userId,
-               f.gmt_create gmtCreate,
-               f.gmt_modified gmtModified,
-               f.description
+        f.file_name fileName,
+        f.file_type fileType,
+        f.file_url fileUrl,
+        f.user_id userId,
+        f.gmt_create gmtCreate,
+        f.gmt_modified gmtModified,
+        f.description
         from file f
         where 1 = 1
         <if test="file.fileId != null">
@@ -44,5 +44,18 @@
         <if test="file.gmtModifiedTo != null">
             and f.gmt_modified &lt; #{file.gmtModifiedTo,jdbcType=TIMESTAMP},
         </if>
+    </select>
+
+    <select id="findFileListById" parameterType="long">
+        select f.file_id      fileId,
+               f.file_name    fileName,
+               f.file_type    fileType,
+               f.file_url     fileUrl,
+               f.user_id      userId,
+               f.gmt_create   gmtCreate,
+               f.gmt_modified gmtModified,
+               f.description
+        from file f
+        where f.file_id in (<foreach collection="list" item="fileId" separator=","> #{fileId} </foreach>)
     </select>
 </mapper>

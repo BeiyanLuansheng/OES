@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -44,5 +45,16 @@ public class FileServiceImpl implements FileService {
             logger.error("上传失败", e);
             throw new OesServiceException("文件上传失败，请尝试重新上传！");
         }
+    }
+
+    @Override
+    public List<File> findFileList(File file) {
+        List<File> fileList = fileMapper.findFileList(file);
+        return fileList;
+    }
+
+    @Override
+    public List<File> findFileList(List<Long> fileIds) {
+        return fileMapper.findFileListById(fileIds);
     }
 }
