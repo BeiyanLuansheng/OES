@@ -107,17 +107,25 @@ public class CourseController extends BaseController {
 
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
     @RequiresPermissions("course:update")
-    public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId, String description) {
+    public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId,
+                                       String description, String type) {
         File f = new File();
         String time = DateUtils.getStringInFormat(new Date(), DateUtils.YYYY_MM_DD_HH_MM_SS);
         String fileName = Base64Utils.encode(time + Strings.UNDERLINE + file.getOriginalFilename());
         f.setFileName(file.getOriginalFilename());
-        f.setFileType(FileTypeEnum.VIDEO.getType());
         f.setFileURL(courseChapterId + Strings.SLASH + fileName);
         f.setUserId(this.getCurrentUser().getUserId());
         f.setDescription(description);
         f.setGmtCreate(new Date());
         f.setGmtModified(new Date());
+
+        if (FileTypeEnum.VIDEO.getType().equals(type) || FileTypeEnum.DOCUMENT.getType().equals(type)
+                || FileTypeEnum.PICTURE.getType().equals(type)) {
+            f.setFileType(type);
+        } else {
+            f.setFileType(FileTypeEnum.OTHER.getType());
+        }
+
         Long fileId = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
         courseFileService.addCourseFile(courseChapterId, fileId);
         return OesHttpResponse.getSuccess();
