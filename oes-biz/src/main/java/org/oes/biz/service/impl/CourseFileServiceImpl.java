@@ -36,4 +36,9 @@ public class CourseFileServiceImpl implements CourseFileService {
         List<Long> fileIdList = courseFileList.stream().map(CourseFile::getFileId).collect(Collectors.toList());
         return fileService.findFileList(fileIdList);
     }
+
+    @Override
+    public void deleteFileOfCourse(CourseFile courseFile) {
+        courseFileMapper.deleteByChapterIdAndFileId(courseFile);
+    }
 }

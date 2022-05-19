@@ -23,7 +23,7 @@ public interface CourseFileMapper {
      * @param courseFile 条件
      * @return 影响行数
      */
-    int deleteById(@Param("courseFile")CourseFile courseFile);
+    int deleteByChapterIdAndFileId(@Param("courseFile")CourseFile courseFile);
 
     /**
      * 增量更新

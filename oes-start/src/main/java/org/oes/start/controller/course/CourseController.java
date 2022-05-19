@@ -3,6 +3,7 @@ package org.oes.start.controller.course;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Course;
 import org.oes.biz.entity.CourseChapter;
+import org.oes.biz.entity.CourseFile;
 import org.oes.biz.entity.File;
 import org.oes.biz.service.CourseChapterService;
 import org.oes.biz.service.CourseFileService;
@@ -92,7 +93,7 @@ public class CourseController extends BaseController {
     }
 
     @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.DELETE)
-    @RequiresPermissions("Course:delete")
+    @RequiresPermissions("course:delete")
     public OesHttpResponse deleteChapter(@RequestBody CourseChapter courseChapter) {
         courseChapterService.deleteChapter(courseChapter);
         return OesHttpResponse.getSuccess();
@@ -103,6 +104,13 @@ public class CourseController extends BaseController {
     public OesHttpResponse getChapterFileList(@RequestBody CourseChapter courseChapter) {
         List<File> files = courseFileService.findChapterFiles(courseChapter);
         return OesHttpResponse.getSuccess(files);
+    }
+
+    @RequestMapping(value = URIs.FILE, method = RequestMethod.DELETE)
+    @RequiresPermissions("course:delete")
+    public OesHttpResponse deleteChapterFile(@RequestBody CourseFile courseFile) {
+        courseFileService.deleteFileOfCourse(courseFile);
+        return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
