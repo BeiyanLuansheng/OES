@@ -4,10 +4,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Course;
 import org.oes.biz.entity.CourseChapter;
 import org.oes.biz.entity.CourseFile;
+import org.oes.biz.entity.Exam;
 import org.oes.biz.entity.File;
 import org.oes.biz.service.CourseChapterService;
 import org.oes.biz.service.CourseFileService;
 import org.oes.biz.service.CourseService;
+import org.oes.biz.service.ExamService;
 import org.oes.biz.service.FileService;
 import org.oes.common.constans.LogFileNames;
 import org.oes.common.constans.OesConstant;
@@ -15,6 +17,7 @@ import org.oes.common.constans.Strings;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.enums.FileTypeEnum;
+import org.oes.common.exception.OesControllerException;
 import org.oes.common.utils.Base64Utils;
 import org.oes.common.utils.DateUtils;
 import org.oes.start.controller.BaseController;
@@ -49,6 +52,8 @@ public class CourseController extends BaseController {
     private FileService fileService;
     @Resource
     private CourseFileService courseFileService;
+    @Resource
+    private ExamService examService;
 
     // 课程基础信息
     @RequestMapping(method = RequestMethod.GET)
@@ -136,6 +141,38 @@ public class CourseController extends BaseController {
 
         Long fileId = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
         courseFileService.addCourseFile(courseChapterId, fileId);
+        return OesHttpResponse.getSuccess();
+    }
+
+    // 课程习题，题库
+    @RequestMapping(value = URIs.EXAM, method = RequestMethod.GET)
+    public OesHttpResponse getExamOfChapter(@RequestBody Exam exam) {
+        List<Exam> examList;
+        if (exam.getCourseChapterId() != null) {
+            examList = examService.getExamOfChapter(exam.getCourseChapterId());
+        } else if (exam.getCourseId() != null) {
+            examList = examService.getExamOfCourse(exam.getCourseId());
+        } else {
+            throw new OesControllerException("习题参数不合法");
+        }
+        return OesHttpResponse.getSuccess(examList);
+    }
+
+    @RequestMapping(value = URIs.EXAM, method = RequestMethod.POST)
+    public OesHttpResponse addExamOfChapter(@RequestBody Exam exam) {
+        examService.addExam(exam);
+        return OesHttpResponse.getSuccess();
+    }
+
+    @RequestMapping(value = URIs.EXAM, method = RequestMethod.DELETE)
+    public OesHttpResponse removeExamOfChapter(@RequestBody Exam exam) {
+        examService.deleteExam(exam);
+        return OesHttpResponse.getSuccess();
+    }
+
+    @RequestMapping(value = URIs.EXAM, method = RequestMethod.PUT)
+    public OesHttpResponse updateExamOfChapter(@RequestBody Exam exam) {
+        examService.fullUpdateExam(exam);
         return OesHttpResponse.getSuccess();
     }
 }

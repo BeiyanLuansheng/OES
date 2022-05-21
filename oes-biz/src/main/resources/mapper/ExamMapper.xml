@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.oes.biz.mapper.ExamMapper">
+    <insert id="insert" parameterType="exam">
+        insert into exam(question_id, course_id, course_chapter_id, question, answer, a_option,
+                         b_option, c_option, d_option, e_option, f_option, g_option, h_option)
+        values (#{exam.questionId,jdbcType=BIGINT},
+                #{exam.courseId,jdbcType=BIGINT},
+                #{exam.courseChapterId,jdbcType=BIGINT},
+                #{exam.question,jdbcType=VARCHAR},
+                #{exam.answer,jdbcType=VARCHAR},
+                #{exam.a_option,jdbcType=VARCHAR},
+                #{exam.b_option,jdbcType=VARCHAR},
+                #{exam.c_option,jdbcType=VARCHAR},
+                #{exam.d_option,jdbcType=VARCHAR},
+                #{exam.e_option,jdbcType=VARCHAR},
+                #{exam.f_option,jdbcType=VARCHAR},
+                #{exam.g_option,jdbcType=VARCHAR},
+                #{exam.h_option,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteById" parameterType="exam">
+        delete
+        from exam
+        where question_id = #{exam.questionId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="updateById" parameterType="exam">
+        update exam e
+        <set>
+            <if test="exam.courseId != null">
+                e.course_id = #{exam.courseId,jdbcType=BIGINT},
+            </if>
+            <if test="exam.courseChapterId != null">
+                e.course_chapter_id = #{exam.courseChapterId,jdbcType=BIGINT},
+            </if>
+            <if test="exam.question != null">
+                e.question = #{exam.question,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.answer != null">
+                e.answer = #{exam.answer,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.aOption != null">
+                e.a_option = #{exam.aOption,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.bOption != null">
+                e.b_option = #{exam.bOption,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.cOption != null">
+                e.c_option = #{exam.cOption,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.dOption != null">
+                e.d_option = #{exam.dOption,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.eOption != null">
+                e.e_option = #{exam.eOption,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.fOption != null">
+                e.f_option = #{exam.fOption,jdbcType=VARCHAR},
+            </if>
+            <if test="exam.gOption != null">
+                e.g_option = #{exam.gOption,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where e.question_id = #{exam.questionId,jdbcType=BIGINT}
+    </update>
+
+    <update id="fullUpdateById" parameterType="exam">
+        update exam e
+        set e.course_id         = #{exam.courseId,jdbcType=BIGINT},
+            e.course_chapter_id = #{exam.courseChapterId,jdbcType=BIGINT},
+            e.question          = #{exam.question,jdbcType=VARCHAR},
+            e.answer            = #{exam.answer,jdbcType=VARCHAR},
+            e.a_option          = #{exam.aOption,jdbcType=VARCHAR},
+            e.b_option          = #{exam.bOption,jdbcType=VARCHAR},
+            e.c_option          = #{exam.cOption,jdbcType=VARCHAR},
+            e.d_option          = #{exam.dOption,jdbcType=VARCHAR},
+            e.e_option          = #{exam.eOption,jdbcType=VARCHAR},
+            e.f_option          = #{exam.fOption,jdbcType=VARCHAR},
+            e.g_option          = #{exam.gOption,jdbcType=VARCHAR}
+        where e.question_id = #{exam.questionId,jdbcType=BIGINT}
+    </update>
+
+    <select id="findExamList" parameterType="exam">
+        select e.course_id courseId,
+        e.course_chapter_id courseChapterId,
+        e.question,
+        e.answer,
+        e.a_option aOption,
+        e.b_option bOption,
+        e.c_option cOption,
+        e.d_option dOption,
+        e.f_option eOption,
+        e.g_option fOption,
+        e.h_option gOption
+        from exam e
+        where 1 = 1
+        <if test="exam.questionId != null">
+            and e.question_id = #{exam.questionId,jdbcType=BIGINT},
+        </if>
+        <if test="exam.courseChapterId != null">
+            and e.course_chapter_id = #{exam.courseChapterId,jdbcType=BIGINT},
+        </if>
+        <if test="exam.courseId != null">
+            and e.course_id = #{exam.courseId,jdbcType=BIGINT},
+        </if>
+    </select>
+</mapper>

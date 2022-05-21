@@ -86,6 +86,7 @@ public class URIs {
     public static final String FILE = "/file";
     public static final String JOIN = "/join";
     public static final String COMMENT = "/comment";
+    public static final String EXAM = "/exam";
     /**
      * 详情
      */
