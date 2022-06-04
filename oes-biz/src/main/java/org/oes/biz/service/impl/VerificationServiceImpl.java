@@ -51,7 +51,7 @@ public class VerificationServiceImpl implements VerificationService {
         // 发送邮箱验证码邮件
         String subject = "在线教育系统验证码";
         String text = "您正在注册在线教育系统，验证码为 " + code + "\n 验证码五分钟内有效，如非本人操作请忽略";
-//        mailService.sendSimpleMail(email, subject, text);
+        mailService.sendSimpleMail(email, subject, text);
         logger.error("向" + email + "发送验证码" + code + "成功");
         return code;
     }
