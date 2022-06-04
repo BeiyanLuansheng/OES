@@ -23,23 +23,26 @@ public class BannerController {
     @RequestMapping(method = RequestMethod.POST)
     @RequiresPermissions(ShiroPerms.BANNER_ADD)
     public OesHttpResponse addBanner(@RequestBody Banner banner) {
+        bannerService.createBanner(banner);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     @RequiresPermissions(ShiroPerms.BANNER_DEL)
     public OesHttpResponse deleteBanner(@RequestBody Banner banner) {
+        bannerService.deleteBannerById(banner);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PATCH)
     @RequiresPermissions(ShiroPerms.BANNER_UPDATE)
     public OesHttpResponse updateBanner(@RequestBody Banner banner) {
+        bannerService.updateBannerById(banner);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public OesHttpResponse getBanner() {
-        return OesHttpResponse.getSuccess();
+        return OesHttpResponse.getSuccess(bannerService.getBannerList());
     }
 }

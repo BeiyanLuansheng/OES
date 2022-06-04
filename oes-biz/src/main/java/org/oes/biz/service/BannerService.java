@@ -12,5 +12,5 @@ public interface BannerService {
 
     void updateBannerById(Banner banner);
 
-    List<Banner> getBanner(Banner banner);
+    List<Banner> getBannerList();
 }

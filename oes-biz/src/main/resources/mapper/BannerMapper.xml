@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.BannerMapper">
+    <insert id="insert" parameterType="banner">
+        insert into banner(picture_url, course_id)
+        values (#{banner.pictureUrl, jdbcType=VARCHAR},
+                #{banner.courseId, jdbcType=BIGINT})
+    </insert>
 
+    <delete id="deleteById" parameterType="long">
+        delete
+        from banner b
+        where b.banner_id = #{bannerId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="updateById" parameterType="banner">
+        update banner b
+        <set>
+            <if test="banner.pictureUrl != null">
+                b.picture_url = #{course.pictureUrl,jdbcType=VARCHAR},
+            </if>
+
+            <if test="banner.courseId != null">
+                b.course_id = #{course.courseId,jdbcType=BIGINT}
+            </if>
+        </set>
+        where b.banner_id = #{banner.bannerId,jdbcType=BIGINT}
+    </update>
+
+    <select id="findBannerList" parameterType="banner">
+        select b.banner_id bannerId,
+               b.picture_url pictureUrl,
+               b.course_id courseId
+        from banner b
+        where 1=1
+        <if test="banner.bannerId != null and banner.bannerId > 0">
+            and b.banner_id = #{banner.bannerId,jdbcType=BIGINT}
+        </if>
+        <if test="banner.pictureUrl != null and banner.pictureUrl != ''">
+            and b.picture_url = #{banner.pictureUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="banner.courseId != null and banner.courseId > 0">
+            and b.course_id = #{banner.courseId,jdbcType=BIGINT}
+        </if>
+    </select>
 </mapper>

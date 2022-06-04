@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.oes.biz.mapper.CategoryMapper">
+    <insert id="insert" parameterType="category">
+        insert into category(category_name, parent_id)
+        values (#{category.categoryName, jdbcType=VARCHAR},
+                #{category.parentId, jdbcType=BIGINT})
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete
+        from category c
+        where c.category_id = #{categoryId,jdbcType=BIGINT}
+    </delete>
+
+    <select id="findCategoryList" parameterType="category">
+        select c.category_id categoryId,
+               c.category_name categoryName,
+               c.parent_id parentId
+        from category c
+        where 1=1
+        <if test="category.categoryId != null and category.categoryId > 0">
+            and c.category_id = #{category.categoryId,jdbcType=BIGINT}
+        </if>
+        <if test="category.categoryName != null and category.categoryName != ''">
+            and c.category_name = #{category.categoryName,jdbcType=VARCHAR}
+        </if>
+        <if test="category.parentId != null and category.parentId > 0">
+            and c.parent_id = #{category.parentId,jdbcType=BIGINT}
+        </if>
+    </select>
+</mapper>
