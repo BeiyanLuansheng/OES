@@ -19,4 +19,10 @@ public class MD5Utils {
         password = StringUtils.lowerCase(password);
         return new SimpleHash(ALGORITHM_MD5, password, ByteSource.Util.bytes(phone), HASH_ITERATIONS).toHex();
     }
+
+    public static void main(String[] args) {
+        System.out.println(encrypt("admin@oes.org", "admin"));
+        System.out.println(encrypt("teacher@oes.org", "teacher"));
+        System.out.println(encrypt("student@oes.org", "student"));
+    }
 }

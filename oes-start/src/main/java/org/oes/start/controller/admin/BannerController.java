@@ -1,7 +1,9 @@
 package org.oes.start.controller.admin;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.entity.Banner;
 import org.oes.biz.service.BannerService;
+import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,16 +21,19 @@ public class BannerController {
     private BannerService bannerService;
 
     @RequestMapping(method = RequestMethod.POST)
+    @RequiresPermissions(ShiroPerms.BANNER_ADD)
     public OesHttpResponse addBanner(@RequestBody Banner banner) {
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
+    @RequiresPermissions(ShiroPerms.BANNER_DEL)
     public OesHttpResponse deleteBanner(@RequestBody Banner banner) {
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(method = RequestMethod.PATCH)
+    @RequiresPermissions(ShiroPerms.BANNER_UPDATE)
     public OesHttpResponse updateBanner(@RequestBody Banner banner) {
         return OesHttpResponse.getSuccess();
     }

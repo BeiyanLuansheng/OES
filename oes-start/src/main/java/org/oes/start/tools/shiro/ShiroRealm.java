@@ -72,13 +72,8 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-        System.out.println("进入用户授权");
-
         User user = (User) principal.getPrimaryPrincipal();
         user = userService.doGetUserAuthorization(user);
-
-        logger.error(JSON.toJSONString(user));
-
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.setRoles(user.getRoleNames());
         simpleAuthorizationInfo.setStringPermissions(user.getPermissions());
@@ -94,8 +89,6 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        System.out.println("进入用户登录");
-
         // 获取用户输入的邮箱和密码
         String email = (String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());

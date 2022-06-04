@@ -14,6 +14,7 @@ import org.oes.biz.service.ExamService;
 import org.oes.biz.service.FileService;
 import org.oes.common.constans.LogFileNames;
 import org.oes.common.constans.OesConstant;
+import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.Strings;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
@@ -64,14 +65,14 @@ public class CourseController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @RequiresPermissions("course:add")
+    @RequiresPermissions(ShiroPerms.COURSE_ADD)
     public OesHttpResponse createCourse(@RequestBody Course course) { // 必要时可以加 @Valid 校验参数
         courseService.createCourse(course);
         return OesHttpResponse.getSuccess(course);
     }
 
     @RequestMapping(method = RequestMethod.PATCH)
-    @RequiresPermissions("course:update")
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse updateCourse(@RequestBody Course course) { // 必要时可以加 @Valid 校验参数
         courseService.updateCourseById(course, false);
         return OesHttpResponse.getSuccess(course);
@@ -85,21 +86,21 @@ public class CourseController extends BaseController {
     }
 
     @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.POST)
-    @RequiresPermissions("course:update")
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse createChapter(@RequestBody CourseChapter courseChapter) { // 必要时可以加 @Valid 校验参数
         courseChapterService.addChapter(courseChapter);
         return OesHttpResponse.getSuccess(courseChapter);
     }
 
     @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.PATCH)
-    @RequiresPermissions("course:update")
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse updateChapter(@RequestBody CourseChapter courseChapter) { // 必要时可以加 @Valid 校验参数
         courseChapterService.updateChapterById(courseChapter, false);
         return OesHttpResponse.getSuccess(courseChapter);
     }
 
     @RequestMapping(value = URIs.CHAPTER, method = RequestMethod.DELETE)
-    @RequiresPermissions("course:delete")
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse deleteChapter(@RequestBody CourseChapter courseChapter) {
         courseChapterService.deleteChapter(courseChapter);
         return OesHttpResponse.getSuccess();
@@ -113,14 +114,14 @@ public class CourseController extends BaseController {
     }
 
     @RequestMapping(value = URIs.FILE, method = RequestMethod.DELETE)
-    @RequiresPermissions("course:delete")
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse deleteChapterFile(@RequestBody CourseFile courseFile) {
         courseFileService.deleteFileOfCourse(courseFile);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
-    @RequiresPermissions("course:update")
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId,
                                        String description, String type) {
         File f = new File();
@@ -160,18 +161,21 @@ public class CourseController extends BaseController {
     }
 
     @RequestMapping(value = URIs.EXAM, method = RequestMethod.POST)
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse addExamOfChapter(@RequestBody Exam exam) {
         examService.addExam(exam);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = URIs.EXAM, method = RequestMethod.DELETE)
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse removeExamOfChapter(@RequestBody Exam exam) {
         examService.deleteExam(exam);
         return OesHttpResponse.getSuccess();
     }
 
     @RequestMapping(value = URIs.EXAM, method = RequestMethod.PUT)
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse updateExamOfChapter(@RequestBody Exam exam) {
         examService.fullUpdateExam(exam);
         return OesHttpResponse.getSuccess();
@@ -184,10 +188,13 @@ public class CourseController extends BaseController {
     }
 
     @RequestMapping(value = URIs.NOTICE, method = RequestMethod.POST)
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse addNotice(@RequestBody Notice notice) {
         return OesHttpResponse.getSuccess();
     }
+
     @RequestMapping(value = URIs.NOTICE, method = RequestMethod.PATCH)
+    @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse updateNotice(@RequestBody Notice notice) {
         return OesHttpResponse.getSuccess();
     }
