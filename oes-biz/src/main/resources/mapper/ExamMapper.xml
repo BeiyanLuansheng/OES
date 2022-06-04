@@ -81,7 +81,7 @@
         where e.question_id = #{exam.questionId,jdbcType=BIGINT}
     </update>
 
-    <select id="findExamList" parameterType="exam">
+    <select id="findExamList" parameterType="exam" resultType="exam">
         select e.course_id courseId,
         e.course_chapter_id courseChapterId,
         e.question,

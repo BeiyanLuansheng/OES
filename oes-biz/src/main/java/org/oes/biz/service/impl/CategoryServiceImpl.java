@@ -18,6 +18,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void createCategory(Category category) {
+        if (category.getParentId() == null) {
+            category.setParentId(0L); // 顶级分类父ID设为0
+        }
         categoryMapper.insert(category);
     }
 

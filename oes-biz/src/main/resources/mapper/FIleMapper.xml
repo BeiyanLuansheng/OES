@@ -46,7 +46,7 @@
         </if>
     </select>
 
-    <select id="findFileListById" parameterType="long">
+    <select id="findFileListById" parameterType="long" resultType="file">
         select f.file_id      fileId,
                f.file_name    fileName,
                f.file_type    fileType,

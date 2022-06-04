@@ -13,7 +13,7 @@
         where c.category_id = #{categoryId,jdbcType=BIGINT}
     </delete>
 
-    <select id="findCategoryList" parameterType="category">
+    <select id="findCategoryList" parameterType="category" resultType="category">
         select c.category_id categoryId,
                c.category_name categoryName,
                c.parent_id parentId
@@ -25,7 +25,7 @@
         <if test="category.categoryName != null and category.categoryName != ''">
             and c.category_name = #{category.categoryName,jdbcType=VARCHAR}
         </if>
-        <if test="category.parentId != null and category.parentId > 0">
+        <if test="category.parentId != null and category.parentId >= 0">
             and c.parent_id = #{category.parentId,jdbcType=BIGINT}
         </if>
     </select>

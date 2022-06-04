@@ -10,7 +10,7 @@
                 #{courseComment.gmtModified,jdbcType=TIMESTAMP})
     </insert>
 
-    <select id="findCourseChapterList" parameterType="courseComment">
+    <select id="findCourseChapterList" parameterType="courseComment" resultType="courseComment">
         select cc.comment_id commentId,
         cc.content,
         cc.course_file_id courseFileId,

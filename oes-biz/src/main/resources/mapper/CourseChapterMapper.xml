@@ -48,7 +48,7 @@
         where cc.course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT}
     </update>
 
-    <select id="findCourseChapterList" parameterType="courseChapter">
+    <select id="findCourseChapterList" parameterType="courseChapter" resultType="courseChapter">
         select cc.course_chapter_id courseChapterId,
         cc.chapter_name chapterName,
         cc.course_id courseId,

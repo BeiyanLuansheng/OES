@@ -33,7 +33,7 @@
         where cf.course_file_id = #{courseFile.courseFileId,jdbcType=BIGINT}
     </update>
 
-    <select id="findCourseFileList" parameterType="courseFile">
+    <select id="findCourseFileList" parameterType="courseFile" resultType="courseFile">
         select cf.course_file_id courseFileId,
                cf.course_chapter_id courseChapterId,
                cf.file_id fileId

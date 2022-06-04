@@ -80,7 +80,7 @@
         where c.course_id = #{course.courseId,jdbcType=BIGINT}
     </update>
 
-    <select id="findCourseList" parameterType="course">
+    <select id="findCourseList" parameterType="course" resultType="course">
         select c.course_id courseId,
         c.gmt_create gmtCreate,
         c.gmt_modified gmtModified,

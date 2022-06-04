@@ -27,7 +27,7 @@
         where b.banner_id = #{banner.bannerId,jdbcType=BIGINT}
     </update>
 
-    <select id="findBannerList" parameterType="banner">
+    <select id="findBannerList" parameterType="banner" resultType="banner">
         select b.banner_id bannerId,
                b.picture_url pictureUrl,
                b.course_id courseId
