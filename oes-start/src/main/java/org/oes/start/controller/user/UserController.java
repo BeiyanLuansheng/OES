@@ -80,7 +80,7 @@ public class UserController extends BaseController {
         f.setUserId(Long.parseLong(userId));
         f = fileService.uploadFile(file, OesConstant.AVATARS_BUCKET, f);
         userService.updateAvatar(f.getUserId(), f.getFileURL());
-        return OesHttpResponse.getSuccess().data(oesBizConfig.getMinioEndpoint() + Strings.SLASH + f.getFileURL());
+        return OesHttpResponse.getSuccess().data(oesBizConfig.getMinioEndpoint() + f.getFileURL());
     }
 
     /**

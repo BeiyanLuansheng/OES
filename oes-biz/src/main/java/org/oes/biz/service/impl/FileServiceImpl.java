@@ -31,7 +31,7 @@ public class FileServiceImpl implements FileService {
     @Transactional(rollbackFor = Exception.class)
     public File uploadFile(MultipartFile file, String bucket, File fileInfo) {
         save(file, fileInfo.getFileURL(), bucket);
-        fileInfo.setFileURL(bucket + Strings.SLASH + fileInfo.getFileURL());
+        fileInfo.setFileURL(Strings.SLASH + bucket + Strings.SLASH + fileInfo.getFileURL());
         fileInfo.setGmtCreate(new Date());
         fileInfo.setGmtModified(new Date());
         fileMapper.insert(fileInfo);

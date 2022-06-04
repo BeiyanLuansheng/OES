@@ -113,6 +113,7 @@ public class URIs {
         unauthorized.add(EMAIL_VERIFICATION);
         unauthorized.add(UNAUTHORIZED);
         unauthorized.add(SUCCESS);
+        unauthorized.add("/druid/**");
 
         unauthorized.add(GATE);
         unauthorized.add("/file/upload");

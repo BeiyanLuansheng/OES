@@ -6,6 +6,7 @@ import org.oes.biz.service.PermissionsService;
 import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.start.controller.BaseController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(URIs.PERMISSIONS)
-public class PermissionsController {
+public class PermissionsController extends BaseController {
 
     @Resource
     private PermissionsService permissionsService;

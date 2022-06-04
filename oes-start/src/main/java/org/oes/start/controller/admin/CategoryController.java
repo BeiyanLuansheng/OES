@@ -6,6 +6,7 @@ import org.oes.biz.service.CategoryService;
 import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.start.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = URIs.CATEGORY)
-public class CategoryController {
+public class CategoryController extends BaseController {
 
     @Resource
     private CategoryService categoryService;

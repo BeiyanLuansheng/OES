@@ -10,6 +10,7 @@ import org.oes.biz.service.RoleService;
 import org.oes.common.constans.ShiroPerms;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.start.controller.BaseController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(URIs.ROLE)
-public class RoleController {
+public class RoleController extends BaseController {
 
     @Resource
     private RoleService roleService;
