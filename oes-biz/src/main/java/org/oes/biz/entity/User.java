@@ -1,5 +1,7 @@
 package org.oes.biz.entity;
 
+import org.oes.common.utils.StringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -173,10 +175,10 @@ public class User implements Serializable, Cloneable {
     /**
      * 由于 org.crazycake:shiro-redis 的报错：找不到 getId 方法
      *
-     * @return 手机号
+     * @return 用户ID
      */
     public String getId() {
-        return phone;
+        return String.valueOf(userId);
     }
 
     @Override

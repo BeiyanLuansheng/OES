@@ -9,12 +9,15 @@ import org.oes.common.constans.OesConstant;
 import org.oes.common.constans.Strings;
 import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
+import org.oes.common.enums.FileTypeEnum;
 import org.oes.common.exception.OesControllerException;
 import org.oes.common.utils.Base64Utils;
 import org.oes.common.utils.DateUtils;
 import org.oes.common.utils.MD5Utils;
 import org.oes.common.utils.StringUtils;
 import org.oes.start.controller.BaseController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +39,8 @@ import java.util.Date;
 @RequestMapping(URIs.USER)
 public class UserController extends BaseController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Resource
     private UserService userService;
     @Resource
@@ -43,7 +48,7 @@ public class UserController extends BaseController {
     @Resource
     private OesBizConfig oesBizConfig;
 
-    @RequestMapping(path = "password", method = RequestMethod.PUT)
+    @RequestMapping(path = URIs.PASSWORD, method = RequestMethod.PUT)
     public OesHttpResponse updatePassword(@RequestParam("oldPwd") String oldPwd,
                                           @RequestParam("newPwd") String newPwd,
                                           HttpServletRequest request) {
@@ -69,11 +74,13 @@ public class UserController extends BaseController {
         String fileName = Base64Utils.encode(time);
         File f = new File();
         f.setFileName(fileName);
-        f.setFileURL(userId + Strings.SLASH + fileName);
-        fileService.uploadFile(file, OesConstant.AVATARS_BUCKET, f);
-        String avatar = OesConstant.AVATARS_BUCKET + Strings.SLASH + fileName;
-        userService.updateAvatar(this.getCurrentUser().getEmail(), avatar);
-        return OesHttpResponse.getSuccess().data(oesBizConfig.getMinioEndpoint() + Strings.SLASH + avatar);
+        String fileURL = userId + Strings.SLASH + fileName;
+        f.setFileURL(fileURL);
+        f.setFileType(FileTypeEnum.PICTURE.getType());
+        f.setUserId(Long.parseLong(userId));
+        f = fileService.uploadFile(file, OesConstant.AVATARS_BUCKET, f);
+        userService.updateAvatar(f.getUserId(), f.getFileURL());
+        return OesHttpResponse.getSuccess().data(oesBizConfig.getMinioEndpoint() + Strings.SLASH + f.getFileURL());
     }
 
     /**
@@ -83,24 +90,17 @@ public class UserController extends BaseController {
      */
     @RequestMapping(path = URIs.INFO, method = RequestMethod.POST)
     public OesHttpResponse updateInfo(@RequestBody User user) {
-        if (user.getUserId() == null) {
-            throw new OesControllerException("用户参数校验失败");
-        }
+        user.setUserId(this.getCurrentUser().getUserId());
         userService.updateById(user);
         return OesHttpResponse.getSuccess();
     }
 
     /**
      * 获取用户个人信息
-     *
-     * @param user 包含用户Id
      */
     @RequestMapping(path = URIs.INFO, method = RequestMethod.GET)
-    public  OesHttpResponse getInfo(@RequestBody User user) {
-        if (user.getUserId() == null) {
-            throw new OesControllerException("用户参数校验失败");
-        }
-        User info = userService.getById(user.getUserId());
+    public  OesHttpResponse getInfo() {
+        User info = userService.getById(this.getCurrentUser().getUserId());
         return OesHttpResponse.getSuccess(info);
     }
 }

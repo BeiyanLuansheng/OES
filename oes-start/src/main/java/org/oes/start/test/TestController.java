@@ -3,8 +3,10 @@ package org.oes.start.test;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.oes.biz.config.OesBizConfig;
+import org.oes.biz.entity.User;
 import org.oes.biz.service.FileService;
 import org.oes.biz.service.MailService;
+import org.oes.biz.service.UserService;
 import org.oes.biz.service.VerificationService;
 import org.oes.common.constans.ParamKeys;
 import org.oes.common.constans.URIs;
@@ -42,17 +44,16 @@ public class TestController {
         return OesHttpResponse.getSuccess();
     }
 
-    @GetMapping(URIs.GATE)
-    public String gate() {
-//        verificationService.sendEmailVerificationCode("beiyanluansheng@qq.com");
-        return oesBizConfig.getMinioEndpoint();
+    @RequestMapping(path = URIs.TEST, method = RequestMethod.POST)
+    @RequiresPermissions("perms:test2")
+    public OesHttpResponse test2() {
+        return OesHttpResponse.getSuccess("权限校验成功");
     }
 
-    @RequestMapping(value = URIs.GATE, method = RequestMethod.POST)
-    public String verify(@RequestBody Map<String, String> params) {
-        String code = params.get(ParamKeys.CODE);
-        verificationService.codeVerification(params.get(ParamKeys.EMAIL), code);
-        return "验证成功";
+    @GetMapping(URIs.GATE)
+    public OesHttpResponse gate() {
+//        verificationService.sendEmailVerificationCode("beiyanluansheng@qq.com");
+        return OesHttpResponse.getSuccess(oesBizConfig.getMinioEndpoint());
     }
 
 //    @RequestMapping(value = "file/upload", method = RequestMethod.POST)

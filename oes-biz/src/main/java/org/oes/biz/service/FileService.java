@@ -13,9 +13,9 @@ public interface FileService {
      * @param file 文件
      * @param bucket 存储桶
      * @param fileInfo 存储记录
-     * @return fileId
+     * @return file 文件信息
      */
-    Long uploadFile(MultipartFile file, String bucket, File fileInfo);
+    File uploadFile(MultipartFile file, String bucket, File fileInfo);
 
     List<File> findFileList(File file);
 

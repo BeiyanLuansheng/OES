@@ -8,10 +8,10 @@ import org.oes.common.constans.URIs;
 import org.oes.common.entity.OesHttpResponse;
 import org.oes.common.exception.OesControllerException;
 import org.oes.common.utils.MD5Utils;
+import org.oes.common.utils.StringUtils;
 import org.oes.start.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +58,11 @@ public class LoginController extends BaseController {
         return OesHttpResponse.getSuccess();
     }
 
+    @RequestMapping(path = URIs.LOGOUT, method = RequestMethod.GET)
+    public OesHttpResponse logout() {
+        return OesHttpResponse.getSuccess();
+    }
+
     /**
      * 发起注册
      *
@@ -67,10 +72,19 @@ public class LoginController extends BaseController {
     @RequestMapping(path = URIs.REGISTER, method = RequestMethod.POST)
     public OesHttpResponse register(@RequestBody Map<String, String> params) {
         String email = params.get(ParamKeys.EMAIL);
-        if (userService.isEmailRegistered(email)) {
-            throw new OesControllerException("该邮箱已被注册过，不能重复注册");
+        String phone = params.get(ParamKeys.PHONE);
+        if (StringUtils.isNotBlank(email)) {
+            if (userService.isEmailRegistered(email)) {
+                throw new OesControllerException("该邮箱已被注册过，不能重复注册！");
+            }
+            verificationService.sendEmailVerificationCode(email);
+        } else if (StringUtils.isNotBlank(phone)) {
+            if (userService.isPhoneRegistered(phone)) {
+                throw new OesControllerException("该手机已被注册过，不能重复注册！");
+            }
+        } else {
+            throw new OesControllerException("空注册信息！");
         }
-        verificationService.sendEmailVerificationCode(email);
         return OesHttpResponse.getSuccess();
     }
 
@@ -127,7 +141,12 @@ public class LoginController extends BaseController {
         }
         verificationService.codeVerification(email, code);
         // 在数据库中注册
-        userService.register(email);
+        String pwd = params.get(ParamKeys.PWD);
+        if (StringUtils.isNotBlank(pwd)) {
+            userService.register(email, pwd);
+        } else {
+            userService.register(email);
+        }
         return OesHttpResponse.getSuccess();
     }
 

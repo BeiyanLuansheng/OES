@@ -1,6 +1,5 @@
 package org.oes.biz.service.impl;
 
-import org.apache.commons.collections.ListUtils;
 import org.oes.biz.entity.Role;
 import org.oes.biz.mapper.RoleMapper;
 import org.oes.biz.service.RoleService;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -53,5 +51,10 @@ public class RoleServiceImpl implements RoleService {
         role.setRoleId(id);
         List<Role> roleList = roleMapper.findRoleList(role);
         return CollectionUtils.isEmpty(roleList) ? null : roleList.get(0);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return roleMapper.findRoleList(new Role());
     }
 }

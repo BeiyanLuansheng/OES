@@ -1,5 +1,6 @@
 package org.oes.biz.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import org.oes.biz.entity.Permissions;
 import org.oes.biz.entity.User;
 import org.oes.biz.mapper.UserMapper;
@@ -9,7 +10,8 @@ import org.oes.biz.service.UserService;
 import org.oes.common.enums.RoleEnum;
 import org.oes.common.enums.UserStatusEnum;
 import org.oes.common.utils.MD5Utils;
-import org.oes.common.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     /**
      * 默认密码
      */
@@ -74,12 +77,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateAvatar(String email, String avatar) {
+    public void updateAvatar(Long userId, String avatar) {
         User user = new User();
-        user.setEmail(email);
+        user.setUserId(userId);
         user.setAvatar(avatar);
         user.setGmtModified(new Date());
-        userMapper.updateByEmail(user);
+        userMapper.updateById(user);
     }
 
     @Override
@@ -105,7 +108,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(String email) {
-        register(email, DEFAULT_PASSWORD);
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(MD5Utils.encrypt(email, DEFAULT_PASSWORD));
+        user.setRoleId(RoleEnum.STUDENT.getCode());
+        user.setStatus(UserStatusEnum.WAITING_FOR_PASSWORD.getCode());
+        this.createUser(user);
     }
 
     @Override
@@ -114,13 +122,14 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setPassword(MD5Utils.encrypt(email, password));
         user.setRoleId(RoleEnum.STUDENT.getCode());
-        user.setStatus(UserStatusEnum.WAITING_FOR_PASSWORD.getCode());
+        user.setStatus(UserStatusEnum.VALID.getCode());
         this.createUser(user);
     }
 
     @Override
     public User doGetUserAuthorization(User user) {
         // 获取用户角色集
+        user = userMapper.findByEmail(user.getEmail());
         Set<String> roleSet = new HashSet<>();
         String roleName = roleService.findRoleById(user.getRoleId()).getRoleName();
         roleSet.add(roleName);
@@ -128,7 +137,7 @@ public class UserServiceImpl implements UserService {
         // 获取用户权限集
         List<Permissions> permissionList = permissionsService.findRolePermissions(user.getRoleId());
         Set<String> permissionsSet = permissionList.stream().map(Permissions::getPermissions).collect(Collectors.toSet());
-        user.setRoleNames(permissionsSet);
+        user.setPermissions(permissionsSet);
         return user;
     }
 }

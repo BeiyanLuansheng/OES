@@ -21,41 +21,38 @@
     <update id="updateByEmail" parameterType="user">
         update user u
         <set>
-            <if test="user.userId != null and user.userId > 0">
-                u.user_id = #{user.userId, jdbcType=BIGINT}
-            </if>
             <if test="user.userName != null and user.userName != ''">
-                u.user_name = #{user.userName, jdbcType=VARCHAR}
+                u.user_name = #{user.userName, jdbcType=VARCHAR},
             </if>
             <if test="user.password != null and user.password != ''">
-                u.password = #{user.password, jdbcType=VARCHAR}
+                u.password = #{user.password, jdbcType=VARCHAR},
             </if>
             <if test="user.roleId != null and user.roleId > 0">
-                u.role_id = #{user.roleId, jdbcType=BIGINT}
+                u.role_id = #{user.roleId, jdbcType=BIGINT},
             </if>
             <if test="user.phone != null and user.phone != ''">
-                u.phone = #{user.phone, jdbcType=VARCHAR}
+                u.phone = #{user.phone, jdbcType=VARCHAR},
             </if>
             <if test="user.avatar != null and user.avatar != ''">
-                u.avatar = #{user.avatar, jdbcType=VARCHAR}
+                u.avatar = #{user.avatar, jdbcType=VARCHAR},
             </if>
             <if test="user.school != null and user.school != ''">
-                u.school = #{user.school, jdbcType=VARCHAR}
+                u.school = #{user.school, jdbcType=VARCHAR},
             </if>
             <if test="user.sex != null and user.sex != ''">
-                u.sex = #{user.sex, jdbcType=VARCHAR}
+                u.sex = #{user.sex, jdbcType=VARCHAR},
             </if>
             <if test="user.description != null and user.description != ''">
-                u.description = #{user.description, jdbcType=VARCHAR}
+                u.description = #{user.description, jdbcType=VARCHAR},
             </if>
             <if test="user.gmtCreate != null">
-                u.gmt_create = #{user.gmtCreate, jdbcType=TIMESTAMP}
+                u.gmt_create = #{user.gmtCreate, jdbcType=TIMESTAMP},
             </if>
             <if test="user.gmtModified != null">
-                u.gmt_modified = #{user.gmtModified, jdbcType=TIMESTAMP}
+                u.gmt_modified = #{user.gmtModified, jdbcType=TIMESTAMP},
             </if>
             <if test="user.status != null and user.status != ''">
-                u.status = #{user.status, jdbcType=VARCHAR}
+                u.status = #{user.status, jdbcType=VARCHAR},
             </if>
         </set>
         where u.email=#{user.email}
@@ -65,76 +62,76 @@
         update user u
         <set>
             <if test="user.userName != null and user.userName != ''">
-                u.user_name = #{user.userName, jdbcType=VARCHAR}
+                u.user_name = #{user.userName, jdbcType=VARCHAR},
             </if>
             <if test="user.password != null and user.password != ''">
-                u.password = #{user.password, jdbcType=VARCHAR}
+                u.password = #{user.password, jdbcType=VARCHAR},
             </if>
             <if test="user.roleId != null and user.roleId > 0">
-                u.role_id = #{user.roleId, jdbcType=BIGINT}
+                u.role_id = #{user.roleId, jdbcType=BIGINT},
             </if>
             <if test="user.phone != null and user.phone != ''">
-                u.phone = #{user.phone, jdbcType=VARCHAR}
+                u.phone = #{user.phone, jdbcType=VARCHAR},
             </if>
             <if test="user.email != null and user.email != ''">
-                u.email = #{user.email, jdbcType=VARCHAR}
+                u.email = #{user.email, jdbcType=VARCHAR},
             </if>
             <if test="user.avatar != null and user.avatar != ''">
-                u.avatar = #{user.avatar, jdbcType=VARCHAR}
+                u.avatar = #{user.avatar, jdbcType=VARCHAR},
             </if>
             <if test="user.school != null and user.school != ''">
-                u.school = #{user.school, jdbcType=VARCHAR}
+                u.school = #{user.school, jdbcType=VARCHAR},
             </if>
             <if test="user.sex != null and user.sex != ''">
-                u.sex = #{user.sex, jdbcType=VARCHAR}
+                u.sex = #{user.sex, jdbcType=VARCHAR},
             </if>
             <if test="user.description != null and user.description != ''">
-                u.description = #{user.description, jdbcType=VARCHAR}
+                u.description = #{user.description, jdbcType=VARCHAR},
             </if>
             <if test="user.gmtCreate != null">
-                u.gmt_create = #{user.gmtCreate, jdbcType=TIMESTAMP}
+                u.gmt_create = #{user.gmtCreate, jdbcType=TIMESTAMP},
             </if>
             <if test="user.gmtModified != null">
-                u.gmt_modified = #{user.gmtModified, jdbcType=TIMESTAMP}
+                u.gmt_modified = #{user.gmtModified, jdbcType=TIMESTAMP},
             </if>
             <if test="user.status != null and user.status != ''">
-                u.status = #{user.status, jdbcType=VARCHAR}
+                u.status = #{user.status, jdbcType=VARCHAR},
             </if>
         </set>
         where u.user_id=#{user.userId}
     </update>
 
     <select id="findByPhone" parameterType="String" resultType="user">
-        select u.user_id,
-               u.user_name,
+        select u.user_id userId,
+               u.user_name userName,
                u.password,
-               u.role_id,
+               u.role_id roleId,
                u.email,
                u.phone,
                u.avatar,
                u.school,
                u.sex,
                u.description,
-               u.gmt_create,
-               u.gmt_modified,
+               u.gmt_create gmtCreate,
+               u.gmt_modified gmtModified,
                u.status
         from user u
         where phone = #{phone}
     </select>
 
     <select id="findByEmail" parameterType="String" resultType="user">
-        select u.user_id,
-               u.user_name,
+        select u.user_id userId,
+               u.user_name userName,
                u.password,
-               u.role_id,
+               u.role_id roleId,
                u.email,
                u.phone,
                u.avatar,
                u.school,
                u.sex,
                u.description,
-               u.gmt_create,
-               u.gmt_modified,
+               u.gmt_create gmtCreate,
+               u.gmt_modified gmtModified,
                u.status
         from user u
         where email = #{email}

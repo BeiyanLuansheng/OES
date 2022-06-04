@@ -39,4 +39,9 @@ public interface PermissionsService {
      * @return 角色权限列表
      */
     List<Permissions> findRolePermissions(Long roleId);
+
+    /**
+     * 查找所有权限列表
+     */
+    List<Permissions> getAllPermissions();
 }

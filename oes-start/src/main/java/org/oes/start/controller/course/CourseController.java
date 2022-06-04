@@ -6,6 +6,7 @@ import org.oes.biz.entity.CourseChapter;
 import org.oes.biz.entity.CourseFile;
 import org.oes.biz.entity.Exam;
 import org.oes.biz.entity.File;
+import org.oes.biz.entity.Notice;
 import org.oes.biz.service.CourseChapterService;
 import org.oes.biz.service.CourseFileService;
 import org.oes.biz.service.CourseService;
@@ -139,8 +140,8 @@ public class CourseController extends BaseController {
             f.setFileType(FileTypeEnum.OTHER.getType());
         }
 
-        Long fileId = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
-        courseFileService.addCourseFile(courseChapterId, fileId);
+        f = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
+        courseFileService.addCourseFile(courseChapterId, f.getFileId());
         return OesHttpResponse.getSuccess();
     }
 
@@ -173,6 +174,21 @@ public class CourseController extends BaseController {
     @RequestMapping(value = URIs.EXAM, method = RequestMethod.PUT)
     public OesHttpResponse updateExamOfChapter(@RequestBody Exam exam) {
         examService.fullUpdateExam(exam);
+        return OesHttpResponse.getSuccess();
+    }
+
+    // 课程公告
+    @RequestMapping(value = URIs.NOTICE, method = RequestMethod.GET)
+    public OesHttpResponse getNotice(@RequestBody Notice notice) {
+        return OesHttpResponse.getSuccess();
+    }
+
+    @RequestMapping(value = URIs.NOTICE, method = RequestMethod.POST)
+    public OesHttpResponse addNotice(@RequestBody Notice notice) {
+        return OesHttpResponse.getSuccess();
+    }
+    @RequestMapping(value = URIs.NOTICE, method = RequestMethod.PATCH)
+    public OesHttpResponse updateNotice(@RequestBody Notice notice) {
         return OesHttpResponse.getSuccess();
     }
 }

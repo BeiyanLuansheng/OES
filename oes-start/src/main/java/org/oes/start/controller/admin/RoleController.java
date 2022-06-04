@@ -1,8 +1,10 @@
 package org.oes.start.controller.admin;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.oes.biz.entity.Permissions;
 import org.oes.biz.entity.Role;
 import org.oes.biz.entity.RolePermissions;
+import org.oes.biz.service.PermissionsService;
 import org.oes.biz.service.RolePermissionsService;
 import org.oes.biz.service.RoleService;
 import org.oes.common.constans.ShiroPerms;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 角色控制，包括角色拥有的权限控制
@@ -30,6 +33,14 @@ public class RoleController {
     private RoleService roleService;
     @Resource
     private RolePermissionsService rolePermissionsService;
+    @Resource
+    private PermissionsService permissionsService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public OesHttpResponse getAllRoles() {
+        List<Role> allRoles = roleService.getAllRoles();
+        return OesHttpResponse.getSuccess(allRoles);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     @RequiresPermissions(ShiroPerms.ROLE_ADD)
@@ -60,6 +71,11 @@ public class RoleController {
     }
 
     /* =========================== 角色权限设置 =============================== */
+    @RequestMapping(value = URIs.PERMISSIONS, method = RequestMethod.GET)
+    public OesHttpResponse getPermissions(@RequestBody RolePermissions rolePermissions) {
+        List<Permissions> permissionsList = permissionsService.findRolePermissions(rolePermissions.getRoleId());
+        return OesHttpResponse.getSuccess(permissionsList);
+    }
 
     @RequestMapping(value = URIs.PERMISSIONS, method = RequestMethod.POST)
     @RequiresPermissions(ShiroPerms.ROLE_PERMS_ADD)

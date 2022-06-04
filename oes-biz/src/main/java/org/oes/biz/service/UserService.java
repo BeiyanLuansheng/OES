@@ -39,12 +39,12 @@ public interface UserService {
     void updatePassword(String email, String password);
 
     /**
-     * 根据Email更新头像
+     * 根据ID更新头像
      *
-     * @param email 邮箱
+     * @param userId 用户ID
      * @param avatar 头像链接
      */
-    void updateAvatar(String email, String avatar);
+    void updateAvatar(Long userId, String avatar);
 
     /**
      * 根据手机号查找用户
@@ -86,7 +86,7 @@ public interface UserService {
     void register(String email);
 
     /**
-     * 使用默认密码注册
+     * 使用非默认密码注册
      *
      * @param email 邮箱
      * @param password 密码

@@ -2,6 +2,8 @@ package org.oes.biz.service;
 
 import org.oes.biz.entity.RolePermissions;
 
+import java.util.List;
+
 /**
  * @author XuJian
  * @since 2021/12/08

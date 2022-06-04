@@ -87,10 +87,20 @@ public class URIs {
     public static final String JOIN = "/join";
     public static final String COMMENT = "/comment";
     public static final String EXAM = "/exam";
+    public static final String NOTICE = "/notice";
+    public static final String RANDOM = "/random";
     /**
      * 详情
      */
     public static final String DETAIL = "/detail";
+    /**
+     * 首页轮播
+     */
+    public static final String BANNER = "/banner";
+    /**
+     * 分类
+     */
+    public static final String CATEGORY = "/category";
 
     /**
      *  免认证部分的URL

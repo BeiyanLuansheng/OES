@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 权限控制
@@ -26,6 +27,12 @@ public class PermissionsController {
 
     @Resource
     private PermissionsService permissionsService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public OesHttpResponse getPermissions() {
+        List<Permissions> allPermissions = permissionsService.getAllPermissions();
+        return OesHttpResponse.getSuccess(allPermissions);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     @RequiresPermissions(ShiroPerms.PERMISSIONS_ADD)

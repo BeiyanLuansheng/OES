@@ -44,4 +44,9 @@ public class PermissionsServiceImpl implements PermissionsService {
     public List<Permissions> findRolePermissions(Long roleId) {
         return permissionsMapper.findRolePermissions(roleId);
     }
+
+    @Override
+    public List<Permissions> getAllPermissions() {
+        return permissionsMapper.findPermissionsList(new Permissions());
+    }
 }
