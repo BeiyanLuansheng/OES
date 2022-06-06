@@ -24,25 +24,25 @@
         from file f
         where 1 = 1
         <if test="file.fileId != null">
-            and f.file_id = #{file.fileId,jdbcType=BIGINT},
+            and f.file_id = #{file.fileId,jdbcType=BIGINT}
         </if>
         <if test="file.fileType != null">
-            and f.file_type = #{file.fileType,jdbcType=VARCHAR},
+            and f.file_type = #{file.fileType,jdbcType=VARCHAR}
         </if>
         <if test="file.userId != null">
-            and f.user_id = #{file.userId,jdbcType=BIGINT},
+            and f.user_id = #{file.userId,jdbcType=BIGINT}
         </if>
         <if test="file.gmtCreateFrom != null">
-            and f.gmt_create &gt; #{file.gmtCreateFrom,jdbcType=TIMESTAMP},
+            and f.gmt_create &gt; #{file.gmtCreateFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="file.gmtCreateTo != null">
-            and f.gmt_create &lt; #{file.gmtCreateTo,jdbcType=TIMESTAMP},
+            and f.gmt_create &lt; #{file.gmtCreateTo,jdbcType=TIMESTAMP}
         </if>
         <if test="file.gmtModifiedFrom != null">
-            and f.gmt_modified &gt; #{file.gmtModifiedFrom,jdbcType=TIMESTAMP},
+            and f.gmt_modified &gt; #{file.gmtModifiedFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="file.gmtModifiedTo != null">
-            and f.gmt_modified &lt; #{file.gmtModifiedTo,jdbcType=TIMESTAMP},
+            and f.gmt_modified &lt; #{file.gmtModifiedTo,jdbcType=TIMESTAMP}
         </if>
     </select>
 

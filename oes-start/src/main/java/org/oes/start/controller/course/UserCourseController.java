@@ -34,6 +34,7 @@ public class UserCourseController extends BaseController {
 
     @RequestMapping(value = URIs.JOIN, method = RequestMethod.POST)
     public OesHttpResponse joinCourse(@RequestBody UserCourse userCourse) {
+        userCourse.setUserId(this.getCurrentUser().getUserId());
         userCourseService.joinCourse(userCourse);
         return OesHttpResponse.getSuccess();
     }

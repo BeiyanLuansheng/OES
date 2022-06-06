@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void createCourse(Course course) {
+        course.setGmtCreate(new Date());
+        course.setGmtModified(new Date());
         courseMapper.insert(course);
     }
 
@@ -35,6 +38,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateCourseById(Course course, boolean fullUpdate) {
+        course.setGmtModified(new Date());
         if (fullUpdate) {
             courseMapper.updateById(course);
         } else {

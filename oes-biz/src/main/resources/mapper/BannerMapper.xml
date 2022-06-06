@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.BannerMapper">
-    <insert id="insert" parameterType="banner">
+    <insert id="insert" parameterType="banner" useGeneratedKeys="true" keyProperty="bannerId" keyColumn="banner_id">
         insert into banner(picture_url, course_id)
         values (#{banner.pictureUrl, jdbcType=VARCHAR},
                 #{banner.courseId, jdbcType=BIGINT})

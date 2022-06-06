@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.CourseChapterMapper">
-    <insert id="insert" parameterType="courseChapter">
+    <insert id="insert" parameterType="courseChapter" useGeneratedKeys="true" keyProperty="courseChapterId" keyColumn="course_chapter_id">
         insert into course_chapter(chapter_id, course_id, chapter_name, gmt_create, gmt_modified)
         values (#{courseChapter.chapterId,jdbcType=BIGINT},
                 #{courseChapter.courseId,jdbcType=BIGINT},
@@ -32,7 +32,7 @@
                 cc.gmt_create = #{courseChapter.gmtCreate,jdbcType=TIMESTAMP},
             </if>
             <if test="courseChapter.gmtModified != null">
-                cc.gmt_modified = #{courseChapter.gmtModified,jdbcType=TIMESTAMP}
+                cc.gmt_modified = #{courseChapter.gmtModified,jdbcType=TIMESTAMP},
             </if>
         </set>
         where cc.course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT}
@@ -58,29 +58,29 @@
         from course_chapter cc
         where 1 = 1
         <if test="courseChapter.courseChapterId != null">
-            and cc.course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT},
+            and cc.course_chapter_id = #{courseChapter.courseChapterId,jdbcType=BIGINT}
         </if>
         <if test="courseChapter.chapterId != null">
-            and cc.chapter_id = #{courseChapter.chapterId,jdbcType=BIGINT},
+            and cc.chapter_id = #{courseChapter.chapterId,jdbcType=BIGINT}
         </if>
         <if test="courseChapter.courseId != null">
-            and cc.course_id = #{courseChapter.courseId,jdbcType=BIGINT},
+            and cc.course_id = #{courseChapter.courseId,jdbcType=BIGINT}
         </if>
         <if test="courseChapter.chapterName != null">
-            and cc.chapter_name = #{courseChapter.chapterName,jdbcType=VARCHAR},
+            and cc.chapter_name = #{courseChapter.chapterName,jdbcType=VARCHAR}
         </if>
 
         <if test="courseChapter.gmtCreateFrom != null">
-            and cc.gmt_create &gt; #{courseChapter.gmtCreateFrom,jdbcType=TIMESTAMP},
+            and cc.gmt_create &gt; #{courseChapter.gmtCreateFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="courseChapter.gmtCreateTo != null">
-            and cc.gmt_create &lt; #{courseChapter.gmtCreateTo,jdbcType=TIMESTAMP},
+            and cc.gmt_create &lt; #{courseChapter.gmtCreateTo,jdbcType=TIMESTAMP}
         </if>
         <if test="courseChapter.gmtModifiedFrom != null">
-            and cc.gmt_modified &gt; #{courseChapter.gmtModifiedFrom,jdbcType=TIMESTAMP},
+            and cc.gmt_modified &gt; #{courseChapter.gmtModifiedFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="courseChapter.gmtModifiedTo != null">
-            and cc.gmt_modified &lt; #{courseChapter.gmtModifiedTo,jdbcType=TIMESTAMP},
+            and cc.gmt_modified &lt; #{courseChapter.gmtModifiedTo,jdbcType=TIMESTAMP}
         </if>
     </select>
 </mapper>

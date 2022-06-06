@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.oes.biz.mapper.OrderMapper">
+    <insert id="insert" parameterType="order" useGeneratedKeys="true" keyProperty="orderId" keyColumn="order_id">
+        insert into order(course_id, price, status, user_id, gmt_create)
+        values (#{order.courseId, jdbcType=BIGINT},
+                #{order.price, jdbcType=BIGINT},
+                #{order.status, jdbcType=VARCHAR},
+                #{order.userId, jdbcType=BIGINT},
+                #{order.gmtCreate, jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="order">
+        update order o
+        <set>
+            <if test="order.payTime != null">
+                o.pay_time = #{order.payTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="order.status != null">
+                o.status = #{order.status,jdbcType=VARCHAR},
+            </if>
+            <if test="order.price != null">
+                o.price = #{order.price, jdbcType=BIGINT},
+            </if>
+        </set>
+        where o.order_id = #{order.orderId,jdbcType=BIGINT}
+    </update>
+
+    <select id="findOrderList" parameterType="order" resultType="order">
+        select o.order_id orderId,
+               o.course_id courseId,
+               o.price,
+               o.status,
+               o.user_id userId,
+               o.gmt_create gmtCreate,
+               o.pay_time payTime
+        from order o
+        where 1=1
+        <if test="order.orderId != null and order.orderId > 0">
+            and o.order_id = #{order.orderId,jdbcType=BIGINT}
+        </if>
+        <if test="order.courseId != null and order.courseId > 0">
+            and o.course_id = #{order.courseId,jdbcType=BIGINT}
+        </if>
+        <if test="order.userId != null and order.userId > 0">
+            and o.user_id = #{order.userId,jdbcType=BIGINT}
+        </if>
+        <if test="order.status != null">
+            and o.status = #{order.status,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

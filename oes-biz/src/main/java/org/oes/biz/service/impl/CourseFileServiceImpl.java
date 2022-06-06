@@ -39,6 +39,6 @@ public class CourseFileServiceImpl implements CourseFileService {
 
     @Override
     public void deleteFileOfCourse(CourseFile courseFile) {
-        courseFileMapper.deleteByChapterIdAndFileId(courseFile);
+        courseFileMapper.deleteById(courseFile.getCourseFileId());
     }
 }

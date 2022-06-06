@@ -31,7 +31,7 @@ public class CourseChapter implements Serializable {
     /**
      * 章节名
      */
-    private Long chapterName;
+    private String chapterName;
 
     /**
      * 章节信息创建时间
@@ -75,11 +75,11 @@ public class CourseChapter implements Serializable {
         this.chapterId = chapterId;
     }
 
-    public Long getChapterName() {
+    public String getChapterName() {
         return chapterName;
     }
 
-    public void setChapterName(Long chapterName) {
+    public void setChapterName(String chapterName) {
         this.chapterName = chapterName;
     }
 

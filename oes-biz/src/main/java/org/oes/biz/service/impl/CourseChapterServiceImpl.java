@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addChapter(CourseChapter courseChapter){
+        courseChapter.setGmtCreate(new Date());
+        courseChapter.setGmtModified(new Date());
         courseChapterMapper.insert(courseChapter);
     }
 
@@ -34,6 +37,7 @@ public class CourseChapterServiceImpl implements CourseChapterService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateChapterById(CourseChapter courseChapter, boolean fullUpdate){
+        courseChapter.setGmtModified(new Date());
         if (fullUpdate) {
             courseChapterMapper.updateById(courseChapter);
         } else {

@@ -89,6 +89,7 @@ public class URIs {
     public static final String EXAM = "/exam";
     public static final String NOTICE = "/notice";
     public static final String RANDOM = "/random";
+    public static final String ORDER = "/order";
     /**
      * 详情
      */
@@ -116,6 +117,5 @@ public class URIs {
         unauthorized.add("/druid/**");
 
         unauthorized.add(GATE);
-        unauthorized.add("/file/upload");
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.PermissionsMapper">
-    <insert id="insert" parameterType="permissions">
+    <insert id="insert" parameterType="permissions" useGeneratedKeys="true" keyProperty="permissionsId" keyColumn="permissions_id">
         insert into permissions(permissions, permissions_name, description, gmt_create, gmt_modified)
         values (#{perms.permissions,jdbcType=VARCHAR},
                 #{perms.permissionsName,jdbcType=VARCHAR},

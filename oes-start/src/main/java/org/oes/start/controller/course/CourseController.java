@@ -22,6 +22,7 @@ import org.oes.common.enums.FileTypeEnum;
 import org.oes.common.exception.OesControllerException;
 import org.oes.common.utils.Base64Utils;
 import org.oes.common.utils.DateUtils;
+import org.oes.common.utils.URLUtils;
 import org.oes.start.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +69,9 @@ public class CourseController extends BaseController {
     @RequestMapping(method = RequestMethod.POST)
     @RequiresPermissions(ShiroPerms.COURSE_ADD)
     public OesHttpResponse createCourse(@RequestBody Course course) { // 必要时可以加 @Valid 校验参数
+        if (course.getTeacherId() == null) {
+            course.setTeacherId(this.getCurrentUser().getUserId());
+        }
         courseService.createCourse(course);
         return OesHttpResponse.getSuccess(course);
     }
@@ -123,26 +128,30 @@ public class CourseController extends BaseController {
     @RequestMapping(value = URIs.FILE, method = RequestMethod.POST)
     @RequiresPermissions(ShiroPerms.COURSE_UPDATE)
     public OesHttpResponse uploadVideo(@RequestParam("file") MultipartFile file, Long courseChapterId,
-                                       String description, String type) {
+                                       String description, String type, String fileName) {
         File f = new File();
         String time = DateUtils.getStringInFormat(new Date(), DateUtils.YYYY_MM_DD_HH_MM_SS);
-        String fileName = Base64Utils.encode(time + Strings.UNDERLINE + file.getOriginalFilename());
-        f.setFileName(file.getOriginalFilename());
-        f.setFileURL(courseChapterId + Strings.SLASH + fileName);
-        f.setUserId(this.getCurrentUser().getUserId());
-        f.setDescription(description);
-        f.setGmtCreate(new Date());
-        f.setGmtModified(new Date());
+        f.setFileName(fileName);
+        try {
+            String fileUrl = URLUtils.encode(Base64Utils.encode(time + Strings.UNDERLINE + fileName));
+            f.setFileURL(courseChapterId + Strings.SLASH + fileUrl);
+            f.setUserId(this.getCurrentUser().getUserId());
+            f.setDescription(description);
+            f.setGmtCreate(new Date());
+            f.setGmtModified(new Date());
 
-        if (FileTypeEnum.VIDEO.getType().equals(type) || FileTypeEnum.DOCUMENT.getType().equals(type)
-                || FileTypeEnum.PICTURE.getType().equals(type)) {
-            f.setFileType(type);
-        } else {
-            f.setFileType(FileTypeEnum.OTHER.getType());
+            if (FileTypeEnum.VIDEO.getType().equals(type) || FileTypeEnum.DOCUMENT.getType().equals(type)
+                    || FileTypeEnum.PICTURE.getType().equals(type)) {
+                f.setFileType(type);
+            } else {
+                f.setFileType(FileTypeEnum.OTHER.getType());
+            }
+
+            f = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
+            courseFileService.addCourseFile(courseChapterId, f.getFileId());
+        } catch (UnsupportedEncodingException e) {
+            throw new OesControllerException(e.getMessage());
         }
-
-        f = fileService.uploadFile(file, OesConstant.COURSE_BUCKET, f);
-        courseFileService.addCourseFile(courseChapterId, f.getFileId());
         return OesHttpResponse.getSuccess();
     }
 

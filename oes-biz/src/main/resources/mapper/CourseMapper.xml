@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.CourseMapper">
-    <insert id="insert" parameterType="course">
+    <insert id="insert" parameterType="course" useGeneratedKeys="true" keyProperty="courseId" keyColumn="course_id">
         insert into course(gmt_create, gmt_modified, category_id, teacher_id, gmt_start, gmt_end, status, is_free,
                            price, course_name, description)
         values (#{course.gmtCreate,jdbcType=TIMESTAMP},
@@ -58,7 +58,7 @@
             </if>
 
             <if test="course.description != null">
-                c.description = #{course.description,jdbcType=VARCHAR}
+                c.description = #{course.description,jdbcType=VARCHAR},
             </if>
         </set>
         where c.course_id = #{course.courseId,jdbcType=BIGINT}
@@ -96,49 +96,49 @@
         from course c
         where 1 = 1
         <if test="course.courseId != null">
-            and c.course_id = #{course.courseId,jdbcType=BIGINT},
+            and c.course_id = #{course.courseId,jdbcType=BIGINT}
         </if>
         <if test="course.gmtCreateFrom != null">
-            and c.gmt_create &gt; #{course.gmtCreateFrom,jdbcType=TIMESTAMP},
+            and c.gmt_create &gt; #{course.gmtCreateFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="course.gmtCreateTo != null">
-            and c.gmt_create &lt; #{course.gmtCreateTo,jdbcType=TIMESTAMP},
+            and c.gmt_create &lt; #{course.gmtCreateTo,jdbcType=TIMESTAMP}
         </if>
         <if test="course.gmtModifiedFrom != null">
-            and c.gmt_modified &gt; #{course.gmtModifiedFrom,jdbcType=TIMESTAMP},
+            and c.gmt_modified &gt; #{course.gmtModifiedFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="course.gmtModifiedTo != null">
-            and c.gmt_modified &lt; #{course.gmtModifiedTo,jdbcType=TIMESTAMP},
+            and c.gmt_modified &lt; #{course.gmtModifiedTo,jdbcType=TIMESTAMP}
         </if>
         <if test="course.categoryId != null">
-            and c.category_id = #{course.categoryId,jdbcType=BIGINT},
+            and c.category_id = #{course.categoryId,jdbcType=BIGINT}
         </if>
         <if test="course.teacherId != null">
-            and c.teacher_id = #{course.teacherId,jdbcType=BIGINT},
+            and c.teacher_id = #{course.teacherId,jdbcType=BIGINT}
         </if>
         <if test="course.gmtStartFrom != null">
-            and c.gmt_start &gt; #{course.gmtStartFrom,jdbcType=TIMESTAMP},
+            and c.gmt_start &gt; #{course.gmtStartFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="course.gmtStartTo != null">
-            and c.gmt_start &lt; #{course.gmtStartTo,jdbcType=TIMESTAMP},
+            and c.gmt_start &lt; #{course.gmtStartTo,jdbcType=TIMESTAMP}
         </if>
         <if test="course.gmtEndFrom != null">
-            and c.gmt_end &gt; #{course.gmtEndFrom,jdbcType=TIMESTAMP},
+            and c.gmt_end &gt; #{course.gmtEndFrom,jdbcType=TIMESTAMP}
         </if>
         <if test="course.gmtEndTo != null">
-            and c.gmt_end &lt; #{course.gmtEndTo,jdbcType=TIMESTAMP},
+            and c.gmt_end &lt; #{course.gmtEndTo,jdbcType=TIMESTAMP}
         </if>
         <if test="course.status != null">
-            and c.status = #{course.status,jdbcType=VARCHAR},
+            and c.status = #{course.status,jdbcType=VARCHAR}
         </if>
         <if test="course.isFree != null">
-            and c.is_free = #{course.isFree,jdbcType=CHAR},
+            and c.is_free = #{course.isFree,jdbcType=CHAR}
         </if>
         <if test="course.priceFrom != null">
-            and c.price &gt; #{course.priceFrom,jdbcType=BIGINT},
+            and c.price &gt; #{course.priceFrom,jdbcType=BIGINT}
         </if>
         <if test="course.priceTo != null">
-            and c.price &lt; #{course.priceTo,jdbcType=BIGINT},
+            and c.price &lt; #{course.priceTo,jdbcType=BIGINT}
         </if>
         <if test="course.courseName != null and course.courseName != ''">
             and c.course_name like concat('%', #{course.courseName},'%')

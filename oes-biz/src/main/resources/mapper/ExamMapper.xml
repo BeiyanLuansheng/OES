@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.oes.biz.mapper.ExamMapper">
-    <insert id="insert" parameterType="exam">
+    <insert id="insert" parameterType="exam" useGeneratedKeys="true" keyProperty="questionId" keyColumn="question_id">
         insert into exam(question_id, course_id, course_chapter_id, question, answer, a_option,
                          b_option, c_option, d_option, e_option, f_option, g_option, h_option)
         values (#{exam.questionId,jdbcType=BIGINT},
@@ -59,7 +59,7 @@
                 e.f_option = #{exam.fOption,jdbcType=VARCHAR},
             </if>
             <if test="exam.gOption != null">
-                e.g_option = #{exam.gOption,jdbcType=VARCHAR}
+                e.g_option = #{exam.gOption,jdbcType=VARCHAR},
             </if>
         </set>
         where e.question_id = #{exam.questionId,jdbcType=BIGINT}
@@ -96,13 +96,13 @@
         from exam e
         where 1 = 1
         <if test="exam.questionId != null">
-            and e.question_id = #{exam.questionId,jdbcType=BIGINT},
+            and e.question_id = #{exam.questionId,jdbcType=BIGINT}
         </if>
         <if test="exam.courseChapterId != null">
-            and e.course_chapter_id = #{exam.courseChapterId,jdbcType=BIGINT},
+            and e.course_chapter_id = #{exam.courseChapterId,jdbcType=BIGINT}
         </if>
         <if test="exam.courseId != null">
-            and e.course_id = #{exam.courseId,jdbcType=BIGINT},
+            and e.course_id = #{exam.courseId,jdbcType=BIGINT}
         </if>
     </select>
 </mapper>

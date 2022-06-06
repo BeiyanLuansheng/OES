@@ -20,10 +20,10 @@ public interface CourseFileMapper {
 
     /**
      * 删除
-     * @param courseFile 条件
+     * @param courseFileId 条件
      * @return 影响行数
      */
-    int deleteByChapterIdAndFileId(@Param("courseFile")CourseFile courseFile);
+    int deleteById(long courseFileId);
 
     /**
      * 增量更新
