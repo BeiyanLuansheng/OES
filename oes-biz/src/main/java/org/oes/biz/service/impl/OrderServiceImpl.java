@@ -3,8 +3,8 @@ package org.oes.biz.service.impl;
 import org.oes.biz.entity.Order;
 import org.oes.biz.entity.UserCourse;
 import org.oes.biz.mapper.OrderMapper;
+import org.oes.biz.mapper.UserCourseMapper;
 import org.oes.biz.service.OrderService;
-import org.oes.biz.service.UserCourseService;
 import org.oes.common.enums.OrderStatusEnum;
 import org.oes.common.exception.OesServiceException;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderMapper orderMapper;
     @Resource
-    private UserCourseService userCourseService;
+    private UserCourseMapper userCourseMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
         UserCourse userCourse = new UserCourse();
         userCourse.setUserId(paidOrder.getUserId());
         userCourse.setCourseId(paidOrder.getCourseId());
-        userCourseService.joinCourse(userCourse);
+        userCourseMapper.insert(userCourse);
     }
 
     @Override
